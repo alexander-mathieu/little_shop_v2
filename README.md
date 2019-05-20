@@ -59,6 +59,6 @@ Each team will have a rubric uploaded to [https://github.com/turingschool/ruby-s
 
 View the [Little Shop Rubric](LittleShopRubric.pdf)
 
-Co-authored by: Patrick Duvall <duvallp208@gmail.com>
-Co-authored by: Kyle Cornelissen <kyle.cornelissen@gmail.com>
-Co-authored by: Aurie Gochenour <myrdden42@gmail.com>"
+Co-authored-by: Patrick Duvall <duvallp208@gmail.com>
+Co-authored-by: Kyle Cornelissen <kyle.cornelissen@gmail.com>
+Co-authored-by: Aurie Gochenour <myrdden42@gmail.com>"
