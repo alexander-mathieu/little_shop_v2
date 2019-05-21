@@ -5,5 +5,7 @@ Rails.application.routes.draw do
   resources :merchants, only: [:index]
   resources :users, only: [:new, :show, :edit]
 
+  get '/profile', to: "users#show"
+
   get '/login', to: 'sessions#new'
 end
