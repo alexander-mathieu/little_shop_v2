@@ -29,5 +29,26 @@ RSpec.describe 'As a visitor' do
       expect(page).to have_content("Welcome, #{new_user.name}. You are now registered and logged in!")
     end
 
+    it 'I can not create a new user when I do not fill in the new user form completely' do
+      visit new_user_path
+
+      fill_in "user[name]", with: "John Smith"
+      fill_in "user[address]", with: ""
+      fill_in "user[city]", with: "Beverly Hills"
+      select("CA", from: "user[state]")
+      fill_in "user[zip]", with: "90210"
+      fill_in "user[email]", with: "john.smith@example.com"
+      fill_in "user[password]", with: "abcd1234"
+      fill_in "user[password_confirmation]", with: "abcd1234"
+
+      click_on "Sign Up"
+
+      expect(current_path).to eq(users_path)
+      expect(find_field('user[name]').value).to eq 'John Smith'
+      expect(find_field('user[email]').value).to eq 'john.smith@example.com'
+      expect(find_field('user[zip]').value).to eq '90210'
+      expect(page).to have_content("You are missing required fields, your email is already in use, or your passwords don't match.")
+    end
+
   end
 end
