@@ -1,0 +1,13 @@
+<h2>All Items</h2>
+
+<section class="all-items">
+  <% @items.each do |item| %>
+    <div class="item-<%= item.id %>-info">
+      <%= link_to item.name, item_path(item) %>
+      <img src="<%= item.image %>" alt="<%= item.name %>">
+      <%= item.user.name %>
+      <%= item.inventory %>
+      <%= item.price %>
+    </div>
+  <% end %>
+</section>
