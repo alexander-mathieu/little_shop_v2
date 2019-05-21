@@ -9,6 +9,13 @@
   </head>
 
   <body>
+    <section class="navbar">
+      <%= link_to "Home", root_path %>
+      <%= link_to "Items", items_path %>
+      <%= link_to "Merchants", merchants_path %>
+      <%= link_to "Login", login_path %>
+      <%= link_to "Register", new_user_path %>
+    </section>
     <%= yield %>
   </body>
 </html>
