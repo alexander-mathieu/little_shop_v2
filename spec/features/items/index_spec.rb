@@ -22,39 +22,47 @@ RSpec.describe "as a user" do
       visit items_path
 
       within ".item-#{@item_1.id}-info" do
-        expect(page).to have_link(@item_1.name)
-        # image link test
         expect(page).to have_css("img[src='#{@item_1.image}']")
-        expect(page).to have_content(@item_1.user.name)
-        expect(page).to have_content(@item_1.inventory)
-        expect(page).to have_content(@item_1.price)
+
+        expect(page).to have_link(@item_1.name)
+        expect(page).to have_link("#{@item_1.name}-image")
+
+        expect(page).to have_content("Seller: #{@item_1.user.name}")
+        expect(page).to have_content("Available: #{@item_1.inventory}")
+        expect(page).to have_content("Price: $#{'%.2f' % @item_1.price}")
       end
 
       within ".item-#{@item_2.id}-info" do
-        expect(page).to have_link(@item_2.name)
-        # image link test
         expect(page).to have_css("img[src='#{@item_2.image}']")
-        expect(page).to have_content(@item_2.user.name)
-        expect(page).to have_content(@item_2.inventory)
-        expect(page).to have_content(@item_2.price)
+
+        expect(page).to have_link(@item_2.name)
+        expect(page).to have_link("#{@item_2.name}-image")
+
+        expect(page).to have_content("Seller: #{@item_2.user.name}")
+        expect(page).to have_content("Available: #{@item_2.inventory}")
+        expect(page).to have_content("Price: $#{'%.2f' % @item_2.price}")
       end
 
       within ".item-#{@item_3.id}-info" do
-        expect(page).to have_link(@item_3.name)
-        # image link test
         expect(page).to have_css("img[src='#{@item_3.image}']")
-        expect(page).to have_content(@item_3.user.name)
-        expect(page).to have_content(@item_3.inventory)
-        expect(page).to have_content(@item_3.price)
+
+        expect(page).to have_link(@item_3.name)
+        expect(page).to have_link("#{@item_3.name}-image")
+
+        expect(page).to have_content("Seller: #{@item_3.user.name}")
+        expect(page).to have_content("Available: #{@item_3.inventory}")
+        expect(page).to have_content("Price: $#{'%.2f' % @item_3.price}")
       end
 
       within ".item-#{@item_4.id}-info" do
-        expect(page).to have_link(@item_4.name)
-        # image link test
         expect(page).to have_css("img[src='#{@item_4.image}']")
-        expect(page).to have_content(@item_4.user.name)
-        expect(page).to have_content(@item_4.inventory)
-        expect(page).to have_content(@item_4.price)
+
+        expect(page).to have_link(@item_4.name)
+        expect(page).to have_link("#{@item_4.name}-image")
+
+        expect(page).to have_content("Seller: #{@item_4.user.name}")
+        expect(page).to have_content("Available: #{@item_4.inventory}")
+        expect(page).to have_content("Price: $#{'%.2f' % @item_4.price}")
       end
     end
 
@@ -68,14 +76,14 @@ RSpec.describe "as a user" do
       expect(current_path).to eq(item_path(@item_1))
     end
 
-    # it "I'm able to navigate to an item's show page by clicking its picture" do
-    #   visit items_path
-    #
-    #   within ".item-#{@item_1.id}-info" do
-    #     click_link(@item_1.name)
-    #   end
-    #
-    #   expect(current_path).to eq(item_path(@item_1))
-    # end
+    it "I'm able to navigate to an item's show page by clicking its picture" do
+      visit items_path
+
+      within ".item-#{@item_1.id}-info" do
+        click_link("#{@item_1.name}-image")
+      end
+
+      expect(current_path).to eq(item_path(@item_1))
+    end
   end
 end
