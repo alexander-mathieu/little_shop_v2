@@ -10,6 +10,7 @@ describe "as a registered user" do
     it "displays_all my data but my PW" do
       user_1 = User.create(email: "bob@bob.com", password_digest: 1243, name: "bob", address:"123 bob st.", city: "bobton", state:"MA", zip: 28234)
 
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user_1)
       visit user_path(user_1)
 
       expect(page).to have_content(user_1.name)
