@@ -3,11 +3,13 @@
 <section class="all-items">
   <% @items.each do |item| %>
     <div class="item-<%= item.id %>-info">
-      <%= link_to item.name, item_path(item) %>
-      <img src="<%= item.image %>" alt="<%= item.name %>">
-      <%= item.user.name %>
-      <%= item.inventory %>
-      <%= item.price %>
+      <h4><%= link_to item.name, item_path(item) %></h4>
+      <%= link_to item_path(item) do %>
+        <%= image_tag item.image, {class: "item-#{item.id}-image", alt: "#{item.name}-image"} %>
+      <% end %>
+      <p>Seller: <%= item.user.name %></p>
+      <p>Available: <%= item.inventory %></p>
+      <p>Price: <%= number_to_currency(item.price)%></p>
     </div>
   <% end %>
 </section>
