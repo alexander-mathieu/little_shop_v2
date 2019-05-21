@@ -20,9 +20,11 @@ describe "as a user" do
         @user_1 = User.create(email: "bob@bob.com", password_digest: 1243, name: "bob", address:"123 bob st.", city: "bobton", state:"MA", zip: 28234)
     end
     it "lets me edit my info" do
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user_1)
       visit user_path(@user_1)
-      click_link "Edit My Profile"
-      expect(current_path).to eq(edit_user_path(@user_1))
+      save_and_open_page
+      click_link "Edit my Profile"
+      expect(current_path).to eq(edit_user_path(@user_1.id))
     end
 
   end
