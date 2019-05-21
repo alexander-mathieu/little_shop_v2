@@ -34,6 +34,7 @@ gem 'bcrypt', '~> 3.1.7'
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'shoulda-matchers'
+  gem 'active_designer'
   gem 'activesupport'
   gem 'rspec-rails'
   gem 'simplecov'
