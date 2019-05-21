@@ -1,9 +1,9 @@
 require 'rails_helper'
 
-RSpec.describe "As a visitor, " do
+RSpec.describe "As a visitor," do
   describe "I can login on the welcome page" do
-    it "can login" do
-      user = User.create(email: "help@gmail.com", password: "12345")
+    it "and it works I guess" do
+      user = User.create!(email: "help@gmail.com", password: "12345")
 
       visit root_path
 
