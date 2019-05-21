@@ -25,7 +25,7 @@ RSpec.describe "as a user" do
         expect(page).to have_link(@item_1.name)
         # image link test
         expect(page).to have_css("img[src='#{@item_1.image}']")
-        expect(page).to have_content(@item_1.user)
+        expect(page).to have_content(@item_1.user.name)
         expect(page).to have_content(@item_1.inventory)
         expect(page).to have_content(@item_1.price)
       end
@@ -34,7 +34,7 @@ RSpec.describe "as a user" do
         expect(page).to have_link(@item_2.name)
         # image link test
         expect(page).to have_css("img[src='#{@item_2.image}']")
-        expect(page).to have_content(@item_2.user)
+        expect(page).to have_content(@item_2.user.name)
         expect(page).to have_content(@item_2.inventory)
         expect(page).to have_content(@item_2.price)
       end
@@ -43,7 +43,7 @@ RSpec.describe "as a user" do
         expect(page).to have_link(@item_3.name)
         # image link test
         expect(page).to have_css("img[src='#{@item_3.image}']")
-        expect(page).to have_content(@item_3.user)
+        expect(page).to have_content(@item_3.user.name)
         expect(page).to have_content(@item_3.inventory)
         expect(page).to have_content(@item_3.price)
       end
@@ -52,7 +52,7 @@ RSpec.describe "as a user" do
         expect(page).to have_link(@item_4.name)
         # image link test
         expect(page).to have_css("img[src='#{@item_4.image}']")
-        expect(page).to have_content(@item_4.user)
+        expect(page).to have_content(@item_4.user.name)
         expect(page).to have_content(@item_4.inventory)
         expect(page).to have_content(@item_4.price)
       end
