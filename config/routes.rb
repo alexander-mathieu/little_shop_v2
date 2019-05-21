@@ -3,7 +3,7 @@ Rails.application.routes.draw do
 
   resources :items, only: [:index, :show]
   resources :merchants, only: [:index]
-  resources :users, only: [:new, :show]
+  resources :users, only: [:show, :new, :create]
 
   get '/login', to: 'sessions#new'
 end
