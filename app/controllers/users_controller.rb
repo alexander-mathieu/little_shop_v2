@@ -18,14 +18,16 @@ class UsersController < ApplicationController
     end
   end
 
+  def show
+    @user = User.new
+    render file: "app/views/users/new.html.erb" if current_user.nil?
+    @user = User.find(params[:id])
+  end
+
   private
 
   def user_params
     params.require(:user).permit(:name, :address, :city, :state, :zip, :email, :password, :password_confirmation)
   end
 
-  def show
-    render file: "app/views/users/new.html.erb" if current_user.nil?
-    @user = User.find(params[:id])
-  end
 end
