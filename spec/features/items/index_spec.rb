@@ -23,6 +23,7 @@ RSpec.describe "as a user" do
 
       within ".item-#{@item_1.id}-info" do
         expect(page).to have_link(@item_1.name)
+        # image link test
         expect(page).to have_css("img[src='#{@item_1.image}']")
         expect(page).to have_content(@item_1.user)
         expect(page).to have_content(@item_1.inventory)
@@ -31,6 +32,7 @@ RSpec.describe "as a user" do
 
       within ".item-#{@item_2.id}-info" do
         expect(page).to have_link(@item_2.name)
+        # image link test
         expect(page).to have_css("img[src='#{@item_2.image}']")
         expect(page).to have_content(@item_2.user)
         expect(page).to have_content(@item_2.inventory)
@@ -39,6 +41,7 @@ RSpec.describe "as a user" do
 
       within ".item-#{@item_3.id}-info" do
         expect(page).to have_link(@item_3.name)
+        # image link test
         expect(page).to have_css("img[src='#{@item_3.image}']")
         expect(page).to have_content(@item_3.user)
         expect(page).to have_content(@item_3.inventory)
@@ -47,13 +50,32 @@ RSpec.describe "as a user" do
 
       within ".item-#{@item_4.id}-info" do
         expect(page).to have_link(@item_4.name)
+        # image link test
         expect(page).to have_css("img[src='#{@item_4.image}']")
         expect(page).to have_content(@item_4.user)
         expect(page).to have_content(@item_4.inventory)
         expect(page).to have_content(@item_4.price)
       end
     end
+
+    it "I'm able to navigate to an item's show page by clicking its name" do
+      visit items_path
+
+      within ".item-#{@item_1.id}-info" do
+        click_link(@item_1.name)
+      end
+
+      expect(current_path).to eq(item_path(@item_1))
+    end
+
+    # it "I'm able to navigate to an item's show page by clicking its picture" do
+    #   visit items_path
+    #
+    #   within ".item-#{@item_1.id}-info" do
+    #     click_link(@item_1.name)
+    #   end
+    #
+    #   expect(current_path).to eq(item_path(@item_1))
+    # end
   end
 end
-
-# The item thumbnail is a link to that item's show page
