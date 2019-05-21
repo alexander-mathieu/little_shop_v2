@@ -1,0 +1,30 @@
+<h2>Create Account</h2>
+
+<%= form_for @user do |f| %>
+
+<%= f.label "Your Name" %><br>
+<%= f.text_field :name, size: "40" %><br>
+
+<%= f.label "Street Address" %><br>
+<%= f.text_field :address, size: "40" %><br>
+
+<%= f.label "City/State" %><br>
+<%= f.text_field :city, size: "32" %>
+
+<%= f.select :state, %w(AK AL AR AZ CA CO CT DC DE FL GA HI IA ID IL IN KS KY LA MA MD ME MI MN MO MS MT NC ND NE NH NJ NM NV NY OH OK OR PA RI SC SD TN TX UT VA VT WA WI WV WY) %><br>
+
+<%= f.label "Zip Code" %><br>
+<%= f.text_field :zip, size: "40" %><br>
+
+<%= f.label "Email" %><br>
+<%= f.text_field :email, size: "40" %><br>
+
+<%= f.label "Password" %><br>
+<%= f.text_field :password, placeholder: "Must be 6 characters", size: "40" %><br>
+
+<%= f.label "Re-enter Password" %><br>
+<%= f.text_field :password_confirmation, size: "40" %><br>
+<br>
+<%= f.submit "Sign Up" %>
+
+<% end %>

@@ -3,9 +3,8 @@ Rails.application.routes.draw do
 
   resources :items, only: [:index, :show]
   resources :merchants, only: [:index]
-  resources :users, only: [:new, :show, :edit]
-
-  get '/profile', to: "users#show"
+  resources :users, only: [:show, :new, :edit, :create]
 
   get '/login', to: 'sessions#new'
+  post '/login', to: 'sessions#create'
 end

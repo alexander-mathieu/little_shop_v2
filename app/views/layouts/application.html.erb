@@ -3,6 +3,7 @@
   <head>
     <title>LittleShopV2</title>
     <%= csrf_meta_tags %>
+    <link rel="icon" href="https://vignette.wikia.nocookie.net/gtawiki/images/7/79/LosSantosKings-GTAV-Logo.png/revision/latest?cb=20130928210400">
 
     <%= stylesheet_link_tag    'application', media: 'all' %>
     <%= javascript_include_tag 'application' %>
@@ -16,6 +17,13 @@
       <%= link_to "Login", login_path %>
       <%= link_to "Register", new_user_path %>
     </section>
+
+    <section class="flash">
+      <% flash.each do |type, message| %>
+        <p><%= message %></p>
+      <% end %>
+    </section>
+
     <%= yield %>
   </body>
 </html>
