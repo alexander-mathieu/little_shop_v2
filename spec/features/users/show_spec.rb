@@ -9,11 +9,13 @@ describe "as a registered user" do
   describe "when I visit my show page" do
 
     before :each do
-      @user_1 = User.create(email: "bob@bob.com", password_digest: 1243, name: "bob", address:"123 bob st.", city: "bobton", state:"MA", zip: 28234)
-  end
+      @user_1 = User.create!(email: "bob@bob.com", password: "124355", name: "bob", address:"123 bob st.", city: "bobton", state:"MA", zip: 28234)
+    end
+
     it "displays_all my data but my PW" do
 
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user_1)
+
       visit user_path(@user_1)
       expect(page).to have_content(@user_1.name)
       expect(page).to have_content(@user_1.email)
@@ -22,7 +24,6 @@ describe "as a registered user" do
       expect(page).to have_content(@user_1.state)
       expect(page).to have_content(@user_1.zip)
       expect(page).to have_link("Edit my Profile")
-
     end
 
     it "does not display for visitors" do
