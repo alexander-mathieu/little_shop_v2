@@ -1,4 +1,6 @@
 class UsersController < ApplicationController
+  before_action :current_user,  only: :show
+
   def new
     @user = User.new
   end
@@ -20,5 +22,10 @@ class UsersController < ApplicationController
 
   def user_params
     params.require(:user).permit(:name, :address, :city, :state, :zip, :email, :password, :password_confirmation)
+  end
+
+  def show
+    render file: "app/views/users/new.html.erb" if current_user.nil?
+    @user = User.find(params[:id])
   end
 end
