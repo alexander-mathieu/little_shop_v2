@@ -17,12 +17,11 @@ RSpec.describe "As a user," do
 
     it "I can add an item to my cart" do
       visit "/items/#{@itemA.id}"
-      save_and_open_page
-      fill_in "form[]", with: "2"
+      page.select '2', from: :quantity
       click_on "Add to Cart"
 
       expect(current_path).to eq("/items/#{@itemA.id}")
-      expect(session[:cart]).to eq({@itemA => 2})
+      expect(session[:cart].contents).to eq({@itemA.id => 2})
     end
 
     it "I see a list of items and quantities" do
