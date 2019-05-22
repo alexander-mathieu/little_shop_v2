@@ -17,7 +17,7 @@
       <%= link_to "Login", login_path unless current_user %>
       <%= link_to "Register", new_user_path unless current_user %>
       <%= link_to "Profile", profile_path if current_user %>
-      <%= link_to "Logout", login_path, method: "delete" if current_user %>
+      <%= link_to "Logout", logout_path, method: "delete" if current_user %>
     </section>
 
     <section class="flash">
