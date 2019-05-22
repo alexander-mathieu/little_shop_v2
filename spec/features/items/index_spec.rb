@@ -144,7 +144,29 @@ RSpec.describe "as a user" do
       expect(page).to have_css(".item-stats")
     end
 
-    it "I see the top 5 most popular items by quantity purchased with quantity bought"
+    it "I see the top 5 most popular items by quantity purchased with quantity bought" do
+      visit items_path
+
+      within ".item-stats" do
+        within ".most-popular" do
+          expect(page).to have_content(@item_3.name)
+          expect(page).to have_content(@item_4.name)
+          expect(page).to have_content(@item_5.name)
+          expect(page).to have_content(@item_2.name)
+          expect(page).to have_content(@item_7.name)
+        end
+      end
+
+      within ".item-stats" do
+        within ".least-popular" do
+          expect(page).to have_content(@item_9.name)
+          expect(page).to have_content(@item_10.name)
+          expect(page).to have_content(@item_1.name)
+          expect(page).to have_content(@item_8.name)
+          expect(page).to have_content(@item_2.name)
+        end
+      end
+    end
 
     it "I see the top 5 least popular items by quantity purchased with quantity bought"
   end
