@@ -23,7 +23,7 @@ describe "as a user" do
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user_1)
       visit profile_path
       click_link "Edit my Profile"
-      expect(current_path).to eq(profile_path)
+      expect(current_path).to eq(profile_edit_path)
       expect(find_field('user_name').value).to eq('bob')
       expect(find_field('user_email').value).to eq('bob@bob.com')
       expect(find_field('user_address').value).to eq('123 bob st.')
@@ -36,7 +36,7 @@ describe "as a user" do
       fill_in 'user_city', with: 'georgeville'
 
       click_button "Change my Profile"
-        expect(current_path).to eq(user_path(@user_1))
+        expect(current_path).to eq(profile_path)
 
     end
 
