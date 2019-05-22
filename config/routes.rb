@@ -4,10 +4,12 @@ Rails.application.routes.draw do
   resources :items, only: [:index, :show]
   resources :merchants, only: [:index]
   resources :users, only: [:new, :edit, :create]
+
   get '/profile', to: "users#show"
   get '/profile/edit', to: "users#edit"
   put '/users', to: "users#update"
 
   get '/login', to: 'sessions#new'
   post '/login', to: 'sessions#create'
+  delete '/login', to: "sessions#delete"
 end
