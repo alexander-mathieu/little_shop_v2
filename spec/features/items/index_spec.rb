@@ -85,5 +85,15 @@ RSpec.describe "as a user" do
 
       expect(current_path).to eq(item_path(@item_1))
     end
+
+    it "I see a section of the page for item statistics" do
+      visit items_path
+
+      expect(page).to have_css(".item-stats")
+    end
+
+    it "I see the top 5 most popular items by quantity purchased and quantity bought"
+
+    it "I see the top 5 least popular items by quantity purchased and quantity bought"
   end
 end
