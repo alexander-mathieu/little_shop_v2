@@ -1,7 +1,20 @@
 <h2>All Items</h2>
 
 <section class="item-stats">
-  
+  <div class="most-popular">
+    <ul>
+    <% @items.most_popular.each do |item| %>
+      <li><%= item.name %>, <%= item.total_purchases %> total purchases</li>
+    </ul>
+    <% end %>
+  </div>
+  <div class="least-popular">
+    <ul>
+    <% @items.least_popular.each do |item| %>
+      <li><%= item.name %>, <%= item.total_purchases %> total purchases</li>
+    </ul>
+    <% end %>
+    </div>
 </section>
 
 <section class="all-items">
