@@ -7,15 +7,10 @@ RSpec.describe "as a visitor" do
 
       within ".navbar" do
         click_link("Home")
-
         expect(current_path).to eq(root_path)
-
         click_link("Items")
-
         expect(current_path).to eq(items_path)
-
         click_link("Merchants")
-
         expect(current_path).to eq(merchants_path)
 
         # click_link("Cart")
@@ -23,12 +18,43 @@ RSpec.describe "as a visitor" do
         # expect(current_path).to eq(cart_path)
 
         click_link("Login")
-
         expect(current_path).to eq(login_path)
-
         click_link("Register")
-
         expect(current_path).to eq(new_user_path)
+      end
+
+I see the same links as a visitor
+Plus the following links
+- a link to my profile page ("/profile")
+- a link to log out ("/logout")
+
+Minus the following links
+- I do not see a link to log in or register
+
+      it "gives me different options as a user" do
+          @user_1 = User.create!(email: "bob@bob.com", password: "124355", name: "bob", address:"123 bob st.", city: "bobton", state:"MA", zip: 28234)
+        allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user_1)
+
+
+        visit root_path
+        click_link("Home")
+        expect(current_path).to eq(root_path)
+        click_link("Items")
+        expect(current_path).to eq(items_path)
+        click_link("Merchants")
+        expect(current_path).to eq(merchants_path)
+        # click_link("Cart")
+        # expect(current_path).to eq(cart_path)
+        expect(page).to_not have_link("Login")
+        expect(page).to_not have_link("Register")
+        click_link("Profile")
+        expect(current_path).to eq(profile_path)
+        click_link("Logout")
+        expect(current_path).to eq(root_path)
+        expect(page).to have_link("Login")
+        expect(page).to have_link("Register")
+
+
       end
     end
   end
