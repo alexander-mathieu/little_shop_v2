@@ -1,12 +1,11 @@
 class CartsController < ApplicationController
   def create
-    item_id = params[:item_id].keys[0].to_i #Fix for the weird form behaviour
-    id = Item.find(item_id).id
+    id = params[:item_id].keys[0].to_i #Fix for the weird form behaviour
     @cart = Cart.new(session[:cart])
     @cart.add(id, params[:quantity])
     session[:cart] = @cart.contents
     #flash for
-    redirect_to items_path
+    redirect_to item_path(id)
   end
 
   def show
