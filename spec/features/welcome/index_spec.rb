@@ -17,7 +17,7 @@ RSpec.describe "as a visitor" do
         #
         # expect(current_path).to eq(cart_path)
 
-        click_link("Login")
+        click_link("LogIn")
         expect(current_path).to eq(login_path)
         click_link("Register")
         expect(current_path).to eq(new_user_path)
@@ -33,7 +33,7 @@ RSpec.describe "as a visitor" do
       user = User.create!(email: "bob@bob.com", password: "124355",
         name: "bob", address:"123 bob st.", city: "bobton", state:"MA", zip: 28234)
       visit root_path
-      click_on "login?"
+      click_on "LogIn"
       fill_in "email", with: user.email
       fill_in "password", with: user.password
       click_on "Log In"
@@ -50,11 +50,10 @@ RSpec.describe "as a visitor" do
         user = User.create!(email: "bob@bob.com", password: "124355",
           name: "bob", address:"123 bob st.", city: "bobton", state:"MA", zip: 28234)
         visit root_path
-        click_on "login?"
+        click_on "LogIn"
         fill_in "email", with: user.email
         fill_in "password", with: user.password
         click_on "Log In"
-
 
         within ".navbar" do
         click_link("Home")
@@ -65,13 +64,13 @@ RSpec.describe "as a visitor" do
         expect(current_path).to eq(merchants_path)
         # click_link("Cart")
         # expect(current_path).to eq(cart_path)
-        expect(page).to_not have_link("Login")
+        expect(page).to_not have_link("LogIn")
         expect(page).to_not have_link("Register")
         click_link("Profile")
         expect(current_path).to eq(profile_path)
         click_link("Logout")
         expect(current_path).to eq(root_path)
-        expect(page).to have_link("Login")
+        expect(page).to have_link("LogIn")
         expect(page).to have_link("Register")
       end
     end
@@ -80,14 +79,14 @@ RSpec.describe "as a visitor" do
       user = User.create!(email: "bob@bob.com", password: "124355",
         name: "bob", address:"123 bob st.", city: "bobton", state:"MA", zip: 28234)
       visit root_path
-      click_on "login?"
+      click_on "LogIn"
       fill_in "email", with: user.email
       fill_in "password", with: user.password
       click_on "Log In"
 
       visit "/login"
 
-      expect(current_path).to eq(profile_path)      
+      expect(current_path).to eq(profile_path)
     end
   end
 end
