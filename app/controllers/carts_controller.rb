@@ -2,7 +2,7 @@ class CartsController < ApplicationController
   def create
     id = Item.find(params[:item_id]).id
     @cart = Cart.new(session[:cart])
-    @cart.add(id)
+    @cart.add(id, params[:quantity])
     session[:cart] = @cart.contents
     #flash for
     redirect_to items_path

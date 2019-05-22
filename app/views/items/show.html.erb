@@ -6,7 +6,7 @@
 <p>Price: <%= number_to_currency(@item.price) %></p>
 
 <section class="add-to-cart">
-  <%= form_tag "/users", method: "post" do |f| %>
+  <%= form_tag "/carts", method: "post" do |f| %>
 
   <%= hidden_field :item_id, @item.id %>
 
