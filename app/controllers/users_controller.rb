@@ -30,9 +30,13 @@ class UsersController < ApplicationController
 
 
   def update
-    flash[:message]
-    current_user.update(user_params)
-    redirect_to profile_path
+    if User.find_by(email: params[:user][:email])
+      flash[:message] = "That email is already in use"
+      redirect_to profile_edit_path
+    else
+      current_user.update(user_params)
+      redirect_to profile_path
+    end
   end
 
   private
