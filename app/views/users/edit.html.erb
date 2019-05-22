@@ -1,0 +1,17 @@
+<%= form_for @user, method: "put" do |f| %>
+<%= f.label :name %>
+<%= f.text_field :name %>
+<%= f.label :email %>
+<%= f.text_field :email %>
+<%= f.label :address %>
+<%= f.text_field :address %>
+<%= f.label :city %>
+<%= f.text_field :city %>
+<%= f.label :state %>
+<%= f.text_field :state %>
+<%= f.label :zip %>
+<%= f.text_field :zip %>
+<%= f.label :password_digest %>
+<%= f.password_field :password_digest%>
+<%= f.submit "Change my Profile" %>
+<% end %>

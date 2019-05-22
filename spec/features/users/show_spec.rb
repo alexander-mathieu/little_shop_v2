@@ -16,7 +16,7 @@ describe "as a registered user" do
 
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user_1)
 
-      visit user_path(@user_1)
+      visit profile_path
       expect(page).to have_content(@user_1.name)
       expect(page).to have_content(@user_1.email)
       expect(page).to have_content(@user_1.address)
@@ -27,7 +27,7 @@ describe "as a registered user" do
     end
 
     it "does not display for visitors" do
-      visit user_path(@user_1)
+      visit profile_path
       expect(page).to have_no_content(@user_1.name)
       expect(page).to have_content("Login")
     end

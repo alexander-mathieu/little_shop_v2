@@ -8,5 +8,11 @@ Rails.application.routes.draw do
 
   resources :merchants, only: [:index]
 
+  resources :users, only: [:new, :edit, :create]
+  get '/profile', to: "users#show"
+  get '/profile/edit', to: "users#edit"
+  put '/users', to: "users#update"
+
   get '/login', to: 'sessions#new'
+  post '/login', to: 'sessions#create'
 end
