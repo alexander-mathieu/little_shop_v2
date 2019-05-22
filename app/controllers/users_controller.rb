@@ -21,7 +21,7 @@ class UsersController < ApplicationController
   def show
     @user = User.new
     render file: "app/views/users/new.html.erb" if current_user.nil?
-    @user = User.find(params[:id])
+    @user = current_user
   end
 
   def edit
