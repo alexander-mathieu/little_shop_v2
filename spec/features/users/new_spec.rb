@@ -24,8 +24,8 @@ RSpec.describe 'As a visitor' do
       click_on "Sign Up"
 
       new_user = User.last
-      #change to profile_path
-      expect(current_path).to eq(root_path)
+
+      expect(current_path).to eq(profile_path)
       expect(page).to have_content("Welcome, #{new_user.name}. You are now registered and logged in!")
     end
 
