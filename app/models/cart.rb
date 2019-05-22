@@ -4,6 +4,10 @@ class Cart
     @contents = contents || Hash.new(0)
   end
 
+  def add(id, quantity)
+    @contents[id] = quantity
+  end
+
   def items
     return Hash[@contents.map {|k,v| [Item.find(k), v]}]
   end
