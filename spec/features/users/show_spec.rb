@@ -14,7 +14,12 @@ describe "as a registered user" do
 
     it "displays_all my data but my PW" do
 
-      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user_1)
+      visit root_path
+      click_link "LogIn"
+
+      fill_in 'email', with: @user_1.email
+      fill_in 'password', with: @user_1.password
+      click_button "Log In"
 
       visit profile_path
       expect(page).to have_content(@user_1.name)
@@ -29,7 +34,7 @@ describe "as a registered user" do
     it "does not display for visitors" do
       visit profile_path
       expect(page).to have_no_content(@user_1.name)
-      expect(page).to have_content("Login")
+      expect(page).to have_content("LogIn")
     end
   end
 end
