@@ -1,6 +1,6 @@
 class CartsController < ApplicationController
   def create
-    id = Item.find(params[:item_id]).id.to_s
+    id = Item.find(params[:item_id]).id
     @cart = Cart.new(session[:cart])
     @cart.add(id)
     session[:cart] = @cart.contents

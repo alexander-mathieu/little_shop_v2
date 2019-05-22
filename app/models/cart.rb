@@ -5,8 +5,6 @@ class Cart
   end
 
   def items
-    return @contents.map do |k,v|
-      Item.find(k)
-    end
+    return Hash[@contents.map {|k,v| [Item.find(k), v]}]
   end
 end
