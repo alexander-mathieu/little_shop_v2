@@ -8,6 +8,7 @@ class SessionsController < ApplicationController
       session[:user_id] = user.id
       redirect_to profile_path
     else
+      flash[:warn] = "Some of your information isn't correct."
       render :new
     end
   end
