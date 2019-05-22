@@ -11,4 +11,8 @@ class CartsController < ApplicationController
   def show
     @cart = Cart.new(session[:cart])
   end
+
+  def destroy
+
+  end
 end
