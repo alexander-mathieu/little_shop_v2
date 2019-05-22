@@ -12,7 +12,5 @@ class CartsController < ApplicationController
     @cart = Cart.new(session[:cart])
   end
 
-  def destroy
-
-  end
+  def destroy; session[:cart] = nil end
 end

@@ -6,8 +6,6 @@ class Cart
 
   def empty?; return @contents.empty? end
 
-  def empty!; @contents = Hash.new(0) end
-
   def add(id, quantity)
     @contents[id] = quantity
   end
