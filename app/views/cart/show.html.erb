@@ -1,0 +1,10 @@
+<% if @cart == :empty %>
+  <h5>Your cart is empty.</h5>
+<% else %>
+  <h3>Your cart:</h3>
+  <ul>
+  <% @cart.each do |k,v| %>
+    <li><%=k.name%>: <%=v%></li>
+  <% end %>
+  </ul>
+<% end %>
