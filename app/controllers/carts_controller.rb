@@ -1,6 +1,7 @@
 class CartsController < ApplicationController
   def create
-    id = Item.find(params[:item_id]).id
+    item_id = params[:item_id].keys[0].to_i #Fix for the weird form behaviour
+    id = Item.find(item_id).id
     @cart = Cart.new(session[:cart])
     @cart.add(id, params[:quantity])
     session[:cart] = @cart.contents
