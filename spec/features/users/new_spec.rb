@@ -6,11 +6,11 @@ RSpec.describe 'As a visitor' do
       visit root_path
       click_on "Register"
 
-      expect(current_path).to eq(new_user_path)
+      expect(current_path).to eq(register_path)
     end
 
     it 'I can create a new user when I fill in the new user form completely with a unique email address' do
-      visit new_user_path
+      visit register_path
 
       fill_in "user[name]", with: "John Smith"
       fill_in "user[address]", with: "1234 Main St"
@@ -30,7 +30,7 @@ RSpec.describe 'As a visitor' do
     end
 
     it 'I can not create a new user when I do not fill in the new user form completely' do
-      visit new_user_path
+      visit register_path
 
       fill_in "user[name]", with: "John Smith"
       fill_in "user[address]", with: ""
@@ -53,7 +53,7 @@ RSpec.describe 'As a visitor' do
     it 'I can not create a new user when the email address is already in the system' do
       user = User.create!(name: "Jonathan Smith", address: "9876 Main St", city: "Lakewood", state: "CO", zip: "80226", email: "john.smith@example.com", password: "123456")
 
-      visit new_user_path
+      visit register_path
 
       fill_in "user[name]", with: "John Smith"
       fill_in "user[address]", with: "1234 Main St"
@@ -74,7 +74,7 @@ RSpec.describe 'As a visitor' do
     end
 
     it 'I can not create a new user when the password does not match confirm password' do
-      visit new_user_path
+      visit register_path
 
       fill_in "user[name]", with: "John Smith"
       fill_in "user[address]", with: "1234 Main St"
