@@ -2,18 +2,18 @@
 
 <section class="item-stats">
   <div class="most-popular">
-    <ul>
+    <ul>Most Popular:
     <% @most_popular.each do |result_set_item| %>
       <li><%= result_set_item.name %>, <%= result_set_item.total_quantity %> total purchases</li>
-    </ul>
     <% end %>
+    </ul>
   </div>
   <div class="least-popular">
-    <ul>
+    <ul>Least Popular:<br>
     <% @least_popular.each do |result_set_item| %>
       <li><%= result_set_item.name %>, <%= result_set_item.total_quantity %> total purchases</li>
-    </ul>
     <% end %>
+    </ul>
     </div>
 </section>
 
