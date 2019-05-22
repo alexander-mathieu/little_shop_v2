@@ -22,14 +22,7 @@ RSpec.describe "as a visitor" do
         click_link("Register")
         expect(current_path).to eq(new_user_path)
       end
-
-I see the same links as a visitor
-Plus the following links
-- a link to my profile page ("/profile")
-- a link to log out ("/logout")
-
-Minus the following links
-- I do not see a link to log in or register
+    end
 
       it "gives me different options as a user" do
           @user_1 = User.create!(email: "bob@bob.com", password: "124355", name: "bob", address:"123 bob st.", city: "bobton", state:"MA", zip: 28234)
@@ -37,6 +30,7 @@ Minus the following links
 
 
         visit root_path
+        within ".navbar" do
         click_link("Home")
         expect(current_path).to eq(root_path)
         click_link("Items")
@@ -53,9 +47,8 @@ Minus the following links
         expect(current_path).to eq(root_path)
         expect(page).to have_link("Login")
         expect(page).to have_link("Register")
-
-
       end
     end
+    
   end
 end
