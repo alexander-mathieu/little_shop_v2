@@ -41,5 +41,11 @@ RSpec.describe "as any kind of user" do
 
       expect(page).to have_button("Add to Cart")
     end
+
+    it "I see a dropdown to change the quantity of the item added to my cart" do
+      visit item_path(@item_1)
+
+      expect(page).to have_select(:quantity)
+    end
   end
 end
