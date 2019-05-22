@@ -19,6 +19,7 @@ describe "as a user" do
     before :each do
         @user_1 = User.create(email: "bob@bob.com", password_digest: 1243, name: "bob", address:"123 bob st.", city: "bobton", state:"MA", zip: 28234)
     end
+    
     it "lets me edit my info" do
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user_1)
       visit profile_path
