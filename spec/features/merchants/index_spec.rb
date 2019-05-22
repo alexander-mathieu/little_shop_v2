@@ -33,11 +33,12 @@ RSpec.describe 'As a visitor' do
       end
     end
 
-    it 'I see statistics'
+    it 'I see merchant statistics' do
+      
 
+    end
 
   end
-
 
   # USER STORY 40
   # As a visitor
