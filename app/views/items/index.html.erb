@@ -3,15 +3,15 @@
 <section class="item-stats">
   <div class="most-popular">
     <ul>
-    <% @items.most_popular.each do |item| %>
-      <li><%= item.name %>, <%= item.total_purchases %> total purchases</li>
+    <% @most_popular.each do |result_set_item| %>
+      <li><%= result_set_item.name %>, <%= result_set_item.total_quantity %> total purchases</li>
     </ul>
     <% end %>
   </div>
   <div class="least-popular">
     <ul>
-    <% @items.least_popular.each do |item| %>
-      <li><%= item.name %>, <%= item.total_purchases %> total purchases</li>
+    <% @least_popular.each do |result_set_item| %>
+      <li><%= result_set_item.name %>, <%= result_set_item.total_quantity %> total purchases</li>
     </ul>
     <% end %>
     </div>
