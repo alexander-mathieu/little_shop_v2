@@ -20,12 +20,27 @@ RSpec.describe "As a user," do
       page.select '2', from: :quantity
       click_on "Add to Cart"
 
+      cart = Cart.new({@itemA.id => 2}) #WHAT DOOOOO
       expect(current_path).to eq("/items/#{@itemA.id}")
-      expect(session[:cart].contents).to eq({@itemA.id => 2})
+      expect(cart.contents).to eq({@itemA.id => 2})
     end
 
     it "I see a list of items and quantities" do
+      visit "/items/#{@itemA.id}"
+      page.select '2', from: :quantity
+      click_on "Add to Cart"
+      visit "/items/#{@itemB.id}"
+      page.select '5', from: :quantity
+      click_on "Add to Cart"
+      visit "/items/#{@itemC.id}"
+      page.select '1', from: :quantity
+      click_on "Add to Cart"
 
+      visit "/cart"
+
+      expect(page).to have_content("#{@itemA.name}: 2")
+      expect(page).to have_content("#{@itemB.name}: 5")
+      expect(page).to have_content("#{@itemC.name}: 1")
     end
   end
 end
