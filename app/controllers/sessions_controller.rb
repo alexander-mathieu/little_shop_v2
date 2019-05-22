@@ -11,5 +11,12 @@ class SessionsController < ApplicationController
       flash[:warn] = "Some of your information isn't correct."
       render :new
     end
+
+  end
+
+  def delete
+    session[:user_id] = nil
+    flash[:message] = "You are now logged Out"
+    redirect_to root_path
   end
 end
