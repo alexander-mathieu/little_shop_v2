@@ -3,7 +3,7 @@
 <% else %>
   <h3>Your cart:</h3>
   <ul>
-  <% @cart.each do |k,v| %>
+  <% @cart.items.each do |k,v| %>
     <li><%=k.name%>: <%=v%></li>
   <% end %>
   </ul>
