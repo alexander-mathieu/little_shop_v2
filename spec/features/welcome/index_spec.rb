@@ -25,11 +25,15 @@ RSpec.describe "as a visitor" do
     end
 
       it "gives me different options as a user" do
-          @user_1 = User.create!(email: "bob@bob.com", password: "124355", name: "bob", address:"123 bob st.", city: "bobton", state:"MA", zip: 28234)
-        allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user_1)
-
-
+        user = User.create!(email: "bob@bob.com", password: "124355",
+          name: "bob", address:"123 bob st.", city: "bobton", state:"MA", zip: 28234)
         visit root_path
+        click_on "login?"
+        fill_in "email", with: user.email
+        fill_in "password", with: user.password
+        click_on "Log In"
+
+
         within ".navbar" do
         click_link("Home")
         expect(current_path).to eq(root_path)
@@ -49,6 +53,6 @@ RSpec.describe "as a visitor" do
         expect(page).to have_link("Register")
       end
     end
-    
+
   end
 end
