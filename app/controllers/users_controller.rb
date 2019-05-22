@@ -17,9 +17,12 @@ class UsersController < ApplicationController
   end
 
   def show
+    if current_user.nil?
     @user = User.new
-    render file: "app/views/users/new.html.erb" if current_user.nil?
+    render file: "app/views/users/new.html.erb"
+  else
     @user = current_user
+  end
   end
 
   def edit
