@@ -20,7 +20,7 @@ RSpec.describe "as a visitor" do
         click_link("Login")
         expect(current_path).to eq(login_path)
         click_link("Register")
-        expect(current_path).to eq(new_user_path)
+        expect(current_path).to eq(register_path)
       end
     end
 #     As a registered user, merchant, or admin
