@@ -30,6 +30,7 @@ class UsersController < ApplicationController
 
 
   def update
+    flash[:message]
     current_user.update(user_params)
     redirect_to profile_path
   end
