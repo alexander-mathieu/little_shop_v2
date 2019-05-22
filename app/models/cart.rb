@@ -6,11 +6,13 @@ class Cart
 
   def empty?; return @contents.empty? end
 
+  def empty!; @contents = Hash.new(0) end
+
   def add(id, quantity)
     @contents[id] = quantity
   end
 
   def items
-    return Hash[@contents.map {|k,v| [Item.find(k), v]}]
+    return Hash[@contents.map {|id,qnt| [Item.find(id), qnt]}]
   end
 end
