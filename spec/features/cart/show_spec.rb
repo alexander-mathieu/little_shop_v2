@@ -15,16 +15,6 @@ RSpec.describe "As a user," do
       expect(page).to have_content("Your cart is empty.")
     end
 
-    it "I can add an item to my cart" do
-      visit "/items/#{@itemA.id}"
-      page.select '2', from: :quantity
-      click_on "Add to Cart"
-
-      cart = Cart.new({@itemA.id => 2}) #WHAT DOOOOO
-      expect(current_path).to eq("/items/#{@itemA.id}")
-      expect(cart.contents).to eq({@itemA.id => 2})
-    end
-
     it "I see a list of items and quantities" do
       visit "/items/#{@itemA.id}"
       page.select '2', from: :quantity
