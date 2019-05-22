@@ -19,6 +19,7 @@ describe "as a user" do
     before :each do
         @user_1 = User.create(email: "bob@bob.com", password_digest: 1243, name: "bob", address:"123 bob st.", city: "bobton", state:"MA", zip: 28234)
     end
+    
     it "lets me edit my info" do
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user_1)
       visit profile_path
@@ -39,6 +40,24 @@ describe "as a user" do
         expect(current_path).to eq(profile_path)
 
     end
+
+    it "does not let me enter a used email in profile edit" do
+      @user_1 = User.create!(email: "bob@bob.com", password: "123dd43", name: "bob", address:"123 bob st.", city: "bobton", state:"MA", zip: 28234)
+      @user_2 = User.create!(email: "george@bob.com", password: "124344", name: "george", address:"123 george st.", city: "georgeton", state:"MA", zip: 28234)
+        allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user_1)
+        visit profile_edit_path
+        fill_in 'user_email', with: @user_2.email
+        click_button "Change my Profile"
+        expect(current_path).to eq(profile_edit_path)
+        expect(page).to have_content("That email is already in use")
+    end
+
+#     As a registered user
+# When I attempt to edit my profile data
+# If I try to change my email address to one that belongs to another user
+# When I submit the form
+# Then I am returned to the profile edit page
+# And I see a flash message telling me that email address is already in use
 
   end
 

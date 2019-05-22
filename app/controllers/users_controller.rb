@@ -8,8 +8,7 @@ class UsersController < ApplicationController
     user = User.new(user_params)
     if user.save
       flash[:message] = "Welcome, #{user.name}. You are now registered and logged in!"
-      # change path to profile_path
-      redirect_to root_path
+      redirect_to profile_path
     else
       @user = User.new(user_params)
       flash[:error] = "You are missing required fields, your email is already in use, or your passwords don't match."
@@ -29,8 +28,13 @@ class UsersController < ApplicationController
 
 
   def update
-    current_user.update(user_params)
-    redirect_to profile_path
+    if User.find_by(email: params[:user][:email])
+      flash[:message] = "That email is already in use"
+      redirect_to profile_edit_path
+    else
+      current_user.update(user_params)
+      redirect_to profile_path
+    end
   end
 
   private
