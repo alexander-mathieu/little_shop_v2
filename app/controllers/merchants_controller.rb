@@ -4,6 +4,8 @@ class MerchantsController < ApplicationController
   end
 
   def show
+    @user = current_user
+    render file: "app/public/404.html" unless @user.merchant?
     
   end
 end
