@@ -3,14 +3,14 @@ require 'rails_helper'
 RSpec.describe "as a user" do
   describe "when I visit /items" do
     before :each do
-      @merchant_1 = User.create!(email: "merchant_1@gmail.com", role: 1, name: "User 1", address: "User 1 Address", city: "User 1 City", state: "User 1 State", zip: "12345", password: "123456")
-      @merchant_2 = User.create!(email: "merchant_2@gmail.com", role: 1, name: "User 2", address: "User 2 Address", city: "User 2 City", state: "User 2 State", zip: "22345", password: "123456")
-      @merchant_3 = User.create!(email: "merchant_3@gmail.com", role: 1, name: "User 3", address: "User 3 Address", city: "User 3 City", state: "User 3 State", zip: "32345", password: "123456")
-      @merchant_4 = User.create!(email: "merchant_4@gmail.com", role: 1, name: "User 4", address: "User 4 Address", city: "User 4 City", state: "User 4 State", zip: "42345", password: "123456")
-      @user_1= User.create!(email: "user_1@gmail.com", role: 0, name: "User 5", address: "User 5 Address", city: "User 5 City", state: "User 5 State", zip: "52345", password: "123456")
-      @user_2 = User.create!(email: "user_2@gmail.com", role: 0, name: "User 6", address: "User 6 Address", city: "User 6 City", state: "User 6 State", zip: "62345", password: "123456")
-      @user_3 = User.create!(email: "user_3@gmail.com", role: 0, name: "User 7", address: "User 7 Address", city: "User 7 City", state: "User 7 State", zip: "72345", password: "123456")
-      @user_4 = User.create!(email: "user_4@gmail.com", role: 0, name: "User 8", address: "User 8 Address", city: "User 8 City", state: "User 8 State", zip: "82345", password: "123456")
+      @merchant_1 = User.create!(email: "merchant_1@gmail.com", role: 1, name: "Merchant 1", address: "Merchant 1 Address", city: "Merchant 1 City", state: "Merchant 1 State", zip: "12345", password: "123456")
+      @merchant_2 = User.create!(email: "merchant_2@gmail.com", role: 1, name: "Merchant 2", address: "Merchant 2 Address", city: "Merchant 2 City", state: "Merchant 2 State", zip: "22345", password: "123456")
+      @merchant_3 = User.create!(email: "merchant_3@gmail.com", role: 1, name: "Merchant 3", address: "Merchant 3 Address", city: "Merchant 3 City", state: "Merchant 3 State", zip: "32345", password: "123456")
+      @merchant_4 = User.create!(email: "merchant_4@gmail.com", role: 1, name: "Merchant 4", address: "Merchant 4 Address", city: "Merchant 4 City", state: "Merchant 4 State", zip: "42345", password: "123456")
+      @user_1= User.create!(email: "user_1@gmail.com", role: 0, name: "User 1", address: "User 1 Address", city: "User 1 City", state: "User 1 State", zip: "52345", password: "123456")
+      @user_2 = User.create!(email: "user_2@gmail.com", role: 0, name: "User 2", address: "User 2 Address", city: "User 2 City", state: "User 2 State", zip: "62345", password: "123456")
+      @user_3 = User.create!(email: "user_3@gmail.com", role: 0, name: "User 3", address: "User 3 Address", city: "User 3 City", state: "User 3 State", zip: "72345", password: "123456")
+      @user_4 = User.create!(email: "user_4@gmail.com", role: 0, name: "User 4", address: "User 4 Address", city: "User 4 City", state: "User 4 State", zip: "82345", password: "123456")
 
       @item_1 = @merchant_1.items.create!(name: "Item 1", price: 1.00, description: "Item 1 Description", image: "https://tradersofafrica.com/img/no-product-photo.jpg", inventory: 10)
       @item_2 = @merchant_2.items.create!(name: "Item 2", price: 2.00, description: "Item 2 Description", image: "https://tradersofafrica.com/img/no-product-photo.jpg", inventory: 15)
