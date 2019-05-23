@@ -38,7 +38,7 @@ describe "as a registered user" do
         click_link("Logout")
         expect(current_path).to eq(root_path)
       end
-      expect(page).to have_content("You are now logged Out")
+      expect(page).to have_content("You are now logged out")
     end
 
       it "gives me different options as a user" do

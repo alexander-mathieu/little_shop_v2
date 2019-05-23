@@ -1,10 +1,10 @@
 class SessionsController < ApplicationController
   def new
     if current_user
-      if current_user.admin? TO ADD WHEN MERCHANT AND ADMIN DASH ARE THERE
-        redirect_to admin_dash_path(@current_user)
+      if current_user.admin?
+        redirect_to admin_dashboard_path(@current_user)
       elsif current_user.merchant?
-        redirect_to merch_dash_path(@current_user)
+        redirect_to dashboard_path(@current_user)
       else
         redirect_to profile_path
       end
