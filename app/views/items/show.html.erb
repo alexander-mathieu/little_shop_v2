@@ -10,14 +10,16 @@
   <p>Average Fulfillment Time: N/A</p>
 <% end %>
 
-<section class="add-to-cart">
-  <%= form_tag "/cart", method: "post" do |f| %>
+<% if !current_user || (!current_user.merchant? && !current_user.admin?) %>
+  <section class="add-to-cart">
+    <%= form_tag "/cart", method: "post" do |f| %>
 
-  <%= hidden_field :item_id, @item.id %>
+    <%= hidden_field :item_id, @item.id %>
 
-  <%= label_tag(:quantity, "Quantity:") %>
-  <%= select_tag(:quantity, options_for_select(0..@item.inventory)) %>
+    <%= label_tag(:quantity, "Quantity:") %>
+    <%= select_tag(:quantity, options_for_select(0..@item.inventory)) %>
 
-  <%= submit_tag "Add to Cart" %>
-  <% end %>
-</section>
+    <%= submit_tag "Add to Cart" %>
+    <% end %>
+  </section>
+<% end %>
