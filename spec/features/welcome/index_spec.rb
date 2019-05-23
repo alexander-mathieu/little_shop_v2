@@ -84,8 +84,17 @@ describe "as a registered user" do
 end
 
   describe "as a merchant" do
+    before :each do
+      @merchant = User.create!(email: "joe@joe.com", password: "124355",
+        name: "joe", role: 1, address:"123 joe st.", city: "joeton", state:"MI", zip: 28334)
+        visit root_path
+        click_on "LogIn"
+        fill_in "email", with: @merchant.email
+        fill_in "password", with: @merchant.password
+        click_on "Log In"
+    end
     it "shows me the same links as a visitor" do
-      visit root_path
+
       click_link("Home")
       expect(current_path).to eq(root_path)
       click_link("Items")
@@ -106,7 +115,7 @@ end
       visit root_path
       expect(page).to_not have_link("LogIn")
       expect(page).to_not have_link("Register")
-      expect(page).to_not have_link("Cart")
+      expect(page).to_not have_link("Cart") #There is currently no cart link
     end
   end
 
