@@ -13,7 +13,7 @@ FactoryBot.define do
       "state #{n}"
     end
     sequence :zip do |n|
-      "1000#{n}"
+      "90210"
     end
     sequence :email do |n|
       "user#{n}@users.com"
@@ -38,7 +38,7 @@ FactoryBot.define do
       "state #{n}"
     end
     sequence :zip do |n|
-      "1000#{n}"
+      "90210"
     end
     sequence :email do |n|
       "merchant#{n}@merchants.com"
@@ -63,7 +63,7 @@ FactoryBot.define do
       "state #{n}"
     end
     sequence :zip do |n|
-      "1000#{n}"
+      "90210"
     end
     sequence :email do |n|
       "admin#{n}@admins.com"
