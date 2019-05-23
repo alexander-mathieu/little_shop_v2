@@ -4,6 +4,7 @@
 <p>Seller: <%= @item.user.name %></p>
 <p>Available: <%= @item.inventory %></p>
 <p>Price: <%= number_to_currency(@item.price) %></p>
+<p>Average Fulfillment Time: <%= @average_fulfillment_time.round(1) %> Days</p>
 
 <section class="add-to-cart">
   <%= form_tag "/cart", method: "post" do |f| %>
