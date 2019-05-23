@@ -53,28 +53,53 @@ RSpec.describe "when I visit an item's show page" do
     end
   end
 
-  describe "as an admin or merchant" do
+  describe "as an admin" do
     before :each do
       @merchant = User.create!(email: "merchant@gmail.com", role: 1, name: "Merchant", address: "Merchant Address", city: "Merchant City", state: "Merchant State", zip: "12345", password: "123456")
       @admin = User.create!(email: "admin@gmail.com", role: 2, name: "Admin", address: "Admin Address", city: "Admin City", state: "Admin State", zip: "22345", password: "123456")
 
-      @item = @merchant.items.create!(name: "Item 1", price: 1.00, description: "Item 1 Description", image: "https://www.warrenhannonjeweler.com/static/images/temp-inventory-landing.jpg", inventory: 10)
+      @item = @merchant.items.create!(name: "Item", price: 2.00, description: "Item Description", image: "https://tradersofafrica.com/img/no-product-photo.jpg", inventory: 15)
     end
 
-    # it "I do not see a link to add that item to my cart" do
-    #   visit item_path(@item)
-    #
-    #   within ".add-to-cart" do
-    #     expect(page).to_not have_button("Add to Cart")
-    #   end
-    # end
-    #
-    # it "I do not see a dropdown to change the quantity of the item added to my cart" do
-    #   visit item_path(@item)
-    #
-    #   within ".add-to-cart" do
-    #     expect(page).to_not have_select(:quantity)
-    #   end
-    # end
+    it "I do not see add-to-cart functionality" do
+      visit login_path
+
+      fill_in :email, with: "admin@gmail.com"
+      fill_in :password, with: "123456"
+
+      click_button "Log In"
+
+      visit item_path(@item)
+
+      within ".add-to-cart" do
+        expect(page).to_not have_select(:quantity)
+        expect(page).to_not have_button("Add to Cart")
+      end
+    end
+  end
+
+  describe "as a merchant" do
+    before :each do
+      @merchant_1 = User.create!(email: "merchant_1@gmail.com", role: 1, name: "Merchant 1", address: "Merchant 1 Address", city: "Merchant 1 City", state: "Merchant 1 State", zip: "12345", password: "123456")
+      @merchant_2 = User.create!(email: "merchant_2@gmail.com", role: 1, name: "Merchant 2", address: "Merchant 2 Address", city: "Merchant 2 City", state: "Merchant 2 State", zip: "22345", password: "123456")
+
+      @item = @merchant_2.items.create!(name: "Item", price: 2.00, description: "Item Description", image: "https://tradersofafrica.com/img/no-product-photo.jpg", inventory: 15)
+    end
+
+    it "I do not see add-to-cart functionality" do
+      visit login_path
+
+      fill_in :email, with: "merchant@gmail.com"
+      fill_in :password, with: "123456"
+
+      click_button "Log In"
+
+      visit item_path(@item)
+
+      within ".add-to-cart" do
+        expect(page).to_not have_select(:quantity)
+        expect(page).to_not have_button("Add to Cart")
+      end
+    end
   end
 end
