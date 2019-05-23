@@ -13,24 +13,35 @@ RSpec.describe "As a user," do
       visit "/cart"
 
       expect(page).to have_content("Your cart is empty.")
+      within ".navbar" do
+        expect(page).to have_content("0 Items in cart")
+      end
     end
 
-    it "I see a list of items and quantities" do
+    it "can add items to a cart" do
       visit "/items/#{@itemA.id}"
-      page.select '2', from: :quantity
+      page.select '1', from: :quantity
       click_on "Add to Cart"
       visit "/items/#{@itemB.id}"
+      within ".navbar" do
+        expect(page).to have_content("1 Item in cart")
+      end
       page.select '5', from: :quantity
       click_on "Add to Cart"
       visit "/items/#{@itemC.id}"
-      page.select '1', from: :quantity
+      within ".navbar" do
+        expect(page).to have_content("6 Items in cart")
+      end
+      page.select '2', from: :quantity
       click_on "Add to Cart"
 
       visit "/cart"
-
-      expect(page).to have_content("#{@itemA.name}: 2")
+      within ".navbar" do
+        expect(page).to have_content("8 Items in cart")
+      end
+      expect(page).to have_content("#{@itemA.name}: 1")
       expect(page).to have_content("#{@itemB.name}: 5")
-      expect(page).to have_content("#{@itemC.name}: 1")
+      expect(page).to have_content("#{@itemC.name}: 2")
     end
   end
 end
