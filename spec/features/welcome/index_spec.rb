@@ -94,7 +94,6 @@ end
         click_on "Log In"
     end
     it "shows me the same links as a visitor" do
-      save_and_open_page
       click_link("Home")
       expect(current_path).to eq(root_path)
       click_link("Items")
