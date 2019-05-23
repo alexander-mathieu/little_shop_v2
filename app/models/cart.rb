@@ -10,7 +10,11 @@ class Cart
     @contents[id] = quantity
   end
 
+  def quantity
+    @contents.values.sum
+  end
+
   def items
-    return Hash[@contents.map {|k,v| [Item.find(k), v]}]
+    return Hash[@contents.map {|item_id, item_quantity| [Item.find(item_id), item_quantity]}]
   end
 end
