@@ -12,5 +12,5 @@ class CartsController < ApplicationController
     @cart = Cart.new(session[:cart])
   end
 
-  def destroy; session[:cart] = nil end
+  def destroy; session[:cart] = nil; redirect_to '/cart' end
 end

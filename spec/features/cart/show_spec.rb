@@ -32,5 +32,25 @@ RSpec.describe "As a user," do
       expect(page).to have_content("#{@itemB.name}: 5")
       expect(page).to have_content("#{@itemC.name}: 1")
     end
+
+    it "I can empty my cart" do
+      visit "/items/#{@itemA.id}"
+      page.select '2', from: :quantity
+      click_on "Add to Cart"
+      visit "/items/#{@itemB.id}"
+      page.select '5', from: :quantity
+      click_on "Add to Cart"
+      visit "/items/#{@itemC.id}"
+      page.select '1', from: :quantity
+      click_on "Add to Cart"
+      
+      visit "/cart"
+
+      click_on "Empty"
+
+      expect(page).to_not have_content("#{@itemA.name}: 2")
+      expect(page).to_not have_content("#{@itemB.name}: 5")
+      expect(page).to_not have_content("#{@itemC.name}: 1")
+    end
   end
 end
