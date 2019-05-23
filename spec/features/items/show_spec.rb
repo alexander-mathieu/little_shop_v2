@@ -3,10 +3,10 @@ require 'rails_helper'
 RSpec.describe "when I visit an item's show page" do
   describe "as any kind of user" do
     before :each do
-      @merchant_1 = User.create!(email: "merchant_1@gmail.com", role: 1, name: "User 1", address: "User 1 Address", city: "User 1 City", state: "User 1 State", zip: "12345", password: "123456")
-      @merchant_2 = User.create!(email: "merchant_2@gmail.com", role: 1, name: "User 2", address: "User 2 Address", city: "User 2 City", state: "User 2 State", zip: "22345", password: "123456")
-      @user_1 = User.create!(email: "user_1@gmail.com", role: 0, name: "User 3", address: "User 3 Address", city: "User 3 City", state: "User 3 State", zip: "32345", password: "123456")
-      @user_2 = User.create!(email: "user_2@gmail.com", role: 0, name: "User 4", address: "User 4 Address", city: "User 4 City", state: "User 4 State", zip: "42345", password: "123456")
+      @merchant_1 = User.create!(email: "merchant_1@gmail.com", role: 1, name: "Merchant 1", address: "Merchant 1 Address", city: "Merchant 1 City", state: "Merchant 1 State", zip: "12345", password: "123456")
+      @merchant_2 = User.create!(email: "merchant_2@gmail.com", role: 1, name: "Merchant 2", address: "Merchant 2 Address", city: "Merchant 2 City", state: "Merchant 2 State", zip: "22345", password: "123456")
+      @user_1 = User.create!(email: "user_1@gmail.com", role: 0, name: "User 1", address: "User 1 Address", city: "User 1 City", state: "User 1 State", zip: "32345", password: "123456")
+      @user_2 = User.create!(email: "user_2@gmail.com", role: 0, name: "User 2", address: "User 2 Address", city: "User 2 City", state: "User 2 State", zip: "42345", password: "123456")
 
       @item_1 = @merchant_1.items.create!(name: "Item 1", price: 1.00, description: "Item 1 Description", image: "https://www.warrenhannonjeweler.com/static/images/temp-inventory-landing.jpg", inventory: 10)
       @item_2 = @merchant_2.items.create!(name: "Item 2", price: 2.00, description: "Item 2 Description", image: "https://tradersofafrica.com/img/no-product-photo.jpg", inventory: 15)
@@ -53,17 +53,15 @@ RSpec.describe "when I visit an item's show page" do
     end
   end
 
-  describe "as a visitor or logged in user" do
+  describe "as an admin or merchant" do
     before :each do
-      @user = User.create!(email: "user@gmail.com", role: 1, name: "User 1", address: "User 1 Address", city: "User 1 City", state: "User 1 State", zip: "12345", password: "123456")
-      @admin = User.create!(email: "admin@gmail.com", role: 2, name: "User 2", address: "User 2 Address", city: "User 2 City", state: "User 2 State", zip: "22345", password: "123456")
+      @merchant = User.create!(email: "merchant@gmail.com", role: 1, name: "Merchant", address: "Merchant Address", city: "Merchant City", state: "Merchant State", zip: "12345", password: "123456")
+      @admin = User.create!(email: "admin@gmail.com", role: 2, name: "Admin", address: "Admin Address", city: "Admin City", state: "Admin State", zip: "22345", password: "123456")
 
-      @item = @user.items.create!(name: "Item 1", price: 1.00, description: "Item 1 Description", image: "https://www.warrenhannonjeweler.com/static/images/temp-inventory-landing.jpg", inventory: 10)
-
-      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@admin)
+      @item = @merchant.items.create!(name: "Item 1", price: 1.00, description: "Item 1 Description", image: "https://www.warrenhannonjeweler.com/static/images/temp-inventory-landing.jpg", inventory: 10)
     end
 
-    # it "I see a link to add that item to my cart" do
+    # it "I do not see a link to add that item to my cart" do
     #   visit item_path(@item)
     #
     #   within ".add-to-cart" do
@@ -71,7 +69,7 @@ RSpec.describe "when I visit an item's show page" do
     #   end
     # end
     #
-    # it "I see a dropdown to change the quantity of the item added to my cart" do
+    # it "I do not see a dropdown to change the quantity of the item added to my cart" do
     #   visit item_path(@item)
     #
     #   within ".add-to-cart" do
