@@ -55,7 +55,14 @@ describe "as a registered user" do
     end
 
     it "shows me a link to my orders" do
-      visit profile_path
+
+      visit root_path
+      click_link "LogIn"
+
+      fill_in 'email', with: @user_8.email
+      fill_in 'password', with: @user_8.password
+      click_button "Log In"
+      
       click_link "My Orders"
       expect(current_path).to eq('/profile/orders')
     end
