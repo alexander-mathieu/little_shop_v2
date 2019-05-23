@@ -18,6 +18,7 @@
       <%= link_to "Register", register_path unless current_user %>
       <%= link_to "Profile", profile_path if current_user %>
       <%= link_to "Logout", logout_path, method: "delete" if current_user %>
+      <%= link_to "Dashboard", dashboard_path if current_user && current_user.merchant? %>
     </section>
 
     <section class="flash">

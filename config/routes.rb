@@ -21,4 +21,6 @@ Rails.application.routes.draw do
   get '/cart', to: 'carts#show'
   delete '/logout', to: "sessions#delete"
 
+  get '/dashboard', to: "merchants#show"
+
 end
