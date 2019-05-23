@@ -7,7 +7,11 @@ class Cart
   def empty?; return @contents.empty? end
 
   def add(id, quantity)
-    @contents[id] = quantity
+    if quantity == -1
+      @contents.delete(id)
+    else
+      @contents[id] = quantity
+    end
   end
 
   def items

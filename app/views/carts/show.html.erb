@@ -4,7 +4,20 @@
   <h3>Your cart:</h3>
   <ul>
   <% @cart.items.each do |k,v| %>
-    <li><%=k.name%>: <%=v%></li>
+    <li id="#cart-item-<%=k.id%>">
+    <%=k.name%>: <%=v%><BR>
+    <%= form_tag "/cart", method: "post" do |f| %>
+      <%= hidden_field :item_id, k.id %>
+      <%= label_tag(:quantity, "Quantity:") %>
+      <%= select_tag(:quantity, options_for_select(0..k.inventory)) %>
+      <%= submit_tag "Change" %>
+    <% end %>
+    <%= form_tag "/cart", method: "post" do |f| %>
+      <%= hidden_field :item_id, k.id %>
+      <%= hidden_field :quantity, -1 %>
+      <%= submit_tag "Remove" %>
+    <% end %>
+    </li>
   <% end %>
   </ul>
   <%= link_to "Empty", cart_path, method: :delete %> 
