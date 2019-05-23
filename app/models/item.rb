@@ -4,6 +4,10 @@ class Item < ApplicationRecord
   has_many :order_items
   has_many :orders, through: :order_items
 
+  def average_fulfillment_time
+    order_items.average('updated_at - created_at')
+  end
+
   def self.most_popular
     select('items.*, SUM(order_items.quantity) AS total_quantity')
     .joins(:order_items)
