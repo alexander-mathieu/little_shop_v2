@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "as a visitor" do
+describe "as a visitor" do
   describe "when I visit the welcome page" do
     it "it displays a navigation bar" do
       visit root_path
@@ -16,19 +16,15 @@ RSpec.describe "as a visitor" do
         # click_link("Cart")
         #
         # expect(current_path).to eq(cart_path)
-
         click_link("LogIn")
         expect(current_path).to eq(login_path)
         click_link("Register")
         expect(current_path).to eq(register_path)
       end
     end
-#     As a registered user, merchant, or admin
-# When I visit the logout path
-# I am redirected to the welcome / home page of the site
-# And I see a flash message that indicates I am logged out
-# Any items I had in my shopping cart are deleted
+  end
 
+describe "as a registered user" do
     it "lets a user log out" do
       user = User.create!(email: "bob@bob.com", password: "124355",
         name: "bob", address:"123 bob st.", city: "bobton", state:"MA", zip: 28234)
@@ -43,7 +39,6 @@ RSpec.describe "as a visitor" do
         expect(current_path).to eq(root_path)
       end
       expect(page).to have_content("You are now logged Out")
-
     end
 
       it "gives me different options as a user" do
@@ -54,7 +49,6 @@ RSpec.describe "as a visitor" do
         fill_in "email", with: user.email
         fill_in "password", with: user.password
         click_on "Log In"
-
         within ".navbar" do
         click_link("Home")
         expect(current_path).to eq(root_path)
@@ -75,7 +69,7 @@ RSpec.describe "as a visitor" do
       end
     end
 
-    it "user goes to user if logged" do
+    it "directs to a users profile if already logged in" do
       user = User.create!(email: "bob@bob.com", password: "124355",
         name: "bob", address:"123 bob st.", city: "bobton", state:"MA", zip: 28234)
       visit root_path
@@ -83,10 +77,46 @@ RSpec.describe "as a visitor" do
       fill_in "email", with: user.email
       fill_in "password", with: user.password
       click_on "Log In"
-
       visit "/login"
-
       expect(current_path).to eq(profile_path)
     end
   end
 end
+
+  describe "as a merchant" do
+    it "shows me the same links as a visitor" do
+      visit root_path
+      click_link("Home")
+      expect(current_path).to eq(root_path)
+      click_link("Items")
+      expect(current_path).to eq(items_path)
+      click_link("Merchants")
+      expect(current_path).to eq(merchants_path)
+    end
+
+    it "also shows the logout and dashboard" do
+        visit root_path
+      click_link("Dashboard")
+      expect(current_path).to eq(dashboard_path)
+      click_link("Logout")
+      expect(current_path).to eq(root_path)
+    end
+
+    it "doesnt show login/register or cart" do
+      visit root_path
+      expect(page).to_not have_link("LogIn")
+      expect(page).to_not have_link("Register")
+      expect(page).to_not have_link("Cart")
+    end
+  end
+
+#   As a merchant user
+# I see the same links as a visitor
+# Plus the following links:
+# - a link to my merchant dashboard ("/dashboard")
+# - a link to log out ("/logout")
+#
+# Minus the following links/info:
+# - I do not see a link to log in or register
+# - a link to my shopping cart ("/cart") or count of cart items
+# end
