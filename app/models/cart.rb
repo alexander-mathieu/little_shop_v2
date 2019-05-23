@@ -11,7 +11,7 @@ class Cart
   end
 
   def quantity
-    @contents.values.sum
+    @contents.values.map(&:to_i).sum
   end
 
   def items

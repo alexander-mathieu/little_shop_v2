@@ -8,7 +8,7 @@ class CartsController < ApplicationController
     redirect_to item_path(id)
   end
 
-  def show 
+  def show
     @cart = Cart.new(session[:cart])
   end
 end
