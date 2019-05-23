@@ -71,10 +71,8 @@ RSpec.describe "when I visit an item's show page" do
 
       visit item_path(@item)
 
-      within ".add-to-cart" do
-        expect(page).to_not have_select(:quantity)
-        expect(page).to_not have_button("Add to Cart")
-      end
+      expect(page).to_not have_select(:quantity)
+      expect(page).to_not have_button("Add to Cart")
     end
   end
 
@@ -89,17 +87,15 @@ RSpec.describe "when I visit an item's show page" do
     it "I do not see add-to-cart functionality" do
       visit login_path
 
-      fill_in :email, with: "merchant@gmail.com"
+      fill_in :email, with: "merchant_1@gmail.com"
       fill_in :password, with: "123456"
 
       click_button "Log In"
 
       visit item_path(@item)
 
-      within ".add-to-cart" do
-        expect(page).to_not have_select(:quantity)
-        expect(page).to_not have_button("Add to Cart")
-      end
+      expect(page).to_not have_select(:quantity)
+      expect(page).to_not have_button("Add to Cart")
     end
   end
 end
