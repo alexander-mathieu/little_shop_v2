@@ -47,12 +47,20 @@ RSpec.describe "As a user," do
     end
 
     it "I can change the quantity in my cart" do
-      
+      within "#cart-item#{@itemB.id}" do
+        page.select '3', from: :quantity
+        click_on "Change"
+      end
 
+      expect(page).to have_content("#{@itemB.name}: 3")
     end
 
     it "I can remove an item from my cart" do
-      
+      within "#cart-item#{@itemB.id}" do
+        click_on "Remove"
+      end
+
+      expect(page).to_not have_content("#{@itemB.name}: 5")
     end
   end
 end
