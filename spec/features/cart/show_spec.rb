@@ -47,7 +47,7 @@ RSpec.describe "As a user," do
     end
 
     it "I can change the quantity in my cart" do
-      within "#cart-item#{@itemB.id}" do
+      within "#cart-item-#{@itemB.id}" do
         page.select '3', from: :quantity
         click_on "Change"
       end
@@ -56,7 +56,7 @@ RSpec.describe "As a user," do
     end
 
     it "I can remove an item from my cart" do
-      within "#cart-item#{@itemB.id}" do
+      within "#cart-item-#{@itemB.id}" do
         click_on "Remove"
       end
 
