@@ -1,7 +1,7 @@
 # As a registered user
 # When I visit my Profile Orders page, "/profile/orders"
 # I see every order I've made, which includes the following information:
-# - the ID of the order, which is a link to the order show page
+
 # - the date the order was made
 # - the date the order was last updated
 # - the current status of the order
@@ -46,16 +46,29 @@ describe "as a registered user" do
 
   it "Shows every order I've made as a link" do
 
-save_and_open_page
-
     click_link "Order #{@order_1.id}"
     expect(current_path).to eq(profile_order_path(@order_1))
     visit profile_orders_path
     click_link "Order #{@order_2.id}"
     expect(current_path).to eq(profile_order_path(@order_2))
 
+    visit profile_orders_path
+    within "#Order-#{@order_1.id}" do
+      expect(page).to have_content("Placed: #{@order_1.created_at.to_date}")
+      expect(page).to have_content("Update: #{@order_1.updated_at.to_date}")
+      expect(page).to have_content("Status: #{@order_1.status}")
+      expect(page).to have_content("Number of Items: #{@order_1.item_count}")
+      expect(page).to have_content("Order Cost: #{@order_1.total_price}")
+    end
+    within "#Order-#{@order_2.id}" do
+      expect(page).to have_content("Placed: #{@order_2.created_at.to_date}")
+      expect(page).to have_content("Update: #{@order_2.updated_at.to_date}")
+      expect(page).to have_content("Status: #{@order_2.status}")
+      expect(page).to have_content("Number of Items: #{@order_2.item_count}")
+      expect(page).to have_content("Order Cost: #{@order_2.total_price}")
+    end
 
-  end
+    end
 
   end
 
