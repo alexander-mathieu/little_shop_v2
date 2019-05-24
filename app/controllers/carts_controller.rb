@@ -5,7 +5,7 @@ class CartsController < ApplicationController
     @cart.add(id, params[:quantity])
     session[:cart] = @cart.contents
     #flash for
-    redirect_to item_path(id)
+    redirect_back fallback_location: '/'
   end
 
   def show
