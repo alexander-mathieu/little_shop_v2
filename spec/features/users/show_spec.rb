@@ -62,9 +62,9 @@ describe "as a registered user" do
       fill_in 'email', with: @user_8.email
       fill_in 'password', with: @user_8.password
       click_button "Log In"
-      
+
       click_link "My Orders"
-      expect(current_path).to eq('/profile/orders')
+      expect(current_path).to eq(profile_orders_path)
     end
 
 #     As a registered user
