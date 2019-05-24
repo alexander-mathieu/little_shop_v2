@@ -22,6 +22,8 @@ Rails.application.routes.draw do
   delete '/logout', to: "sessions#delete"
 
   get '/dashboard', to: "merchants#show"
-  
-  get 'admin/dashboard', to: 'dashboard#index'
+
+  namespace :admin do
+    get '/dashboard', to: 'dashboard#index'
+  end
 end
