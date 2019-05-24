@@ -18,6 +18,16 @@ class User < ApplicationRecord
     where(role: "merchant")
   end
 
+  def self.topthree_revenue
+    # select('books.*, avg(reviews.rating)').joins(:reviews).group('id').order('avg(reviews.rating) DESC').limit(3)
+    find_merchants.select('users.*')
+                  .joins(items: :order_items)
+                  .select('users.*', 'sum(order_items.price)')
+                  .group('users.id')
+                  .order('sum(order_items.price) DESC')
+                  .limit(3)
+  end
+
   def top_five_sold
     items.select('items.*, SUM(order_items.quantity) AS total_quantity')
     .joins(:orders)
