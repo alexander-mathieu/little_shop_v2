@@ -26,9 +26,15 @@ RSpec.describe Order, type: :model do
         @order_item_5 = @order_2.order_items.create!(item_id: @item_2.id, quantity: 2, price: 4.00, fulfilled: true)
       end
 
-    it "#item_count" do
+    it "#total_item_count" do
       expect(@order_1.total_item_count).to eq(2)
       expect(@order_2.total_item_count).to eq(5)
+    end
+
+    it "#total_price" do
+      expect(@order_1.total_price).to eq(2.00)
+      expect(@order_2.total_price).to eq(9.00)
+
     end
   end
 end

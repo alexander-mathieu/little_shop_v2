@@ -9,4 +9,8 @@ class Order < ApplicationRecord
   def total_item_count
     items.sum(:quantity)
   end
+
+  def total_price
+    order_items.sum(:price)
+  end
 end
