@@ -55,14 +55,14 @@ describe "as a registered user" do
     visit profile_orders_path
     within "#Order-#{@order_1.id}" do
       expect(page).to have_content("Placed: #{@order_1.created_at.to_date}")
-      expect(page).to have_content("Update: #{@order_1.updated_at.to_date}")
+      expect(page).to have_content("Updated: #{@order_1.updated_at.to_date}")
       expect(page).to have_content("Status: #{@order_1.status}")
       expect(page).to have_content("Number of Items: #{@order_1.item_count}")
       expect(page).to have_content("Order Cost: #{@order_1.total_price}")
     end
     within "#Order-#{@order_2.id}" do
       expect(page).to have_content("Placed: #{@order_2.created_at.to_date}")
-      expect(page).to have_content("Update: #{@order_2.updated_at.to_date}")
+      expect(page).to have_content("Updated: #{@order_2.updated_at.to_date}")
       expect(page).to have_content("Status: #{@order_2.status}")
       expect(page).to have_content("Number of Items: #{@order_2.item_count}")
       expect(page).to have_content("Order Cost: #{@order_2.total_price}")
