@@ -55,6 +55,19 @@ RSpec.describe "As a user," do
       expect(page).to have_content("#{@itemB.name}: 3")
     end
 
+    it "I can add an item after changing" do
+      within "#cart-item-#{@itemB.id}" do
+        page.select '3', from: :quantity
+        click_on "Change"
+      end
+      visit "/items/#{@itemB.id}"
+      page.select '1', from: :quantity
+      click_on "Add to Cart"
+      visit "/cart"
+
+      expect(page).to have_content("#{@itemB.name}: 4")
+    end
+
     it "I can remove an item from my cart" do
       within "#cart-item-#{@itemB.id}" do
         click_on "Remove"
