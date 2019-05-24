@@ -8,12 +8,15 @@
     <%=item.name%>: <%=quantity%><BR>
     <%= form_tag "/cart", method: "post" do |f| %>
       <%= hidden_field :item_id, item.id %>
+      <%= hidden_field :adding, 0 %>
       <%= label_tag(:quantity, "Quantity:") %>
       <%= select_tag(:quantity, options_for_select(0..item.inventory)) %>
       <%= submit_tag "Change" %>
     <% end %>
     <%= form_tag "/cart", method: "post" do |f| %>
       <%= hidden_field :item_id, item.id %>
+      <%= hidden_field :adding, 0 %>
+      <%= label_tag(:quantity, "Quantity:") %>
       <%= hidden_field :quantity, 0 %>
       <%= submit_tag "Remove" %>
     <% end %>
