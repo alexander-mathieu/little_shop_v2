@@ -28,13 +28,13 @@ class User < ApplicationRecord
                   .limit(3)
   end
 
-  def self.top_three_fulfillments
+  def self.top_fulfillments(speed)
     find_merchants.select('users.*')
                   .joins(items: :order_items)
                   .select('users.*', 'sum(order_items.updated_at - order_items.created_at) AS fulfillment_time')
                   .where('order_items.fulfilled = true')
                   .group('users.id')
-                  .order('fulfillment_time asc')
+                  .order("fulfillment_time #{speed}")
                   .limit(3)
   end
 
