@@ -2,7 +2,13 @@ class CartsController < ApplicationController
   def create
     id = params[:item_id].keys[0].to_i #Fix for the weird form behaviour
     @cart = Cart.new(session[:cart])
-    @cart.add(id, params[:quantity])
+    if params[:quantity].class != String
+      quantity = params[:quantity].keys
+      quantity = quantity[0].to_i
+    else
+      quantity = params[:quantity]
+    end
+    @cart.add(id, quantity)
     session[:cart] = @cart.contents
     #flash for
     redirect_back fallback_location: '/'
