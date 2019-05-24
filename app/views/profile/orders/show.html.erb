@@ -1,0 +1,14 @@
+<h1>Order: <%= @order.id %></h1>
+
+<p>Placed: <%= @order.created_at.to_date %></p>
+<p>Updated: <%= @order.updated_at.to_date %></p>
+<p>Status: <%= @order.status %></p>
+<p>Number of Items: <%= @order.total_item_count %></p>
+<p>Total Cost: <%= @order.total_price %></p>
+
+<% @order.items.each do |item| %>
+<section id="item-<%= item.id %>">
+<p><%= item.price %></p>
+<p><%= item.description %></p>
+</section>
+<% end %>
