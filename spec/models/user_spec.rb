@@ -11,12 +11,48 @@ RSpec.describe User, type: :model do
       @user_1 = create(:merchant)
       @user_2 = create(:user)
       @user_3 = create(:merchant)
-
+      @user_4 = create(:merchant)
+      @user_5 = create(:user)
+      @user_6 = create(:merchant)
+      @user_7 = create(:user)
+      @user_8 = create(:user)
+      @user_9 = create(:user)
+      @user_10 = create(:user)
       @users = User.all
+
+      @item_1 = create(:item, price: 10, user: @user_1)
+      @item_2 = create(:item, price: 20, user: @user_1)
+      @item_3 = create(:item, price: 30, user: @user_1)
+      @item_4 = create(:item, price: 100, user: @user_4)
+      @item_5 = create(:item, price: 200, user: @user_4)
+      @item_6 = create(:item, price: 300, user: @user_4)
+      @item_7 = create(:item, price: 1000, user: @user_3)
+      @item_8 = create(:item, price: 2000, user: @user_3)
+      @item_9 = create(:item, price: 3000, user: @user_3)
+      @item_10 = create(:item, price: 1, user: @user_6)
+
+      @order_1 = create(:packaged, user: @user_2)
+      @order_2 = create(:packaged, user: @user_2)
+      @order_3 = create(:packaged, user: @user_2)
+      @order_4 = create(:packaged, user: @user_2)
+
+      @order_item_1 = @order_1.order_items.create!(item_id: @item_1.id, quantity: 1, price: 10.00, fulfilled: true)
+      @order_item_2 = @order_1.order_items.create!(item_id: @item_2.id, quantity: 2, price: 40.00, fulfilled: true)
+      @order_item_3 = @order_1.order_items.create!(item_id: @item_3.id, quantity: 2, price: 60.00, fulfilled: true)
+      @order_item_4 = @order_2.order_items.create!(item_id: @item_4.id, quantity: 1, price: 100.00, fulfilled: true)
+      @order_item_5 = @order_2.order_items.create!(item_id: @item_5.id, quantity: 2, price: 400.00, fulfilled: true)
+      @order_item_6 = @order_2.order_items.create!(item_id: @item_6.id, quantity: 4, price: 1200.00, fulfilled: true)
+      @order_item_7 = @order_3.order_items.create!(item_id: @item_8.id, quantity: 2, price: 4000.00, fulfilled: true)
+      @order_item_8 = @order_3.order_items.create!(item_id: @item_9.id, quantity: 3, price: 9000.00, fulfilled: true)
+      @order_item_9 = @order_4.order_items.create!(item_id: @item_10.id, quantity: 100, price: 100.00, fulfilled: true)
     end
 
     it ".find_merchants" do
-      expect(@users.find_merchants).to eq([@user_1, @user_3])
+      expect(@users.find_merchants).to eq([@user_1, @user_3, @user_4, @user_6])
+    end
+
+    it ".topthree_revenue" do
+      expect(@users.topthree_revenue).to eq([@user_3, @user_4, @user_1])
     end
   end
 
