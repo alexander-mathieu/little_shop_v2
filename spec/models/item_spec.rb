@@ -89,5 +89,9 @@ RSpec.describe Item, type: :model do
     it "#average_fulfillment_time" do
       expect(@item_1.average_fulfillment_time).to eq(8.0)
     end
+    it "#find_order_item" do
+      expect(@item_1.find_order_item(@order_1.id)).to eq(@order_item_1)
+
+    end
   end
 end

@@ -1,15 +1,6 @@
 
-# When I visit my Profile Orders page
-# And I click on a link for order's show page
-# My URL route is now something like "/profile/orders/15"
-# I see all information about the order, including the following information:
-# - the ID of the order
-# - the date the order was made
-# - the date the order was last updated
-# - the current status of the order
-# - each item I ordered, including name, description, thumbnail, quantity, price and subtotal
-# - the total quantity of items in the whole order
-# - the grand total of all items for that order
+#
+
 
 require "rails_helper"
 
@@ -32,7 +23,7 @@ describe "as a registered user" do
     @order_item_2 = @order_2.order_items.create!(item_id: @item_1.id, quantity: 1, price: 1.00, fulfilled: true)
     @order_item_3 = @order_2.order_items.create!(item_id: @item_2.id, quantity: 2, price: 4.00, fulfilled: true)
     @order_item_4 = @order_1.order_items.create!(item_id: @item_1.id, quantity: 1, price: 1.00, fulfilled: true)
-    @order_item_5 = @order_2.order_items.create!(item_id: @item_2.id, quantity: 2, price: 4.00, fulfilled: true)
+
 
     visit root_path
 
@@ -45,6 +36,8 @@ describe "as a registered user" do
     click_on "Log In"
   end
 
+  # - each item I ordered, including name, description, thumbnail, quantity, price and subtotal
+
   it "has an item show page" do
     visit profile_order_path(@order_2)
     save_and_open_page
@@ -56,8 +49,20 @@ describe "as a registered user" do
     expect(page).to have_content("Total Cost: #{@order_2.total_price}")
 
     within "#item-#{@item_1.id}" do
+      expect(page).to have_content(@item_1.name)
       expect(page).to have_content(@item_1.price)
+      expect(page).to have_content(@order_item_1.quantity)
+      expect(page).to have_content("Subtotal: #{@order_item_1.price}")
       expect(page).to have_content(@item_1.description)
+      find "img[src='#{@item_1.image}']"
+    end
+    within "#item-#{@item_2.id}" do
+      expect(page).to have_content(@item_2.name)
+      expect(page).to have_content(@item_2.price)
+      expect(page).to have_content(@order_item_3.quantity)
+      expect(page).to have_content("Subtotal: #{@order_item_3.price}")
+      expect(page).to have_content(@item_2.description)
+      find "img[src='#{@item_2.image}']"
     end
   end
 
