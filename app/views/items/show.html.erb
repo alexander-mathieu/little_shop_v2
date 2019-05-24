@@ -15,6 +15,7 @@
     <%= form_tag "/cart", method: "post" do |f| %>
 
     <%= hidden_field :item_id, @item.id %>
+    <%= hidden_field :adding, 1 %>
 
     <%= label_tag(:quantity, "Quantity:") %>
     <%= select_tag(:quantity, options_for_select(0..@item.inventory)) %>

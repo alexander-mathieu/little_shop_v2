@@ -3,8 +3,25 @@
 <% else %>
   <h3>Your cart:</h3>
   <ul>
-  <% @cart.items.each do |k,v| %>
-    <li><%=k.name%>: <%=v%></li>
+  <% @cart.items.each do |item,quantity| %>
+    <li id="cart-item-<%=item.id%>">
+    <%=item.name%>: <%=quantity%><BR>
+    <%= form_tag "/cart", method: "post" do |f| %>
+      <%= hidden_field :item_id, item.id %>
+      <%= hidden_field :adding, 0 %>
+      <%= label_tag(:quantity, "Quantity:") %>
+      <%= select_tag(:quantity, options_for_select(0..item.inventory)) %>
+      <%= submit_tag "Change" %>
+    <% end %>
+    <%= form_tag "/cart", method: "post" do |f| %>
+      <%= hidden_field :item_id, item.id %>
+      <%= hidden_field :adding, 0 %>
+      <%= label_tag(:quantity, "Quantity:") %>
+      <%= hidden_field :quantity, 0 %>
+      <%= submit_tag "Remove" %>
+    <% end %>
+    </li>
   <% end %>
   </ul>
+  <%= link_to "Empty", cart_path, method: :delete %> 
 <% end %>
