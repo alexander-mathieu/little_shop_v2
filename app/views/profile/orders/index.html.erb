@@ -1,0 +1,3 @@
+<%current_user.orders.each do |order| %>
+  <%= link_to("Order #{order.id}", profile_order_path(order)) %>
+<% end %>

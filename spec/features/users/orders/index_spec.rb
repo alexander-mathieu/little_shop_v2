@@ -37,11 +37,12 @@ describe "as a registered user" do
     click_on "LogIn"
 
     expect(current_path).to eq(login_path)
-    fill_in "email", with: user.email
-    fill_in "password", with: user.password
+    fill_in "email", with: @user_8.email
+    fill_in "password", with: @user_8.password
 
     click_on "Log In"
     click_link "My Orders"
+    save_and_open_page
 
   end
 
@@ -49,9 +50,9 @@ describe "as a registered user" do
 
 
     click_link "Order #{@order_1.id}"
-    expect(current_path).to eq(profile_orders_show_path(@order_1)
+    expect(current_path).to eq(profile_order_path(@order_1))
     click_link "Order #{@order_2.id}"
-    expect(current_path).to eq(profile_orders_show_path(@order_2)
+    expect(current_path).to eq(profile_order_path(@order_2))
 
 
   end
