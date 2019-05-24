@@ -12,6 +12,9 @@ Rails.application.routes.draw do
 
   get '/profile', to: "users#show"
   get '/profile/edit', to: "users#edit"
+  namespace :profile do
+    resources :orders, only: :index
+  end
   put '/users', to: "users#update"
 
   get '/login', to: 'sessions#new'
