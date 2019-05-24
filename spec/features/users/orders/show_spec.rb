@@ -15,7 +15,6 @@ describe "as a registered user" do
 
     @item_1 = @user_1.items.create!(name: "Item 1", active: true, price: 1.00, description: "Item 1 Description", image: "https://tradersofafrica.com/img/no-product-photo.jpg", inventory: 10)
     @item_2 = @user_2.items.create!(name: "Item 2", active: true, price: 2.00, description: "Item 2 Description", image: "https://tradersofafrica.com/img/no-product-photo.jpg", inventory: 15)
-    @item_3 = @user_2.items.create!(name: "Item 3", active: true, price: 3.00, description: "Item 3 Description", image: "https://tradersofafrica.com/img/no-product-photo.jpg", inventory: 20)
 
     @order_1 = @user_8.orders.create!(status: 3)
     @order_2 = @user_8.orders.create!(status: 2)
@@ -23,8 +22,6 @@ describe "as a registered user" do
     @order_item_1 = @order_1.order_items.create!(item_id: @item_1.id, quantity: 1, price: 1.00, fulfilled: true)
     @order_item_2 = @order_2.order_items.create!(item_id: @item_1.id, quantity: 1, price: 1.00, fulfilled: true)
     @order_item_3 = @order_2.order_items.create!(item_id: @item_2.id, quantity: 2, price: 4.00, fulfilled: true)
-    @order_item_4 = @order_1.order_items.create!(item_id: @item_1.id, quantity: 1, price: 1.00, fulfilled: true)
-
 
     visit root_path
 
@@ -36,8 +33,6 @@ describe "as a registered user" do
 
     click_on "Log In"
   end
-
-  # - each item I ordered, including name, description, thumbnail, quantity, price and subtotal
 
   it "has an item show page" do
     visit profile_order_path(@order_2)
