@@ -7,10 +7,22 @@ class Cart
   def empty?; return @contents.empty? end
 
   def add(id, quantity)
-    @contents[id] = quantity
+    if quantity == 0
+      @contents.delete(id)
+    else
+      @contents[id] = quantity
+    end
+  end
+
+  def quantity
+    @contents.values.map(&:to_i).sum
+  end
+
+  def quantity_of(id)
+    return @contents[id] || 0
   end
 
   def items
-    return Hash[@contents.map {|k,v| [Item.find(k), v]}]
+    return Hash[@contents.map {|id,qnt| [Item.find(id), qnt]}]
   end
 end

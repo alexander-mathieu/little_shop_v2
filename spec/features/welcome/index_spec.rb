@@ -1,5 +1,7 @@
 require 'rails_helper'
 
+###Tests for navbar showing number of items in cart are in cart_show reature spec
+
 describe "as a visitor" do
   describe "when I visit the welcome page" do
     it "it displays a navigation bar" do
@@ -12,10 +14,8 @@ describe "as a visitor" do
         expect(current_path).to eq(items_path)
         click_link("Merchants")
         expect(current_path).to eq(merchants_path)
-
-        # click_link("Cart")
-        #
-        # expect(current_path).to eq(cart_path)
+        click_link("Cart")
+        expect(current_path).to eq(cart_path)
         click_link("LogIn")
         expect(current_path).to eq(login_path)
         click_link("Register")
@@ -56,8 +56,8 @@ describe "as a registered user" do
         expect(current_path).to eq(items_path)
         click_link("Merchants")
         expect(current_path).to eq(merchants_path)
-        # click_link("Cart")
-        # expect(current_path).to eq(cart_path)
+        click_link("Cart")
+        expect(current_path).to eq(cart_path)
         expect(page).to_not have_link("LogIn")
         expect(page).to_not have_link("Register")
         click_link("Profile")
@@ -114,7 +114,7 @@ end
       visit root_path
       expect(page).to_not have_link("LogIn")
       expect(page).to_not have_link("Register")
-      expect(page).to_not have_link("Cart") #There is currently no cart link
+      expect(page).to_not have_link("Cart")
     end
   end
 
