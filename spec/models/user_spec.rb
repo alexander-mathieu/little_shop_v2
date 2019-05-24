@@ -34,8 +34,8 @@ RSpec.describe User, type: :model do
 
       @order_1 = create(:packaged, user: @user_2)
       @order_2 = create(:packaged, user: @user_7)
-      @order_3 = create(:packaged, user: @user_7)
-      @order_4 = create(:packaged, user: @user_8)
+      @order_3 = create(:packaged, user: @user_8)
+      @order_4 = create(:packaged, user: @user_9)
       @order_5 = create(:packaged, user: @user_9)
       @order_6 = create(:packaged, user: @user_9)
       @order_7 = create(:packaged, user: @user_9)
@@ -59,7 +59,10 @@ RSpec.describe User, type: :model do
     end
 
     it ".top_three_revenue" do
+      revenue = @users.top_three_revenue.map { |user| user.revenue }
+
       expect(@users.top_three_revenue).to eq([@user_3, @user_4, @user_1])
+      expect(revenue).to eq([13000, 1700, 110])
     end
 
     it ".top_three_fulfillments_fastest_and_slowest" do
@@ -76,10 +79,10 @@ RSpec.describe User, type: :model do
       order_item_15 = @order_10.order_items.create!(item_id: @item_10.id, quantity: 100, price: 100.00, fulfilled: true)
 
       states = @users.top_three_orders_by("state").map { |user| user.state }
-      order_count_per_state = @users.top_three_orders_by("state").map { |user| user.state_count }
+      order_count_per_state = @users.top_three_orders_by("state").map { |user| user.state_order_count }
 
       cities = @users.top_three_orders_by("city").map { |user| user.city }
-      order_count_per_city = @users.top_three_orders_by("city").map { |user| user.city_count }
+      order_count_per_city = @users.top_three_orders_by("city").map { |user| user.city_order_count }
 
       expect(states).to eq ([@user_1.state, @user_6.state, @user_3.state])
       expect(states).to eq ([@user_4.state, @user_6.state, @user_3.state])
