@@ -8,8 +8,10 @@
 <br><br>
 <% @order.items.each do |item| %>
 <section id="item-<%= item.id %>">
-<p><%= item.price %></p>
+  <p><%= item.name %></p>
+<p>Price Per Item: <%= number_to_currency(item.price) %></p>
 <p><%= item.description %></p>
-<p>Subtotal: <%= item.find_order_item(@order) %></p>
+<p>Subtotal: <%= number_to_currency(item.find_order_item(@order.id).price) %></p>
+<img src="<%=item.image%>">
 </section>
 <% end %>

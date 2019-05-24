@@ -3,6 +3,7 @@
 
 
 require "rails_helper"
+include ActionView::Helpers::NumberHelper
 
 describe "as a registered user" do
 
@@ -50,17 +51,17 @@ describe "as a registered user" do
 
     within "#item-#{@item_1.id}" do
       expect(page).to have_content(@item_1.name)
-      expect(page).to have_content(@item_1.price)
+      expect(page).to have_content("Price Per Item: #{number_to_currency(@item_1.price)}")
       expect(page).to have_content(@order_item_1.quantity)
-      expect(page).to have_content("Subtotal: #{@order_item_1.price}")
+      expect(page).to have_content("Subtotal: #{number_to_currency(@order_item_1.price)}")
       expect(page).to have_content(@item_1.description)
       find "img[src='#{@item_1.image}']"
     end
     within "#item-#{@item_2.id}" do
       expect(page).to have_content(@item_2.name)
-      expect(page).to have_content(@item_2.price)
+      expect(page).to have_content("Price Per Item: #{number_to_currency(@item_2.price)}")
       expect(page).to have_content(@order_item_3.quantity)
-      expect(page).to have_content("Subtotal: #{@order_item_3.price}")
+      expect(page).to have_content("Subtotal: #{number_to_currency(@order_item_3.price)}")
       expect(page).to have_content(@item_2.description)
       find "img[src='#{@item_2.image}']"
     end
