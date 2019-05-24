@@ -42,15 +42,15 @@ describe "as a registered user" do
 
     click_on "Log In"
     click_link "My Orders"
-    save_and_open_page
-
   end
 
   it "Shows every order I've made as a link" do
 
+save_and_open_page
 
     click_link "Order #{@order_1.id}"
     expect(current_path).to eq(profile_order_path(@order_1))
+    visit profile_orders_path
     click_link "Order #{@order_2.id}"
     expect(current_path).to eq(profile_order_path(@order_2))
 
