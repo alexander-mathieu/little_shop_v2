@@ -11,6 +11,8 @@
 # - the total quantity of items in the whole order
 # - the grand total of all items for that order
 
+require "rails_helper"
+
 describe "as a registered user" do
 
   before :each do
@@ -56,9 +58,6 @@ describe "as a registered user" do
       expect(page).to have_content(@item_1.price)
       expect(page).to have_content(@item_1.description)
     end
-
-
   end
 
-  end
 end
