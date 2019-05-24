@@ -27,8 +27,8 @@ RSpec.describe Order, type: :model do
       end
 
     it "#item_count" do
-      expect(@order_1.item_count).to eq(2)
-      expect(@order_2.item_count).to eq(5)
+      expect(@order_1.total_item_count).to eq(2)
+      expect(@order_2.total_item_count).to eq(5)
     end
   end
 end

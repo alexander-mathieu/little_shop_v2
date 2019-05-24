@@ -6,7 +6,7 @@ class Order < ApplicationRecord
 
   enum status: ["pending", "packaged", "shipped", "cancelled"]
 
-  def item_count
+  def total_item_count
     items.sum(:quantity)
   end
 end
