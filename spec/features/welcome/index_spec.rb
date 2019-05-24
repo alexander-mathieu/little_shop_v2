@@ -161,6 +161,18 @@ RSpec.describe "when I visit the welcome page" do
         expect(page).to_not have_content("Items in cart")
       end
     end
+
+    it "the page displays a link to my admin dashboard" do
+      visit root_path
+
+      within ".navbar" do
+        expect(page).to have_link("Dashboard")
+
+        click_link("Dashboard")
+
+        expect(current_path).to eq(admin_dashboard_path)
+      end
+    end
   end
 end
 
