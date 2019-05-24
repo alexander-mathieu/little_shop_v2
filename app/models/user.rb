@@ -36,11 +36,11 @@ class User < ApplicationRecord
                   .limit(3)
   end
 
-  def self.top_three_orders_by_state
+  def self.top_three_orders_by(city_or_state)
     find_merchants.joins(items: :order_items)
-                  .select('users.state', 'COUNT(DISTINCT(order_items.order_id)) AS state_count')
-                  .group('users.state').distinct
-                  .order('state_count desc')
+                  .select("users.#{city_or_state}", "COUNT(DISTINCT(order_items.order_id)) AS #{city_or_state}_count")
+                  .group("users.#{city_or_state}").distinct
+                  .order("#{city_or_state}_count desc")
                   .limit(3)
   end
 
