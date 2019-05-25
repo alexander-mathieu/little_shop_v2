@@ -7,4 +7,6 @@
   <p><%= @user.city %></p>
   <p><%= @user.state %></p>
   <p><%= @user.zip %></p>
+
+  <%= link_to "View Orders", admin_user_orders_path(@user) %>
 </section>
