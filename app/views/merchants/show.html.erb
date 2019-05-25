@@ -4,18 +4,3 @@
 <%= @user.city %>,
 <%= @user.state %>
 <%= @user.zip %>
-<% if current_admin? %>
-<% if !@user.active %>
-  <%= form_tag admin_merchant_path(@user), method: :put do -%>
-    <%= hidden_field_tag :user_id, @user.id -%>
-    <%= hidden_field_tag :enable, true -%>
-    <%= submit_tag 'enable' -%>
-  <%- end -%>
-<% else %>
-    <%= form_tag admin_merchant_path(@user), method: :put do -%>
-      <%= hidden_field_tag :user_id, @user.id -%>
-      <%= hidden_field_tag :disable, true -%>
-      <%= submit_tag 'disable' -%>
-    <%- end -%>
-  <% end %>
-<% end %>

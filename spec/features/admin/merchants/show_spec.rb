@@ -29,17 +29,15 @@ describe "as an admin" do
         expect(page).to have_link(@merchant_1.name)
         expect(page).to have_content(@merchant_1.city)
         expect(page).to have_content(@merchant_1.state)
+        expect(page).to have_button("disable")
       end
       within "#merchant-#{@merchant_2.id}" do
         expect(page).to have_link(@merchant_2.name)
         expect(page).to have_content(@merchant_2.city)
         expect(page).to have_content(@merchant_2.state)
+        expect(page).to have_button("enable")
       end
-      click_link @merchant_1.name
-      expect(current_path).to eq(admin_merchant_path(@merchant_1))
-      expect(page).to have_button("disable")
-      visit admin_merchant_path(@merchant_2)
-      expect(page).to have_button("enable")
+      
     end
 
   end
