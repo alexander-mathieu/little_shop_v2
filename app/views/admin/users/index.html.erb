@@ -3,7 +3,8 @@
 <section class="all-default-users">
   <% @default_users.each do |user| %>
     <div class="default-user-<%= user.id %>">
-      <p><%= link_to user.name, admin_user_path(user) %> Joined: <%= user.created_at %>
+      <p><%= link_to user.name, admin_user_path(user) %> Joined: <%= user.created_at %></p>
+      <%= button_to "Upgrade to Merchant" %>
     </div>
   <% end %>
 </section>
