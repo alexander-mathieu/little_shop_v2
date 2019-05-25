@@ -55,6 +55,8 @@ RSpec.describe Order, type: :model do
 
     it '.top_three_order_item_quantity' do
       expect(@orders.top_three_order_item_quantity).to eq([@order_4, @order_1, @order_2])
+    end
+  end
 
   describe "instance methods" do
       before :each do
@@ -85,7 +87,6 @@ RSpec.describe Order, type: :model do
     it "#total_price" do
       expect(@order_1.total_price).to eq(2.00)
       expect(@order_2.total_price).to eq(9.00)
-
     end
   end
 end
