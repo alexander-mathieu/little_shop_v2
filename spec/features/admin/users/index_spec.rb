@@ -64,6 +64,26 @@ RSpec.describe "as an admin" do
       end
     end
 
-    it "I see an 'Upgrade to Merchant' button beside each user name"
+    it "I see an 'Upgrade to Merchant' button beside each user name" do
+      visit admin_users_path
+
+      within ".all-default-users" do
+        within ".default-user-#{@user_1.id}" do
+          expect(page).to have_button("Upgrade to Merchant")
+        end
+
+        within ".default-user-#{@user_2.id}" do
+          expect(page).to have_button("Upgrade to Merchant")
+        end
+
+        within ".default-user-#{@user_3.id}" do
+          expect(page).to have_button("Upgrade to Merchant")
+        end
+
+        within ".default-user-#{@user_4.id}" do
+          expect(page).to have_button("Upgrade to Merchant")
+        end
+      end
+    end
   end
 end
