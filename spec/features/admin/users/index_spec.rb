@@ -29,6 +29,12 @@ RSpec.describe "as an admin" do
         expect(page).to have_content(@user_3.name)
         expect(page).to have_content(@user_4.name)
       end
+
+      within ".all-default-users" do
+        expect(page).to_not have_content(@admin_2.name)
+        expect(page).to_not have_content(@merchant_1.name)
+        expect(page).to_not have_content(@merchant_2.name)
+      end
     end
 
     it "I see each user's name as a link to a show page for that user" do
