@@ -1,10 +1,55 @@
 <h2> All Merchants <h2>
-<%= @merchants.each do |merchant| %>
+
+<% @merchants.each do |merchant| %>
   <section id="merchant-<%= merchant.id %>" >
-    <%= merchant.name %>
-    <%= merchant.city %>
-    <%= merchant.state %>
-    <%= merchant.created_at %>
-    <%= Date.strptime(merchant.created_at.to_s) %>
+    <h3><%= merchant.name %></h3>
+    <p>From: <%= merchant.city %>, <%= merchant.state %><br>
+    Date joined: <%= Date.strptime(merchant.created_at.to_s) %></p>
   </section>
 <% end %>
+
+<h2> Merchant Stats </h2>
+<section id="merchant-stats">
+  <div id="top-3-revenue">
+    <% @merchants_top_three_revenue.each do |merchant| %>
+      <%= merchant.name %>:
+      <%= merchant.revenue.round(2) %><br><br>
+    <% end %>
+  </div>
+
+  <div id="top-3-fulfillments">
+    <% @merchants_quickest_fulfillments.each do |merchant| %>
+      <%= merchant.name %>:
+      <%= merchant.fulfillment_time %><br><br>
+    <% end %>
+  </div>
+
+  <div id="bottom-3-fulfillments">
+    <% @merchants_slowest_fulfillments.each do |merchant| %>
+      <%= merchant.name %>:
+      <%= merchant.fulfillment_time %><br><br>
+    <% end %>
+  </div>
+
+  <div id="top-3-states">
+    <% @merchants_top_three_states.each do |merchant| %>
+      <%= merchant.state %>:
+      <%= merchant.state_order_count %><br><br>
+    <% end %>
+  </div>
+
+  <div id="top-3-cities">
+    <% @merchants_top_three_cities.each do |merchant| %>
+      <%= merchant.city %>:
+      <%= merchant.city_order_count %><br><br>
+    <% end %>
+  </div>
+
+  <div id="top-3-orders">
+    <% @top_three_orders.each do |order| %>
+      <%= order.id.to_s %>:
+      <%= order.order_item_quantity %><br><br>
+    <% end %>
+  </div>
+
+</section>

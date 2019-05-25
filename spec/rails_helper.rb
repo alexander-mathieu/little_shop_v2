@@ -75,3 +75,7 @@ RSpec::Matchers.define :appear_before do |later_content|
     page.current_scope.text.index(earlier_content) < page.current_scope.text.index(later_content)
   end
 end
+
+RSpec.configure do |config|
+  config.include ActiveSupport::Testing::TimeHelpers
+end
