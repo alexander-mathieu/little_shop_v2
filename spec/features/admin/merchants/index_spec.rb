@@ -40,8 +40,20 @@ describe "as an admin" do
 
     end
 
-    xit "lets an admin know if a merchant was enabled/disabled" do
-
+    it "lets an admin know if a merchant was enabled/disabled" do
+      visit merchants_path
+      within "#merchant-#{@merchant_2.id}" do
+        click_button "enable"
+      end
+        expect(current_path).to eq(merchants_path)
+        expect(page).to have_content("Merchant #{@merchant_2.id} enabled")
+        expect(User.find(@merchant_2.id).active).to eq(true)
+        within "#merchant-#{@merchant_2.id}" do
+          click_button "disable"
+        end
+        expect(current_path).to eq(merchants_path)
+        expect(page).to have_content("Merchant #{@merchant_2.id} disabled")
+        expect(User.find(@merchant_2.id).active).to eq(false)
     end
 
     it "only lets enabled users log in" do
