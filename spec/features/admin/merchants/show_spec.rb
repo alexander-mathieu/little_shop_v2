@@ -12,8 +12,8 @@ describe "as an admin" do
     before :each do
       @admin_1 = User.create!(email: "admin_1@gmail.com", role: 2, name: "Admin 1", address: "Admin 1 Address", city: "Admin 1 City", state: "Admin 1 State", zip: "12345", password: "123456")
 
-      @merchant_1 = User.create!(email: "merchant_1@gmail.com", role: 1, name: "Merchant 1", address: "Merchant 1 Address", city: "Merchant 1 City", state: "Merchant 1 State", zip: "32345", password: "123456")
-      @merchant_2 = User.create!(email: "merchant_2@gmail.com", role: 1, name: "Merchant 2", address: "Merchant 2 Address", city: "Merchant 2 City", state: "Merchant 2 State", zip: "42345", password: "123456")
+      @merchant_1 = User.create!(email: "merchant_1@gmail.com", role: 1, name: "Merchant 1", address: "Merchant 1 Address", city: "Merchant 1 City", state: "Merchant 1 State", zip: "32345", password: "123456", active: true)
+      @merchant_2 = User.create!(email: "merchant_2@gmail.com", role: 1, name: "Merchant 2", address: "Merchant 2 Address", city: "Merchant 2 City", state: "Merchant 2 State", zip: "42345", password: "123456", active: false)
 
       visit root_path
 
@@ -36,10 +36,9 @@ describe "as an admin" do
         expect(page).to have_content(@merchant_2.state)
       end
       click_link @merchant_1.name
-
       expect(current_path).to eq(admin_merchant_path(@merchant_1))
-      save_and_open_page
       expect(page).to have_button("disable")
+      visit admin_merchant_path(@merchant_2)
       expect(page).to have_button("enable")
     end
 
