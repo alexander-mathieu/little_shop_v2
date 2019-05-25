@@ -17,14 +17,22 @@ RSpec.describe "as an admin" do
     it "I see all the same information that user would see" do
       visit admin_user_path(@user)
 
-      expect(page).to have_content(@user.name)
-      expect(page).to have_content(@user.email)
-      expect(page).to have_content(@user.address)
-      expect(page).to have_content(@user.city)
-      expect(page).to have_content(@user.state)
-      expect(page).to have_content(@user.zip)
+      within ".user-profile-#{@user.id}" do
+        expect(page).to have_content(@user.name)
+        expect(page).to have_content(@user.email)
+        expect(page).to have_content(@user.address)
+        expect(page).to have_content(@user.city)
+        expect(page).to have_content(@user.state)
+        expect(page).to have_content(@user.zip)
+      end
     end
 
-    it "I do not see a link to edit the user's profile"
+    it "I do not see a link to edit the user's profile" do
+      visit admin_user_path(@user)
+
+      within ".user-profile-#{@user.id}" do
+        expect(page).to_not have_link("Edit My Profile")
+      end
+    end
   end
 end
