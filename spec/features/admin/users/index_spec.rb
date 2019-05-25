@@ -24,17 +24,24 @@ RSpec.describe "as an admin" do
       visit admin_users_path
 
       within ".all-default-users" do
-        expect(page).to have_content (@user_1.name)
-        expect(page).to have_content (@user_2.name)
-        expect(page).to have_content (@user_3.name)
-        expect(page).to have_content (@user_4.name)
+        expect(page).to have_content(@user_1.name)
+        expect(page).to have_content(@user_2.name)
+        expect(page).to have_content(@user_3.name)
+        expect(page).to have_content(@user_4.name)
       end
     end
 
-    # it "I see each user's name as a link to a show page for that user" do
-    #   admin/users/5
-    # end
-    #
+    it "I see each user's name as a link to a show page for that user" do
+      visit admin_users_path
+      
+      within ".all-default-users" do
+        expect(page).to have_link(@user_1.name)
+        expect(page).to have_link(@user_2.name)
+        expect(page).to have_link(@user_3.name)
+        expect(page).to have_link(@user_4.name)
+      end
+    end
+
     # it "I see the date each user registered beside their name" do
     #
     # end
