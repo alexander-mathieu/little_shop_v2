@@ -6,4 +6,6 @@
 <%= @user.state %>
 <%= @user.zip %>
 
+<%= link_to "My Orders", profile_orders_path if !@user.orders.empty? %>
+
 <%= link_to "Edit my Profile", profile_edit_path %>

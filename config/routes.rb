@@ -12,16 +12,26 @@ Rails.application.routes.draw do
 
   get '/profile', to: "users#show"
   get '/profile/edit', to: "users#edit"
-  get '/profile/orders', to: "profile/orders#index"
+
+  namespace :profile do
+    resources :orders, only: [:index, :show]
+  end
+
   put '/users', to: "users#update"
 
   get '/login', to: 'sessions#new'
   post '/login', to: 'sessions#create'
 
+  #these gotta go in a resource
   post '/cart', to: 'carts#create'
   get '/cart', to: 'carts#show'
+  delete '/cart', to: 'carts#destroy'
+
   delete '/logout', to: "sessions#delete"
 
   get '/dashboard', to: "merchants#show"
 
+  namespace :admin do
+    get '/dashboard', to: 'dashboard#index'
+  end
 end
