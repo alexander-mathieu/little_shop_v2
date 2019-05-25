@@ -71,12 +71,12 @@ describe "as a registered user" do
     it "lets me cancel an order" do
       visit profile_order_path(@order_1)
       click_link("Cancel Order")
-      expect(@order_item_1.fulfilled).to eq(false)
-      expect(@order_item_4.fulfilled).to eq(false)
-      expect(@order_1.status).to eq("cancelled")
+      expect(OrderItem.find(@order_item_1.id).fulfilled).to eq(false)
+      expect(OrderItem.find(@order_item_4.id).fulfilled).to eq(false)
+      expect(Order.find(@order_1.id).status).to eq("cancelled")
       #return item quantities to merchant page
       expect(current_path).to eq(profile_path)
-      expect(page).to have_content("Order #{@order_1} cancelled.")
+      expect(page).to have_content("Order #{@order_1.id} cancelled.")
 
       within "#Order-#{@order_1.id}" do
         expect(page).to have_content("Status: cancelled")
