@@ -11,7 +11,7 @@
 <h3>Items:</h3>
 <section>
   <% @items.each do |item| %>
-    <div class="item-<%= item.id %>">
+    <div id="item-<%= item.id %>">
       <h4><%= link_to item.name, item_path(item) %></h4>
       <%= link_to item_path(item) do %>
         <%= image_tag item.image, {class: "item-#{item.id}-image", alt: "#{item.name}-image"} %>
