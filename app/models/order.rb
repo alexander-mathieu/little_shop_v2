@@ -14,13 +14,16 @@ class Order < ApplicationRecord
           .limit(3)
 
   end
-    
+
   def total_item_count
     items.sum(:quantity)
   end
 
   def total_price
     order_items.sum(:price)
+  end
 
+  def cancel_items
+    items.each{|item| item.update(fulfilled: :false)}
   end
 end

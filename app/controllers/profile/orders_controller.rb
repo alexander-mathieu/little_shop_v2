@@ -5,6 +5,11 @@ class Profile::OrdersController < ApplicationController
   end
 
   def show
+  end
+
+  def destroy
     @order = Order.find(params[:id])
+    @order.cancel_items
+
   end
 end
