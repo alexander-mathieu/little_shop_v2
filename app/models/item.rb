@@ -8,6 +8,10 @@ class Item < ApplicationRecord
     order_items.average('updated_at - created_at')
   end
 
+  def find_order_item(order_id)
+    order_items.find_by(item_id: id, order_id: order_id) 
+  end
+
   def self.most_popular
     select('items.*, SUM(order_items.quantity) AS total_quantity')
     .joins(:order_items)
