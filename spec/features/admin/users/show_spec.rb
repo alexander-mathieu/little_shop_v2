@@ -43,7 +43,7 @@ RSpec.describe "as an admin" do
 
         click_link "View Orders"
 
-        expect(current_path).to eq(admin_user)
+        expect(current_path).to eq(admin_user_orders_path(@user))
       end
     end
   end
