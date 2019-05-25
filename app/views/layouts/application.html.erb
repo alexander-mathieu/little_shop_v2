@@ -16,11 +16,14 @@
       <%= link_to "Merchants", merchants_path %>
       <%= link_to "LogIn", login_path unless current_user %>
       <%= link_to "Register", register_path unless current_user %>
-      <%= link_to "Cart", cart_path if (current_user && !current_user.merchant?) || !current_user %>
-      <p> <%= pluralize(cart.quantity, "Item") %> in cart</p>
+      <%= link_to "Cart", cart_path if (current_user && !current_user.merchant? && !current_user.admin?) || !current_user %>
+      <% if (current_user && !current_user.merchant? && !current_user.admin?) || !current_user %>
+        <p> <%= pluralize(cart.quantity, "Item") %> in cart</p>
+      <% end %>
       <%= link_to "Profile", profile_path if current_user %>
       <%= link_to "Logout", logout_path, method: "delete" if current_user %>
       <%= link_to "Dashboard", dashboard_path if current_user && current_user.merchant? %>
+      <%= link_to "Dashboard", admin_dashboard_path if current_user && current_user.admin? %>
     </section>
 
     <section class="flash">
