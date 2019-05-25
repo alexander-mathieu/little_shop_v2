@@ -9,4 +9,12 @@ class ItemsController < ApplicationController
     @item = Item.find(params[:id])
     @average_fulfillment_time = @item.average_fulfillment_time
   end
+
+  def edit
+    @item = Items.find(params[:id])    
+  end
+
+  def update
+    redirect_to '/dashboard'
+  end
 end
