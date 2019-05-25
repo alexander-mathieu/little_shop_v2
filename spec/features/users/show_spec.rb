@@ -66,12 +66,5 @@ describe "as a registered user" do
       click_link "My Orders"
       expect(current_path).to eq(profile_orders_path)
     end
-
-#     As a registered user
-# When I visit my Profile page
-# And I have orders placed in the system
-# Then I see a link on my profile page called "My Orders"
-# When I click this link my URI path is "/profile/orders"
-
   end
 end
