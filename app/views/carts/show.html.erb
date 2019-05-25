@@ -25,7 +25,7 @@
   </ul>
   <%= link_to "Empty", cart_path, method: :delete %> 
   <% if current_user %>
-    <%= link_to "Check Out", cart_path, method: :post %>
+    <%= link_to "Check Out", checkout_path, method: :post %>
   <% else %>
     <p>You must <%= link_to "login", login_path %> or <%= link_to "register", register_path %> to check out.</p>
   <% end %>

@@ -1,10 +1,11 @@
-class OrdersController < ApplicationController
+class Profile::OrdersController < ApplicationController
   def index
   end
 
   def create
-    order = Order.new user_id: @current_user.id, status: 0
+    order = Order.new user_id: current_user.id, status: 0
     order.save
+    @cart = Cart.new(session[:cart])
     items = @cart.items
     items.each do |item, quantity|
       order_item = OrderItem.new item_id: item.id, order_id: order.id,
@@ -13,7 +14,7 @@ class OrdersController < ApplicationController
     end
     session[:cart] = nil
 
-    # flash[:note]
+    flash[:success] = "Order has been placed."
     redirect_to profile_orders_path
   end
 

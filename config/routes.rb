@@ -26,6 +26,7 @@ Rails.application.routes.draw do
   get '/cart', to: 'carts#show'
   post '/cart', to: 'carts#create'
   delete '/cart', to: 'carts#destroy'
+  post '/checkout', to: 'profile/orders#create'
 
   delete '/logout', to: "sessions#delete"
 

@@ -90,5 +90,21 @@ RSpec.describe "As a user," do
       expect(current_path).to eq('/cart')
       expect(page).to have_content("Check Out")
     end
+
+    it "can checkout" do
+      click_on "LogIn"
+      fill_in "email", with: @user.email
+      fill_in "password", with: @user.password
+      click_on "Log In"
+
+      visit '/cart' #TECHNICAL DEBT LOL
+      click_on "Check Out"      
+      
+      expect(current_path).to eq('/profile/orders')
+      expect(page).to have_content("Order has been placed.")
+
+      visit '/cart'
+      expect(page).to have_content("Your cart is empty.")
+    end
   end
 end
