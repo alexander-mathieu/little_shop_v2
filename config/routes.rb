@@ -33,9 +33,10 @@ Rails.application.routes.draw do
   get '/dashboard', to: "merchants#show"
 
   namespace :admin do
-    resources :merchants, only: :show
+
     get '/dashboard', to: 'dashboard#index'
-    get '/dashboard/:id', to: 'merchants#show'
+    resources :merchants, only: [:show, :update]
+    # get '/dashboard/:id', to: 'merchants#show' I deleted this, It didnt break anything -Patrick neededfor ^^^
     get '/users/:user_id/orders', to: 'orders#index', as: :user_orders
 
     resources :users, only: [:index, :show]

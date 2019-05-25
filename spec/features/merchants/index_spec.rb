@@ -182,6 +182,7 @@ RSpec.describe 'As a visitor' do
 
         click_link @user_1.name
         expect(current_path).to eq(admin_merchant_path(@user_1))
+        p current_path
         visit merchants_path
         click_link @user_4.name
         expect(current_path).to eq(admin_merchant_path(@user_4))

@@ -25,21 +25,20 @@ describe "as an admin" do
 
     it "it displays all merchants" do
       visit merchants_path
-
-      within "Merchant-#{@merchant_1.id}" do
+      within "#merchant-#{@merchant_1.id}" do
         expect(page).to have_link(@merchant_1.name)
         expect(page).to have_content(@merchant_1.city)
         expect(page).to have_content(@merchant_1.state)
       end
-      within "Merchant-#{@merchant_2.id}" do
+      within "#merchant-#{@merchant_2.id}" do
         expect(page).to have_link(@merchant_2.name)
         expect(page).to have_content(@merchant_2.city)
         expect(page).to have_content(@merchant_2.state)
       end
-
       click_link @merchant_1.name
-      expect(current_path).to eq(admin_merchants_path(@merchant_1))
-      click_button("disable")
+
+      expect(current_path).to eq(admin_merchant_path(@merchant_1))
+      save_and_open_page
       expect(page).to have_button("disable")
       expect(page).to have_button("enable")
     end

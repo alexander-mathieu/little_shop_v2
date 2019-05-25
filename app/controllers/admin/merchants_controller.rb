@@ -1,5 +1,11 @@
 class Admin::MerchantsController < Admin::BaseController
+
   def show
-    @merchant = Merchant.find(params[:id])
+    @user = User.find(params[:id])
+    render file: "/app/views/merchants/show.html", status: 200
+  end
+
+  def update
+
   end
 end
