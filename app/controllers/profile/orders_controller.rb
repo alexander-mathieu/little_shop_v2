@@ -2,10 +2,6 @@ class OrdersController < ApplicationController
   def index
   end
 
-  def new
-        
-  end
-
   def create
     order = Order.new user_id: @current_user.id, status: 0
     order.save
@@ -15,9 +11,9 @@ class OrdersController < ApplicationController
         quantity: quantity, price: (item.price * quantity)
       order_item.save
     end
-    @cart.empty!
+    session[:cart] = nil
 
-    flash[:note]
+    # flash[:note]
     redirect_to profile_orders_path
   end
 
