@@ -54,6 +54,10 @@ RSpec.describe User, type: :model do
       @order_item_9 = @order_4.order_items.create!(item_id: @item_10.id, quantity: 100, price: 100.00, fulfilled: true, created_at: Time.zone.local(2018, 11, 24, 01, 04, 44), updated_at: Time.zone.local(2018, 11, 25, 01, 04, 44))
     end
 
+    it ".find_default_users" do
+      expect(User.find_default_users).to eq ([@user_2, @user_5, @user_7, @user_8, @user_9, @user_10])
+    end
+
     it ".find_merchants" do
       expect(@users.find_merchants).to eq([@user_1, @user_3, @user_4, @user_6])
     end

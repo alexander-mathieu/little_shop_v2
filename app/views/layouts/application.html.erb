@@ -24,6 +24,7 @@
       <%= link_to "Logout", logout_path, method: "delete" if current_user %>
       <%= link_to "Dashboard", dashboard_path if current_user && current_user.merchant? %>
       <%= link_to "Dashboard", admin_dashboard_path if current_user && current_user.admin? %>
+      <%= link_to "Users", admin_users_path if current_user && current_user.admin? %>
     </section>
 
     <section class="flash">

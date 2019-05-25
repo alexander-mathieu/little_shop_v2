@@ -173,6 +173,18 @@ RSpec.describe "when I visit the welcome page" do
         expect(current_path).to eq(admin_dashboard_path)
       end
     end
+
+    it "the page displays a link to a users index" do
+      visit root_path
+
+      within ".navbar" do
+        expect(page).to have_link("Users")
+
+        click_link("Users")
+
+        expect(current_path).to eq(admin_users_path)
+      end
+    end
   end
 end
 
