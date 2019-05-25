@@ -14,6 +14,10 @@ class User < ApplicationRecord
   validates :email, presence: true, uniqueness: true
   validates :password, presence: true, length: (6..51)
 
+  def self.find_default_users
+    where(role: "default")
+  end
+
   def self.find_merchants
     where(role: "merchant")
   end
