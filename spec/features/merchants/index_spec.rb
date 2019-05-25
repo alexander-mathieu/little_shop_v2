@@ -189,6 +189,12 @@ RSpec.describe 'As a visitor' do
       end
     end
 
+# And I click on a "disable" button for an enabled merchant
+# I am returned to the admin's merchant index page
+# And I see a flash message that the merchant's account is now disabled
+# And I see that the merchant's account is now disabled
+# This merchant cannot log in
+
   end
 
 end

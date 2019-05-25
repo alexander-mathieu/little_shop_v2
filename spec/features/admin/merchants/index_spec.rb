@@ -37,7 +37,27 @@ describe "as an admin" do
         expect(page).to have_content(@merchant_2.state)
         expect(page).to have_button("enable")
       end
-      
+
+    end
+
+    xit "lets an admin know if a merchant was enabled/disabled" do
+
+    end
+
+    it "only lets enabled users log in" do
+      click_on "Logout"
+      click_on "LogIn"
+      fill_in "email", with: @merchant_1.email
+      fill_in "password", with: @merchant_1.password
+      click_on "Log In"
+      expect(current_path).to eq(dashboard_path(@merchant_1))
+      click_on "Logout"
+      click_on "LogIn"
+      fill_in "email", with: @merchant_2.email
+      fill_in "password", with: @merchant_2.password
+      click_on "Log In"
+      expect(current_path).to eq(login_path)
+
     end
 
   end
