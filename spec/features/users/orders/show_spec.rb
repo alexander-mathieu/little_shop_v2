@@ -32,7 +32,7 @@ describe "as a registered user" do
 
     it "has an item show page" do
       visit profile_order_path(@order_2)
-      save_and_open_page
+
       expect(page).to have_content("Order: #{@order_2.id}")
       expect(page).to have_content("Placed: #{@order_2.created_at.to_date}")
       expect(page).to have_content("Updated: #{@order_2.updated_at.to_date}")
