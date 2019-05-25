@@ -12,10 +12,11 @@ describe "as a registered user" do
       @item_1 = @user_1.items.create!(name: "Item 1", active: true, price: 1.00, description: "Item 1 Description", image: "https://tradersofafrica.com/img/no-product-photo.jpg", inventory: 10)
       @item_2 = @user_2.items.create!(name: "Item 2", active: true, price: 2.00, description: "Item 2 Description", image: "https://tradersofafrica.com/img/no-product-photo.jpg", inventory: 15)
 
-      @order_1 = @user_8.orders.create!(status: 3)
+      @order_1 = @user_8.orders.create!(status: 0)
       @order_2 = @user_8.orders.create!(status: 2)
 
       @order_item_1 = @order_1.order_items.create!(item_id: @item_1.id, quantity: 1, price: 1.00, fulfilled: true)
+      @order_item_4 = @order_1.order_items.create!(item_id: @item_2.id, quantity: 1, price: 1.00, fulfilled: true)
       @order_item_2 = @order_2.order_items.create!(item_id: @item_1.id, quantity: 1, price: 1.00, fulfilled: true)
       @order_item_3 = @order_2.order_items.create!(item_id: @item_2.id, quantity: 2, price: 4.00, fulfilled: true)
 
@@ -32,7 +33,6 @@ describe "as a registered user" do
 
     it "has an item show page" do
       visit profile_order_path(@order_2)
-
       expect(page).to have_content("Order: #{@order_2.id}")
       expect(page).to have_content("Placed: #{@order_2.created_at.to_date}")
       expect(page).to have_content("Updated: #{@order_2.updated_at.to_date}")
@@ -56,6 +56,40 @@ describe "as a registered user" do
         expect(page).to have_content(@item_2.description)
         find "img[src='#{@item_2.image}']"
       end
+    end
+
+#
+# If the order is still "pending", I see a button or link to cancel the order
+# When I click the cancel button for an order, the following happens:
+# - Each row in the "order items" table is given a status of "unfulfilled"
+# - The order itself is given a status of "cancelled"
+# - Any item quantities in the order that were previously fulfilled have their quantities returned to their respective merchant's inventory for that item.
+# - I am returned to my profile page
+# - I see a flash message telling me the order is now cancelled
+# - And I see that this order now has an updated status of "cancelled"
+
+    it "lets me cancel an order" do
+      visit profile_order_path(@order_1)
+      click_link("Cancel Order")
+      expect(OrderItem.find(@order_item_1.id).fulfilled).to eq(false)
+      expect(OrderItem.find(@order_item_4.id).fulfilled).to eq(false)
+      expect(Order.find(@order_1.id).status).to eq("cancelled")
+      #return item quantities to merchant page
+      expect(current_path).to eq(profile_path)
+      expect(page).to have_content("Order #{@order_1.id} cancelled.")
+      visit profile_orders_path
+      save_and_open_page
+      within "#Order-#{@order_1.id}" do
+        expect(page).to have_content("Status: cancelled")
+      end
+      visit profile_order_path(@order_1)
+      expect(page).to have_content("Status: cancelled")
+    end
+
+    it "only lets me cancel pending orders" do
+      visit profile_order_path(@order_2)
+      expect(page).to_not have_link("Cancel Order")
+
     end
   end
 end

@@ -12,14 +12,18 @@ class Order < ApplicationRecord
           .group('orders.id')
           .order('order_item_quantity desc')
           .limit(3)
+
   end
-    
+
   def total_item_count
     items.sum(:quantity)
   end
 
   def total_price
     order_items.sum(:price)
+  end
 
+  def cancel_items
+    order_items.each{|order_item| order_item.update(fulfilled: false)}
   end
 end
