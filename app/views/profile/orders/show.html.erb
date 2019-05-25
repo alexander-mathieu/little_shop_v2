@@ -1,5 +1,5 @@
 <h1>Order: <%= @order.id %></h1>
-
+<%= link_to "Cancel Order", profile_order_path(@order), method: :delete if @order.pending? %>
 <p>Placed: <%= @order.created_at.to_date %></p>
 <p>Updated: <%= @order.updated_at.to_date %></p>
 <p>Status: <%= @order.status %></p>

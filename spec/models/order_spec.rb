@@ -87,6 +87,12 @@ RSpec.describe Order, type: :model do
     it "#total_price" do
       expect(@order_1.total_price).to eq(2.00)
       expect(@order_2.total_price).to eq(9.00)
+    end
+
+    it "#cancel_items" do
+      @order_1.cancel_items
+      expect(@order_item_4.fulfilled).to eq(false)
+      expect(@order_item_1.fulfilled).to eq(false)
 
     end
   end

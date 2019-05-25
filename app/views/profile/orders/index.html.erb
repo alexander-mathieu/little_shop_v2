@@ -1,5 +1,6 @@
 <%current_user.orders.each do |order| %>
 <section id="Order-<%= order.id %>">
+  <p><%= "Order Cancelled" if order.cancelled? %></p>
   <%= link_to("Order #{order.id}", profile_order_path(order)) %>
   <p>Placed: <%= order.created_at.to_date %></p>
   <p>Updated: <%= order.updated_at.to_date %></p>
