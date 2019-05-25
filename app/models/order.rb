@@ -24,6 +24,6 @@ class Order < ApplicationRecord
   end
 
   def cancel_items
-    items.each{|item| item.update(fulfilled: :false)}
+    order_items.each{|order_item| order_item.update(fulfilled: false)}
   end
 end
