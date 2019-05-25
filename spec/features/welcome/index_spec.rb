@@ -45,7 +45,7 @@ RSpec.describe "when I visit the welcome page" do
 
         expect(current_path).to eq(root_path)
       end
-      expect(page).to have_content("You are now logged Out")
+      expect(page).to have_content("You are now logged out")
     end
 
     it "gives me different options as a user" do
