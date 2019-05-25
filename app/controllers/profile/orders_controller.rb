@@ -12,7 +12,6 @@ class Profile::OrdersController < ApplicationController
     @order = Order.find(params[:id])
     @order.update(status: 3)
     @order.cancel_items
-    require "pry"; binding.pry
     flash[:message] = "Order #{@order.id} cancelled."
     redirect_to(profile_path)
 

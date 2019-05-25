@@ -77,10 +77,13 @@ describe "as a registered user" do
       #return item quantities to merchant page
       expect(current_path).to eq(profile_path)
       expect(page).to have_content("Order #{@order_1.id} cancelled.")
-
+      visit profile_orders_path
+      save_and_open_page
       within "#Order-#{@order_1.id}" do
         expect(page).to have_content("Status: cancelled")
       end
+      visit profile_order_path(@order_1)
+      expect(page).to have_content("Status: cancelled")
     end
 
     it "only lets me cancel pending orders" do
