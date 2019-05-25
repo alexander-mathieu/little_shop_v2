@@ -12,13 +12,9 @@ class Order < ApplicationRecord
           .group('orders.id')
           .order('order_item_quantity desc')
           .limit(3)
-<<<<<<< HEAD
-        end
 
-=======
   end
     
->>>>>>> 66fe9b12e4d4658ca92be887ca1c5d842b50d30b
   def total_item_count
     items.sum(:quantity)
   end
