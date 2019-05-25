@@ -3,6 +3,9 @@ Rails.application.routes.draw do
 
   resources :items, only: [:index, :show, :edit]
   post '/items', to: "items#update"
+  post '/items/enable/:id', to: "items#enable"
+  post '/items/disable/:id', to: "items#disable"
+
   resources :users, only: [:show, :create]
 
   get '/register', to: 'users#new'

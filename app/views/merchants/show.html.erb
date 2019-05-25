@@ -11,7 +11,7 @@
 <h3>Items:</h3>
 <section>
   <% @items.each do |item| %>
-    <div class="item-<%= item.id %>-info">
+    <div class="item-<%= item.id %>">
       <h4><%= link_to item.name, item_path(item) %></h4>
       <%= link_to item_path(item) do %>
         <%= image_tag item.image, {class: "item-#{item.id}-image", alt: "#{item.name}-image"} %>
@@ -19,11 +19,11 @@
       <p>Available: <%= item.inventory %></p>
       <p>Price: <%= number_to_currency(item.price)%></p>
       <% if @user.merchant? %>
-        <%= link_to "Edit" %>
+        <%= link_to "Edit", edit_item_path(item) %>
         <% if item.active %>
-          <%= link_to "Disable" %>
+          <%= link_to "Disable", "/items/disable/#{item.id}" %>
         <% else %>
-          <%= link_to "Enable %>
+          <%= link_to "Enable", "/items/enable/#{item.id}" %>
         <% end %>
       <% end %>
     </div>
