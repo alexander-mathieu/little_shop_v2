@@ -82,11 +82,13 @@ RSpec.describe "As a user," do
 
     it "gives me a check out option if I'm logged in" do
       click_on "LogIn"
-      fill_in "email", with: user.email
-      fill_in "password", with: user.password
+      fill_in "email", with: @user.email
+      fill_in "password", with: @user.password
       click_on "Log In"
 
-     
+      visit '/cart' #TECHNICAL DEBT LOL
+      expect(current_path).to eq('/cart')
+      expect(page).to have_content("Check Out")
     end
   end
 end
