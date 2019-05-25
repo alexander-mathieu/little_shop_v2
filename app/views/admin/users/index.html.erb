@@ -1,0 +1,7 @@
+<h2>All Default Users</h2>
+
+<section class="all-default-users">
+  <% @default_users.each do |user| %>
+    <%= link_to user.name, admin_user_path(user) %>
+  <% end %>
+</section>
