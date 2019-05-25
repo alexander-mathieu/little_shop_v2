@@ -55,6 +55,8 @@ RSpec.describe Order, type: :model do
 
     it '.top_three_order_item_quantity' do
       expect(@orders.top_three_order_item_quantity).to eq([@order_4, @order_1, @order_2])
+    end
+  end
 
   describe "instance methods" do
       before :each do
