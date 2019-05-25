@@ -12,10 +12,11 @@ describe "as a registered user" do
       @item_1 = @user_1.items.create!(name: "Item 1", active: true, price: 1.00, description: "Item 1 Description", image: "https://tradersofafrica.com/img/no-product-photo.jpg", inventory: 10)
       @item_2 = @user_2.items.create!(name: "Item 2", active: true, price: 2.00, description: "Item 2 Description", image: "https://tradersofafrica.com/img/no-product-photo.jpg", inventory: 15)
 
-      @order_1 = @user_8.orders.create!(status: 3)
+      @order_1 = @user_8.orders.create!(status: 0)
       @order_2 = @user_8.orders.create!(status: 2)
 
       @order_item_1 = @order_1.order_items.create!(item_id: @item_1.id, quantity: 1, price: 1.00, fulfilled: true)
+      @order_item_4 = @order_1.order_items.create!(item_id: @item_2.id, quantity: 1, price: 1.00, fulfilled: true)
       @order_item_2 = @order_2.order_items.create!(item_id: @item_1.id, quantity: 1, price: 1.00, fulfilled: true)
       @order_item_3 = @order_2.order_items.create!(item_id: @item_2.id, quantity: 2, price: 4.00, fulfilled: true)
 
@@ -56,6 +57,22 @@ describe "as a registered user" do
         expect(page).to have_content(@item_2.description)
         find "img[src='#{@item_2.image}']"
       end
+    end
+
+    it "lets me cancel an order" do
+      visit profile_order_path(@order_1)
+      click_link("Cancel Order")
+      expect(@order_item_1.status).to eq("unfulfilled")
+      expect(@order_item_4.status).to eq("unfilfilled")
+      expect(@order_1.status).to eq("cancelled")
+      #return item quantities to merchant page
+      expect(current_path).to eq(profile_path)
+      expect(page).to have_content("Order #{@order_1} cancelled.")
+
+      within "#Order-#{@order_1.id}" do
+        expect(page).to have_content("Status: "cancelled")
+      end
+
     end
   end
 end
