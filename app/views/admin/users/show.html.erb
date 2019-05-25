@@ -1,0 +1,12 @@
+<h2><%= @user.name %></h2>
+
+<section class="user-profile-<%= @user.id %>">
+  <p><%= @user.name %></p>
+  <p><%= @user.email %></p>
+  <p><%= @user.address %></p>
+  <p><%= @user.city %></p>
+  <p><%= @user.state %></p>
+  <p><%= @user.zip %></p>
+
+  <%= link_to "View Orders", admin_user_orders_path(@user) if !@user.orders.empty? %>
+</section>

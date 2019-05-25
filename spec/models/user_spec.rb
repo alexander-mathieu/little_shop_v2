@@ -55,7 +55,7 @@ RSpec.describe User, type: :model do
     end
 
     it ".find_default_users" do
-      expect(User.find_default_users).to eq ([@user_2, @user_5, @user_7, @user_8, @user_9, @user_10])
+      expect(User.find_default_users).to eq([@user_2, @user_5, @user_7, @user_8, @user_9, @user_10])
     end
 
     it ".find_merchants" do
