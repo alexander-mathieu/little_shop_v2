@@ -33,7 +33,6 @@ describe "as a registered user" do
 
     it "has an item show page" do
       visit profile_order_path(@order_2)
-      save_and_open_page
       expect(page).to have_content("Order: #{@order_2.id}")
       expect(page).to have_content("Placed: #{@order_2.created_at.to_date}")
       expect(page).to have_content("Updated: #{@order_2.updated_at.to_date}")
@@ -59,6 +58,16 @@ describe "as a registered user" do
       end
     end
 
+#
+# If the order is still "pending", I see a button or link to cancel the order
+# When I click the cancel button for an order, the following happens:
+# - Each row in the "order items" table is given a status of "unfulfilled"
+# - The order itself is given a status of "cancelled"
+# - Any item quantities in the order that were previously fulfilled have their quantities returned to their respective merchant's inventory for that item.
+# - I am returned to my profile page
+# - I see a flash message telling me the order is now cancelled
+# - And I see that this order now has an updated status of "cancelled"
+
     it "lets me cancel an order" do
       visit profile_order_path(@order_1)
       click_link("Cancel Order")
@@ -70,8 +79,13 @@ describe "as a registered user" do
       expect(page).to have_content("Order #{@order_1} cancelled.")
 
       within "#Order-#{@order_1.id}" do
-        expect(page).to have_content("Status: "cancelled")
+        expect(page).to have_content("Status: cancelled")
       end
+    end
+
+    it "only lets me cancel pending orders" do
+      visit profile_order_path(@order_2)
+      expect(page).to_not have_link("Cancel Order")
 
     end
   end

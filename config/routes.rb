@@ -13,7 +13,7 @@ Rails.application.routes.draw do
   get '/profile', to: "users#show"
   get '/profile/edit', to: "users#edit"
   namespace :profile do
-    resources :orders, only: [:index, :show]
+    resources :orders, only: [:index, :show, :destroy]
   end
   put '/users', to: "users#update"
 
@@ -32,4 +32,5 @@ Rails.application.routes.draw do
   namespace :admin do
     get '/dashboard', to: 'dashboard#index'
   end
+
 end
