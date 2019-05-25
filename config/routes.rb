@@ -23,9 +23,10 @@ Rails.application.routes.draw do
   post '/login', to: 'sessions#create'
 
   #these gotta go in a resource
-  post '/cart', to: 'carts#create'
   get '/cart', to: 'carts#show'
   delete '/cart', to: 'carts#destroy'
+  get '/checkout', to: 'carts#new'
+  post '/checkout', to: 'carts#create'
 
   delete '/logout', to: "sessions#delete"
 

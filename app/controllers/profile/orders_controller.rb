@@ -2,6 +2,10 @@ class OrdersController < ApplicationController
   def index
   end
 
+  def new
+        
+  end
+
   def create
     order = Order.new user_id: @current_user.id, status: 0
     order.save
@@ -12,6 +16,9 @@ class OrdersController < ApplicationController
       order_item.save
     end
     @cart.empty!
+
+    flash[:note]
+    redirect_to profile_orders_path
   end
 
   def show
