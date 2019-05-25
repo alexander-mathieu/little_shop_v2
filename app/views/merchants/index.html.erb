@@ -2,7 +2,8 @@
 
 <% @merchants.each do |merchant| %>
   <section id="merchant-<%= merchant.id %>" >
-    <h3><%= merchant.name %></h3>
+    <h3><%=current_admin? ? link_to(merchant.name, admin_merchant_path(merchant)) : merchant.name %></h3>
+
     <p>From: <%= merchant.city %>, <%= merchant.state %><br>
     Date joined: <%= Date.strptime(merchant.created_at.to_s) %></p>
   </section>

@@ -5,7 +5,7 @@
 # I see a "disable" button next to any merchants who are not yet disabled
 # I see an "enable" button next to any merchants whose accounts are disabled
 
-require rails_helper
+require 'rails_helper'
 
 describe "as an admin" do
   describe "when I visit the merchant index page at '/merchants'" do

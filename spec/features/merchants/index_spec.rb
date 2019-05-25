@@ -159,7 +159,8 @@ RSpec.describe 'As a visitor' do
       end
     end
     describe "as an admin" do
-      @admin = create(:user, email: "abc@123", password: "Imanadmin!!!!!")
+      it "show me names as links to admin_merchant_path(merchant)" do
+        @admin_1 = create(:admin)
         visit root_path
 
         click_on "LogIn"
@@ -180,10 +181,11 @@ RSpec.describe 'As a visitor' do
         end
 
         click_link @user_1.name
-        expect(current_path).to eq(admin_merchant_path(@user_1)
+        expect(current_path).to eq(admin_merchant_path(@user_1))
         visit merchants_path
         click_link @user_4.name
-        expect(current_path).to eq(admin_merchant_path(@user_4)
+        expect(current_path).to eq(admin_merchant_path(@user_4))
+      end
     end
 
   end
