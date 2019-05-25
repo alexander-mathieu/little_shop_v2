@@ -15,7 +15,7 @@ class User < ApplicationRecord
   validates :password, presence: true, length: (6..51)
 
   def self.find_default_users
-    where(role: "default")
+    where(role: "default").order(name: :asc)
   end
 
   def self.find_merchants
