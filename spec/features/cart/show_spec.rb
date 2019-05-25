@@ -75,5 +75,36 @@ RSpec.describe "As a user," do
 
       expect(page).to_not have_content("#{@itemB.name}: 5")
     end
+
+    it "I see a login prompt if I'm not logged in" do
+      expect(page).to have_content("You must login or register to check out.")
+    end
+
+    it "gives me a check out option if I'm logged in" do
+      click_on "LogIn"
+      fill_in "email", with: @user.email
+      fill_in "password", with: @user.password
+      click_on "Log In"
+
+      visit '/cart' #TECHNICAL DEBT LOL
+      expect(current_path).to eq('/cart')
+      expect(page).to have_content("Check Out")
+    end
+
+    it "can checkout" do
+      click_on "LogIn"
+      fill_in "email", with: @user.email
+      fill_in "password", with: @user.password
+      click_on "Log In"
+
+      visit '/cart' #TECHNICAL DEBT LOL
+      click_on "Check Out"      
+      
+      expect(current_path).to eq('/profile/orders')
+      expect(page).to have_content("Order has been placed.")
+
+      visit '/cart'
+      expect(page).to have_content("Your cart is empty.")
+    end
   end
 end
