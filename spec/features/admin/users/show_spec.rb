@@ -34,5 +34,17 @@ RSpec.describe "as an admin" do
         expect(page).to_not have_link("Edit My Profile")
       end
     end
+
+    it "I see a link to view the user's orders" do
+      visit admin_user_path(@user)
+
+      within ".user-profile-#{@user.id}" do
+        expect(page).to have_link("View Orders")
+
+        click_link "View Orders"
+
+        expect(current_path).to eq(admin_user)
+      end
+    end
   end
 end
