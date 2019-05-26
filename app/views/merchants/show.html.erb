@@ -9,13 +9,13 @@ Merchant Info:<br>
 <%= @merchant.city %>,
 <%= @merchant.state %>
 <%= @merchant.zip %>
-
+<br>
 <%= link_to "Edit my Profile", profile_edit_path if @merchant.merchant? %>
-
+<br>
 Pending Orders:<br>
 <br>
 <% @merchant_orders.each do |order| %>
-  Order #<%= order.id %><br>
+  Order #<%= link_to order.id, merchant_order_path(order) %><br>
   Placed On: <%= order.created_at.to_formatted_s(:long).slice(0...-6) %><br>
   Total Order Items: <%= order.total_item_count %><br>
   Order Total Price: $<%= '%.2f' % order.total_price %><br><br>
@@ -60,4 +60,5 @@ Pending Orders:<br>
       <% end %><br>
     </div>
     <br>
+
 </section>
