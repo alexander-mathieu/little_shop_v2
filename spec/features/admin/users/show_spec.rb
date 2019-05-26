@@ -3,9 +3,9 @@ require 'rails_helper'
 RSpec.describe "when I visit a user's show page" do
   describe "as an admin" do
     before :each do
-      @admin = User.create!(email: "admin@gmail.com", role: 2, name: "Admin", address: "Admin Address", city: "Admin City", state: "Admin State", zip: "12345", password: "123456")
-      @merchant = User.create!(email: "merchant@gmail.com", role: 1, name: "Merchant", address: "Merchant Address", city: "Merchant City", state: "Merchant State", zip: "22345", password: "123456")
-      @user = User.create!(email: "user@gmail.com", role: 0, name: "User", address: "User Address", city: "User City", state: "User State", zip: "52345", password: "123456")
+      @admin = User.create!(email: "admin@gmail.com", role: 2, active: true, name: "Admin", address: "Admin Address", city: "Admin City", state: "Admin State", zip: "12345", password: "123456")
+      @merchant = User.create!(email: "merchant@gmail.com", role: 1, active: true, name: "Merchant", address: "Merchant Address", city: "Merchant City", state: "Merchant State", zip: "22345", password: "123456")
+      @user = User.create!(email: "user@gmail.com", role: 0, active: true, name: "User", address: "User Address", city: "User City", state: "User State", zip: "52345", password: "123456")
 
       @item = @user.items.create!(name: "Item", active: true, price: 1.00, description: "Item Description", image: "https://tradersofafrica.com/img/no-product-photo.jpg", inventory: 10)
       @order = @user.orders.create!(status: 3)
@@ -66,10 +66,23 @@ RSpec.describe "when I visit a user's show page" do
       expect(page).to have_button("Upgrade to Merchant")
     end
 
-    # describe "and click the 'Upgrade to Merchant' button" do
-    #   it "I am redirected to that user's new merchant dashboard"
-    #   it "I see a flash message indicated that the user has been upgraded"
-    # end
+    describe "and click the 'Upgrade to Merchant' button" do
+      it "I am redirected to that user's new merchant dashboard" do
+        visit admin_user_path(@user)
+
+        click_button "Upgrade to Merchant"
+
+        expect(current_path).to eq(admin_merchant_path(@user))
+      end
+
+      it "I see a flash message indicated that the user has been upgraded" do
+        visit admin_user_path(@user)
+
+        click_button "Upgrade to Merchant"
+
+        expect(page).to have_content("#{@user.name} has been upgraded to a Merchant.")
+      end
+    end
 
     # The next time this user logs in they are now a merchant
 
