@@ -61,16 +61,16 @@ RSpec.describe "when I visit a merchant's show page" do
 
         expect(page).to have_content("#{@merchant.name} has been downgraded to a User.")
       end
-    #
-    #   it "the user becomes a merchant" do
-    #     visit admin_merchant_path(@merchant)
-    #
-    #     click_button "Downgrade to a User"
-    #
-    #     @merchant.reload
-    #
-    #     expect(@merchant.role).to eq("user")
-    #   end
+
+      it "the user becomes a merchant" do
+        visit admin_merchant_path(@merchant)
+
+        click_button "Downgrade to User"
+
+        @merchant.reload
+
+        expect(@merchant.role).to eq("default")
+      end
     # end
     #
     # context "as a visitor" do
