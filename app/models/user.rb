@@ -23,7 +23,6 @@ class User < ApplicationRecord
   end
 
   def self.top_three_revenue
-    # select('books.*, avg(reviews.rating)').joins(:reviews).group('id').order('avg(reviews.rating) DESC').limit(3)
     find_merchants.joins(items: :order_items)
                   .select('users.*', 'SUM(order_items.price) AS revenue')
                   .group('users.id')
