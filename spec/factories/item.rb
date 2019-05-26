@@ -7,9 +7,11 @@ FactoryBot.define do
     sequence :description do |n|
       "description #{n}"
     end
-
+    
     sequence :image do |n|
       "item#{n}.jpg"
     end
+
+    inventory {"1"}
   end
 end
