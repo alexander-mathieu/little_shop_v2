@@ -16,3 +16,19 @@ Pending Orders:<br>
   Total Order Items: <%= order.total_item_count %><br>
   Order Total Price: $<%= '%.2f' % order.total_price %><br><br>
 <% end %><br>
+<br>
+Merchant Statistics:<br>
+<br>
+<section id="merchant-stats">
+  <div id="top-5-items-sold">
+    Top 5 Items Sold:<br>
+    <% @top_five_items_sold.each do |item| %>
+      <%= item.name %>,
+      (sold <%= item.total_quantity %>)<br>
+    <% end %><br>
+  </div>
+  <br>
+  <div id="total-quantity-items-sold">
+    Sold <%= @user.total_quantity_items_sold %> items, which is <%= "total_quantity_items_sold/inventory" %> of your total inventory
+  </div>
+</section>
