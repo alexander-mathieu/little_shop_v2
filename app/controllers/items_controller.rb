@@ -31,9 +31,13 @@ class ItemsController < ApplicationController
   end
 
   def update
-    Item.find(params[:id]).update(item_params)    
-    flash[:note] = "Item updated."
-    redirect_to '/dashboard'
+    if Item.find(params[:id]).update(item_params)
+      flash[:note] = "Item updated."
+      redirect_to '/dashboard'
+    else
+      flash[:warn] = "Input invalid."
+      redirect_to edit_item_path
+    end
   end
 
   def enable
