@@ -94,6 +94,14 @@ RSpec.describe "when I visit a user's show page" do
       end
     end
 
+    describe "and that user is a merchant" do
+      it "I'm redirected to their merchant dashboard" do
+        visit admin_user_path(@merchant)
+
+        expect(current_path).to eq(admin_merchant_path(@merchant))
+      end
+    end
+
     context "as a visitor" do
       it "I recieve a 404 error" do
         click_link "Logout"
