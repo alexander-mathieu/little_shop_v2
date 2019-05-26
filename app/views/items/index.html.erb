@@ -35,7 +35,7 @@
   <div class="row">
     <div class="col s4">
       <% @items_left.each do |item| %>
-        <div class="item-<%= item.id %>-info card red">
+        <div class="item-<%= item.id %>-info card hoverable-dark red">
           <div class="card-image">
             <%= link_to item_path(item) do %>
               <%= image_tag item.image, {class: "item-#{item.id}-image", alt: "#{item.name}-image"} %>
@@ -52,7 +52,7 @@
     </div>
     <div class="col s4">
       <% @items_mid.each do |item| %>
-        <div class="item-<%= item.id %>-info card red">
+        <div class="item-<%= item.id %>-info card hoverable-dark red">
           <div class="card-image">
             <%= link_to item_path(item) do %>
               <%= image_tag item.image, {class: "item-#{item.id}-image", alt: "#{item.name}-image"} %>
@@ -69,7 +69,7 @@
     </div>
     <div class="col s4">
       <% @items_right.each do |item| %>
-        <div class="item-<%= item.id %>-info card red">
+        <div class="item-<%= item.id %>-info card hoverable-dark red">
           <div class="card-image">
             <%= link_to item_path(item) do %>
               <%= image_tag item.image, {class: "item-#{item.id}-image", alt: "#{item.name}-image"} %>

@@ -1,26 +1,33 @@
-<img src="<%= @item.image %>">
-<h2><%= @item.name %></h2>
-<p>Description: <%= @item.description %></p>
-<p>Seller: <%= @item.user.name %></p>
-<p>Available: <%= @item.inventory %></p>
-<p>Price: <%= number_to_currency(@item.price) %></p>
-<% if @average_fulfillment_time %>
-  <p>Average Fulfillment Time: <%= @average_fulfillment_time.round(1) %> days</p>
-<% else %>
-  <p>Average Fulfillment Time: N/A</p>
-<% end %>
+<div class="container">
+  <div class="row">
+    <div class="col s4" style="padding: 1em">
+      <img src="<%= @item.image %>">
+    </div>
+    <div class="col s8">
+      <h2><%= @item.name %></h2>
+      <p>Description: <%= @item.description %></p>
+      <p>Seller: <%= @item.user.name %></p>
+      <p>Available: <%= @item.inventory %></p>
+      <p>Price: <%= number_to_currency(@item.price) %></p>
+      <% if @average_fulfillment_time %>
+        <p>Average Fulfillment Time: <%= @average_fulfillment_time.round(1) %> days</p>
+      <% else %>
+        <p>Average Fulfillment Time: N/A</p>
+      <% end %>
+      <% if !current_user || (!current_user.merchant? && !current_user.admin?) %>
+        <section class="add-to-cart">
+          <%= form_tag "/cart", method: "post" do |f| %>
 
-<% if !current_user || (!current_user.merchant? && !current_user.admin?) %>
-  <section class="add-to-cart">
-    <%= form_tag "/cart", method: "post" do |f| %>
+          <%= f.hidden_field :item_id, value: @item.id %>
+          <%= f.hidden_field :adding, value: 1 %>
 
-    <%= hidden_field :item_id, @item.id %>
-    <%= hidden_field :adding, 1 %>
+          <%= label_tag(:quantity, "Quantity:") %>
+          <%= select_tag(:quantity, options_for_select(0..@item.inventory)) %>
 
-    <%= label_tag(:quantity, "Quantity:") %>
-    <%= select_tag(:quantity, options_for_select(0..@item.inventory)) %>
-
-    <%= submit_tag "Add to Cart" %>
-    <% end %>
-  </section>
-<% end %>
+          <%= submit_tag "Add to Cart" %>
+          <% end %>
+        </section>
+      <% end %>
+    </div>
+  </div>
+</div>

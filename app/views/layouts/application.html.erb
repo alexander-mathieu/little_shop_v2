@@ -20,7 +20,7 @@
       <nav>
         <div class="nav-wrapper z-depth-4 red darken-3">
           <a href="#" data-target="" class="sidenav-trigger"><i class="material-icons">menu</i></a>
-          <ul class=" hide-on-med-and-down">
+          <ul class="hide-on-med-and-down">
             <li <%="class=active" if request.fullpath == '/'%>><%= link_to "Home", root_path %></li>
             <li <%="class=active" if request.fullpath == '/items'%>><%= link_to "Items", items_path %></li>
             <li <%="class=active" if request.fullpath == '/merchants'%>><%= link_to "Merchants", merchants_path %></li>
