@@ -6,6 +6,15 @@ class Admin::MerchantsController < Admin::BaseController
   end
 
   def update
+    user = User.find_by(id: params[:id])
+    if params[:commit] == "enable"
 
+      User.update(user.id,active: true)
+      flash[:message] = "Merchant #{user.id} enabled"
+    elsif params[:commit] == "disable"
+      User.find(params[:id]).update(active: false)
+      flash[:message] = "Merchant #{user.id} disabled"
+    end
+    redirect_to merchants_path
   end
 end

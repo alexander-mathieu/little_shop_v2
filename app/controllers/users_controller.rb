@@ -43,7 +43,8 @@ class UsersController < ApplicationController
 
 
   def update
-    if User.find_by(email: params[:user][:email])
+    user = User.find_by(email: params[:user][:email])
+    if user && user.email != params[:user][:email]
       flash[:message] = "That email is already in use"
       redirect_to profile_edit_path
     else

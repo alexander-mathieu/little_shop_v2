@@ -47,7 +47,8 @@ describe "as an admin" do
       end
         expect(current_path).to eq(merchants_path)
         expect(page).to have_content("Merchant #{@merchant_2.id} enabled")
-        expect(User.find(@merchant_2.id).active).to eq(true)
+        @merchant_2.reload
+        expect(@merchant_2.active).to eq(true)
         within "#merchant-#{@merchant_2.id}" do
           click_button "disable"
         end
