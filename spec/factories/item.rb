@@ -9,7 +9,7 @@ FactoryBot.define do
     end
 
     image {"https://tradersofafrica.com/img/no-product-photo.jpg"}
-
     active {true}
+    inventory {"1"}
   end
 end
