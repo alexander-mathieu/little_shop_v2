@@ -37,7 +37,6 @@ describe "as a user" do
       fill_in 'user_city', with: 'georgeville'
 
       click_button "Change my Profile"
-      save_and_open_page
         expect(current_path).to eq(profile_path)
 
     end
