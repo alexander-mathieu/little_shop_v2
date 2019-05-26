@@ -71,53 +71,50 @@ RSpec.describe "when I visit a merchant's show page" do
 
         expect(@merchant.role).to eq("default")
       end
-    # end
-    #
-    # context "as a visitor" do
-    #   it "I recieve a 404 error" do
-    #     click_link "Logout"
-    #
-    #     visit admin_merchant_path(@merchant)
-    #
-    #     expect(page.status_code).to eq(404)
-    #     expect(page).to have_content("The page you were looking for doesn't exist.")
-    #   end
-    # end
-    #
-    # context "as a user" do
-    #   it "I recieve a 404 error" do
-    #     click_link "Logout"
-    #
-    #     visit root_path
-    #
-    #     click_on "LogIn"
-    #     fill_in "email", with: @user.email
-    #     fill_in "password", with: @user.password
-    #     click_on "Log In"
-    #
-    #     visit admin_merchant_path(@merchant)
-    #
-    #     expect(page.status_code).to eq(404)
-    #     expect(page).to have_content("The page you were looking for doesn't exist.")
-    #   end
-    # end
-    #
-    # context "as a merchant" do
-    #   it "I recieve a 404 error" do
-    #     click_link "Logout"
-    #
-    #     visit root_path
-    #
-    #     click_on "LogIn"
-    #     fill_in "email", with: @merchant.email
-    #     fill_in "password", with: @merchant.password
-    #     click_on "Log In"
-    #
-    #     visit admin_merchant_path(@merchant)
-    #
-    #     expect(page.status_code).to eq(404)
-    #     expect(page).to have_content("The page you were looking for doesn't exist.")
-    #   end
+    end
+
+    context "as a visitor" do
+      it "I do not see the 'Downgrade to User' button" do
+        click_link "Logout"
+
+        visit admin_merchant_path(@merchant)
+
+        expect(page).to_not have_content("Downgrade to User")
+      end
+    end
+
+    context "as a user" do
+      it "I do not see the 'Downgrade to User' button" do
+        click_link "Logout"
+
+        visit root_path
+
+        click_on "LogIn"
+        fill_in "email", with: @user.email
+        fill_in "password", with: @user.password
+        click_on "Log In"
+
+        visit admin_merchant_path(@merchant)
+
+        expect(page).to_not have_content("Downgrade to User")
+      end
+    end
+
+    context "as a merchant" do
+      it "I do not see the 'Downgrade to User' button" do
+        click_link "Logout"
+
+        visit root_path
+
+        click_on "LogIn"
+        fill_in "email", with: @merchant.email
+        fill_in "password", with: @merchant.password
+        click_on "Log In"
+
+        visit admin_merchant_path(@merchant)
+
+        expect(page).to_not have_content("Downgrade to User")
+      end
     end
   end
 end
