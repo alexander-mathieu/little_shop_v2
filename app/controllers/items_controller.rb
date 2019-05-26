@@ -21,11 +21,13 @@ class ItemsController < ApplicationController
 
   def enable
     Item.update(params[:id], active: true)
+    flash[:note] = "Item has been enabled."
     redirect_to "/dashboard#item-#{params[:id]}"
   end
 
   def disable
     Item.update(params[:id], active: false)
+    flash[:note] = "Item has been disabled."
     redirect_to "/dashboard#item-#{params[:id]}"
   end
 

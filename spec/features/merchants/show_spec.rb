@@ -99,6 +99,7 @@ describe "as a merchant" do
       end
 
       expect(current_path).to eq('/dashboard')
+      expect(page).to have_content("Item has been disabled.")
       within "#item-#{@itemA.id}" do
         expect(page).to_not have_content("Disable")
         expect(page).to have_content("Enable")
@@ -109,6 +110,7 @@ describe "as a merchant" do
       end
 
       expect(current_path).to eq('/dashboard')
+      expect(page).to have_content("Item has been enabled.")
       within "#item-#{@itemA.id}" do
         expect(page).to_not have_content("Enable")
         expect(page).to have_content("Disable")
