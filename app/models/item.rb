@@ -4,6 +4,14 @@ class Item < ApplicationRecord
   has_many :order_items
   has_many :orders, through: :order_items
 
+  def enable
+    self.active = true
+  end
+
+  def disable
+    self.active = false
+  end
+
   def average_fulfillment_time
     order_items.average('updated_at - created_at')
   end

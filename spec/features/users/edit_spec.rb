@@ -17,9 +17,9 @@ require "rails_helper"
 describe "as a user" do
   describe "when I visit my profile page" do
     before :each do
-        @user_1 = User.create(email: "bob@bob.com", password_digest: 1243, name: "bob", address:"123 bob st.", city: "bobton", state:"MA", zip: 28234)
+        @user_1 = User.create(email: "bob@bob.com", password: "1243444", name: "bob", address:"123 bob st.", city: "bobton", state:"MA", zip: 28234)
     end
-    
+
     it "lets me edit my info" do
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user_1)
       visit profile_path
@@ -42,7 +42,6 @@ describe "as a user" do
     end
 
     it "does not let me enter a used email in profile edit" do
-      @user_1 = User.create!(email: "bob@bob.com", password: "123dd43", name: "bob", address:"123 bob st.", city: "bobton", state:"MA", zip: 28234)
       @user_2 = User.create!(email: "george@bob.com", password: "124344", name: "george", address:"123 george st.", city: "georgeton", state:"MA", zip: 28234)
         allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user_1)
         visit profile_edit_path
