@@ -40,13 +40,10 @@ Rails.application.routes.draw do
 
   namespace :admin do
     get '/dashboard', to: 'dashboard#index'
-
     get '/users/:user_id/orders', to: 'orders#index', as: :user_orders
     patch '/users/upgrade/:user_id', to: 'users#upgrade', as: :user_upgrade
 
     resources :merchants, only: [:show, :update]
-    resources :merchants, only: [:show, :update]
-    get '/users/:user_id/orders', to: 'orders#index', as: :user_orders
     resources :users, only: [:index, :show]
   end
 end
