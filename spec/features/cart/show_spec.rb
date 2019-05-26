@@ -22,7 +22,7 @@ RSpec.describe "As a user," do
 
     it "I see a list of items and quantities" do
       within ".nav-wrapper" do
-        expect(page).to have_content("8 Items in cart")
+        expect(page).to have_content("8 Items")
       end
       expect(page).to have_content("#{@itemA.name}: 1")
       expect(page).to have_content("#{@itemB.name}: 5")
@@ -42,7 +42,7 @@ RSpec.describe "As a user," do
 
       expect(page).to have_content("Your cart is empty.")
       within ".nav-wrapper" do
-        expect(page).to have_content("0 Items in cart")
+        expect(page).to have_content("0 Items")
       end
     end
 
