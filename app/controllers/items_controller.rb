@@ -10,6 +10,17 @@ class ItemsController < ApplicationController
     @average_fulfillment_time = @item.average_fulfillment_time
   end
 
+  def new
+    @merchant = current_user
+  end
+
+  def create
+    adding = Item.new(item_params)
+    adding.save
+
+    redirect_to "/dashboard##{adding.id}"
+  end
+
   def edit
     @item = Item.find(params[:id])    
   end
