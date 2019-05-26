@@ -59,5 +59,19 @@ RSpec.describe "as an admin" do
         expect(page).to_not have_link("View Orders")
       end
     end
+
+    it "the page displays a link to upgrade the user's account to a merchant account" do
+      visit admin_user_path(@user)
+
+      within ".admin-user-profile-#{@user_1}" do
+        expect(page).to have_button("Upgrade to Merchant")
+      end
+    end
   end
 end
+
+# When I click on that link
+# I am redirected to ("/admin/merchants/5") because the user is now a merchant
+# And I see a flash message indicating the user has been upgraded
+# The next time this user logs in they are now a merchant
+# Only admins can reach any route necessary to upgrade the user to merchant status
