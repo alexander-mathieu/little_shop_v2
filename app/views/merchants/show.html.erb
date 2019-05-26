@@ -1,32 +1,63 @@
-<% if @user.merchant?; %><h1>Logged in as: <%= current_user.email %></h1><% end %>
-<%= @user.name %>
-(<%= @user.email %>)<br>
-<%= @user.address %><br>
-<%= @user.city %>,
-<%= @user.state %>
-<%= @user.zip %>
 
-<%= link_to "Edit my Profile", profile_edit_path if @user.merchant? %> 
+<br>
+Merchant Info:<br>
+<br>
+<% if @merchant.merchant?; %><h1>Logged in as: <%= current_user.email %></h1><% end %>
+<%= @merchant.name %>
+(<%= @merchant.email %>)<br>
+<%= @merchant.address %><br>
+<%= @merchant.city %>,
+<%= @merchant.state %>
+<%= @merchant.zip %>
+
+<%= link_to "Edit my Profile", profile_edit_path if @merchant.merchant? %>
+
+Pending Orders:<br>
+<br>
+<% @merchant_orders.each do |order| %>
+  Order #<%= order.id %><br>
+  Placed On: <%= order.created_at.to_formatted_s(:long).slice(0...-6) %><br>
+  Total Order Items: <%= order.total_item_count %><br>
+  Order Total Price: $<%= '%.2f' % order.total_price %><br><br>
+<% end %><br>
+<br>
 
 <h3>Items:</h3>
 <section>
-  <% @items.each do |item| %>
-    <div id="item-<%= item.id %>">
-      <h4><%= link_to item.name, item_path(item) %></h4>
-      <%= link_to item_path(item) do %>
-        <%= image_tag item.image, {class: "item-#{item.id}-image", alt: "#{item.name}-image"} %>
-      <% end %>
-      <p>Available: <%= item.inventory %></p>
-      <p>Price: <%= number_to_currency(item.price)%></p>
-      <% if @user.merchant? %>
-        <%= link_to "Edit", edit_item_path(item) %>
-        <% if item.active %>
-          <%= link_to "Disable", "/items/disable/#{item.id}", method: :post %>
-        <% else %>
-          <%= link_to "Enable", "/items/enable/#{item.id}", method: :post %>
+  <% if @items %>
+    <% @items.each do |item| %>
+      <div id="item-<%= item.id %>">
+        <h4><%= link_to item.name, item_path(item) %></h4>
+        <%= link_to item_path(item) do %>
+          <%= image_tag item.image, {class: "item-#{item.id}-image", alt: "#{item.name}-image"} %>
         <% end %>
-        <%= link_to "Delete", item_path(item), method: :delete %>
-      <% end %>
-    </div>
+        <p>Available: <%= item.inventory %></p>
+        <p>Price: <%= number_to_currency(item.price)%></p>
+        <% if @merchant.merchant? %>
+          <%= link_to "Edit", edit_item_path(item) %>
+          <% if item.active %>
+            <%= link_to "Disable", "/items/disable/#{item.id}", method: :post %>
+          <% else %>
+            <%= link_to "Enable", "/items/enable/#{item.id}", method: :post %>
+          <% end %>
+          <%= link_to "Delete", item_path(item), method: :delete %>
+        <% end %>
+      </div>
+    <% end %>
+    <%= link_to "Add Item", new_item_path %>
+  <% else %>
+    No items.
   <% end %>
+
+  Merchant Statistics:<br>
+  <br>
+  <section id="merchant-stats">
+    <div id="top-5-items-sold">
+      Top 5 Items Sold:<br>
+      <% @top_five_items_sold.each do |item| %>
+        <%= item.name %>,
+        (sold <%= item.total_quantity %>)<br>
+      <% end %><br>
+    </div>
+    <br>
 </section>
