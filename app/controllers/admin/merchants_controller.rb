@@ -23,7 +23,8 @@ class Admin::MerchantsController < Admin::BaseController
 
   def downgrade
     merchant = User.find(params[:merchant_id])
-    merchant.update(role: 0)
+    merchant.deactivate_all_items
+    merchant.downgrade_to_user
 
     flash[:notice] = "#{merchant.name} has been downgraded to a User."
 
