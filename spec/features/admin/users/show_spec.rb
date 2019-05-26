@@ -82,9 +82,17 @@ RSpec.describe "when I visit a user's show page" do
 
         expect(page).to have_content("#{@user.name} has been upgraded to a Merchant.")
       end
-    end
 
-    # The next time this user logs in they are now a merchant
+      it "the user becomes a merchant" do
+        visit admin_user_path(@user)
+
+        click_button "Upgrade to Merchant"
+
+        @user.reload
+
+        expect(@user.role).to eq("merchant")
+      end
+    end
 
     context "as a visitor" do
       it "I recieve a 404 error" do
