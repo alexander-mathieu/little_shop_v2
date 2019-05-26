@@ -11,10 +11,11 @@ class ItemsController < ApplicationController
   end
 
   def edit
-    @item = Items.find(params[:id])    
+    @item = Item.find(params[:id])    
   end
 
   def update
+    Item.find(params[:id]).update(item_params)    
     redirect_to '/dashboard'
   end
 
@@ -26,5 +27,11 @@ class ItemsController < ApplicationController
   def disable
     Item.update(params[:id], active: false)
     redirect_to "/dashboard#item-#{params[:id]}"
+  end
+
+  private
+
+  def item_params
+    params.require(:item).permit(:name, :price, :description, :image, :inventory)
   end
 end

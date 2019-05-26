@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   root to: 'welcome#index'
 
   resources :items, only: [:index, :show, :edit]
-  post '/items', to: "items#update"
+  post '/items/:id', to: "items#update"
   post '/items/enable/:id', to: "items#enable"
   post '/items/disable/:id', to: "items#disable"
 

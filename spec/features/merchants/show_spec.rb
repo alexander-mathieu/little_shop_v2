@@ -9,6 +9,19 @@ describe "as a merchant" do
       @user1 = create(:user, email: "u1@gmail.com")
     end
 
+    it "does not display for visitors or users" do
+      visit root_path
+      expect(page).to have_no_link("Dashboard")
+
+      click_link "LogIn"
+      fill_in 'email', with: @user1.email
+      fill_in 'password', with: @user1.password
+      click_button "Log In"
+
+      visit root_path
+      expect(page).to have_no_link("Dashboard")
+    end
+
     it "shows all the stuff it should" do
       visit root_path
 
@@ -46,17 +59,60 @@ describe "as a merchant" do
       end
     end
 
-    it "does not display for visitors or users" do
+    it "can edit an item" do
       visit root_path
-      expect(page).to have_no_link("Dashboard")
 
       click_link "LogIn"
-      fill_in 'email', with: @user1.email
-      fill_in 'password', with: @user1.password
+      fill_in 'email', with: @merchant.email
+      fill_in 'password', with: @merchant.password
       click_button "Log In"
 
+      click_link "Dashboard"
+      expect(current_path).to eq(dashboard_path)
+
+      within "#item-#{@itemA.id}" do
+        click_on "Edit"
+      end
+      expect(current_path).to eq("/items/#{@itemA.id}/edit")
+      fill_in 'Name', with: "ItemAHHHH"
+      click_on "Update Item"
+
+      expect(current_path).to eq('/dashboard')
+      within "#item-#{@itemA.id}" do
+        expect(page).to have_content("ItemAHHHH")
+      end
+    end
+
+    it "can enable/disable items" do
       visit root_path
-      expect(page).to have_no_link("Dashboard")
+
+      click_link "LogIn"
+      fill_in 'email', with: @merchant.email
+      fill_in 'password', with: @merchant.password
+      click_button "Log In"
+
+      click_link "Dashboard"
+      expect(current_path).to eq(dashboard_path)
+
+      within "#item-#{@itemA.id}" do
+        click_on "Disable"
+      end
+
+      expect(current_path).to eq('/dashboard')
+      within "#item-#{@itemA.id}" do
+        expect(page).to_not have_content("Disable")
+        expect(page).to have_content("Enable")
+      end
+
+      within "#item-#{@itemA.id}" do
+        click_on "Enable"
+      end
+
+      expect(current_path).to eq('/dashboard')
+      within "#item-#{@itemA.id}" do
+        expect(page).to_not have_content("Enable")
+        expect(page).to have_content("Disable")
+      end
     end
   end
 end

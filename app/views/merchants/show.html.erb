@@ -21,9 +21,9 @@
       <% if @user.merchant? %>
         <%= link_to "Edit", edit_item_path(item) %>
         <% if item.active %>
-          <%= link_to "Disable", "/items/disable/#{item.id}" %>
+          <%= link_to "Disable", "/items/disable/#{item.id}", method: :post %>
         <% else %>
-          <%= link_to "Enable", "/items/enable/#{item.id}" %>
+          <%= link_to "Enable", "/items/enable/#{item.id}", method: :post %>
         <% end %>
       <% end %>
     </div>
