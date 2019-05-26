@@ -58,16 +58,6 @@ describe "as a registered user" do
       end
     end
 
-#
-# If the order is still "pending", I see a button or link to cancel the order
-# When I click the cancel button for an order, the following happens:
-# - Each row in the "order items" table is given a status of "unfulfilled"
-# - The order itself is given a status of "cancelled"
-# - Any item quantities in the order that were previously fulfilled have their quantities returned to their respective merchant's inventory for that item.
-# - I am returned to my profile page
-# - I see a flash message telling me the order is now cancelled
-# - And I see that this order now has an updated status of "cancelled"
-
     it "lets me cancel an order" do
       visit profile_order_path(@order_1)
       click_link("Cancel Order")

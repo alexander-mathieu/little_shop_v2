@@ -1,7 +1,11 @@
 Rails.application.routes.draw do
   root to: 'welcome#index'
 
-  resources :items, only: [:index, :show]
+  resources :items, only: [:index, :show, :edit, :destroy, :new, :create]
+  post '/items/:id', to: "items#update"
+  post '/items/enable/:id', to: "items#enable"
+  post '/items/disable/:id', to: "items#disable"
+
   resources :users, only: [:show, :create]
 
   get '/register', to: 'users#new'
@@ -40,5 +44,4 @@ Rails.application.routes.draw do
     resources :merchants, only: [:show, :update]
     resources :users, only: [:index, :show]
   end
-
 end
