@@ -10,9 +10,10 @@ class MerchantsController < ApplicationController
   end
 
   def show
-    @user = current_user
-    @merchant_orders = @user.pending_orders
-    @top_five_items_sold = @user.top_five_sold
-    render file: "app/public/404.html" unless @user.merchant?
+
+    @merchant = current_user
+    @merchant_orders = @merchant.pending_orders
+    @top_five_items_sold = @merchant.top_five_sold
+    render file: "app/public/404.html" unless @merchant.merchant? || @merchant.admin?
   end
 end

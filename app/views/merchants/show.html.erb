@@ -1,12 +1,12 @@
 <br>
 Merchant Info:<br>
 <br>
-<%= @user.name %>
-(<%= @user.email %>)<br>
-<%= @user.address %><br>
-<%= @user.city %>,
-<%= @user.state %>
-<%= @user.zip %><br>
+<%= @merchant.name %>
+(<%= @merchant.email %>)<br>
+<%= @merchant.address %><br>
+<%= @merchant.city %>,
+<%= @merchant.state %>
+<%= @merchant.zip %><br>
 <br>
 Pending Orders:<br>
 <br>
@@ -28,7 +28,4 @@ Merchant Statistics:<br>
     <% end %><br>
   </div>
   <br>
-  <div id="total-quantity-items-sold">
-    Sold <%= @user.total_quantity_items_sold %> items, which is <%= "total_quantity_items_sold/inventory" %> of your total inventory
-  </div>
 </section>

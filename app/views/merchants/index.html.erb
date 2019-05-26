@@ -2,9 +2,29 @@
 
 <% @merchants.each do |merchant| %>
   <section id="merchant-<%= merchant.id %>" >
-    <h3><%= merchant.name %></h3>
+    <h3><%=current_admin? ? link_to(merchant.name, admin_merchant_path(merchant)) : merchant.name %></h3>
+
     <p>From: <%= merchant.city %>, <%= merchant.state %><br>
+
     Date joined: <%= merchant.created_at.to_formatted_s(:long).slice(0...-6) %></p>
+
+    <% if current_admin? %>
+    <% if !merchant.active %>
+      <%= form_tag admin_merchant_path(merchant), method: :put do -%>
+        <%= hidden_field_tag :user_id, merchant.id -%>
+        <%= hidden_field_tag :enable, true -%>
+        <%= submit_tag 'enable' -%>
+      <%- end -%>
+    <% else %>
+        <%= form_tag admin_merchant_path(merchant), method: :put do -%>
+          <%= hidden_field_tag :user_id, merchant.id -%>
+          <%= hidden_field_tag :disable, true -%>
+          <%= submit_tag 'disable' -%>
+        <%- end -%>
+      <% end %>
+    <% end %>
+
+
   </section>
 <% end %>
 

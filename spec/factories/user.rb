@@ -11,7 +11,7 @@ FactoryBot.define do
     sequence :email do |n|
       "u#{n}@users.com"
     end
-
+    active {true}
     city {"Springfield"}
     state {"VA"}
     zip {"90210"}
