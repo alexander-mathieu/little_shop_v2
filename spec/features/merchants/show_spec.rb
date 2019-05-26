@@ -78,6 +78,7 @@ describe "as a merchant" do
       click_on "Update Item"
 
       expect(current_path).to eq('/dashboard')
+      expect(page).to have_content("Item updated.")
       within "#item-#{@itemA.id}" do
         expect(page).to have_content("ItemAHHHH")
       end

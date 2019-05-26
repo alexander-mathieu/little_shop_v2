@@ -16,6 +16,7 @@ class ItemsController < ApplicationController
 
   def update
     Item.find(params[:id]).update(item_params)    
+    flash[:note] = "Item updated."
     redirect_to '/dashboard'
   end
 
