@@ -54,13 +54,13 @@ RSpec.describe "when I visit a merchant's show page" do
         expect(current_path).to eq(admin_user_path(@merchant))
       end
 
-      # it "I see a flash message indicated that the user has been upgraded" do
-      #   visit admin_merchant_path(@merchant)
-      #
-      #   click_button "Downgrade to User"
-      #
-      #   expect(page).to have_content("#{@merchant.name} has been downgraded to a User.")
-      # end
+      it "I see a flash message indicated that the user has been upgraded" do
+        visit admin_merchant_path(@merchant)
+
+        click_button "Downgrade to User"
+
+        expect(page).to have_content("#{@merchant.name} has been downgraded to a User.")
+      end
     #
     #   it "the user becomes a merchant" do
     #     visit admin_merchant_path(@merchant)
