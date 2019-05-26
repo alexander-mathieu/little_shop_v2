@@ -7,10 +7,11 @@ Rails.application.routes.draw do
   post '/items/disable/:id', to: "items#disable"
 
   resources :users, only: [:show, :create]
-
+  resources :users, only: [:new, :edit, :create]
   get '/register', to: 'users#new'
 
-  resources :merchants, only: [:index]
+  resources :merchants, only: [:index] do
+  end
 
   resources :users, only: [:new, :edit, :create]
 
@@ -35,6 +36,7 @@ Rails.application.routes.draw do
   delete '/logout', to: "sessions#delete"
 
   get '/dashboard', to: "merchants#show"
+  get '/dashboard/orders/:id', to: 'merchants/orders#show'
 
   namespace :admin do
     get '/dashboard', to: 'dashboard#index'
