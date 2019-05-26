@@ -28,6 +28,7 @@ describe "as a merchant" do
     end
     #Be Aware of How Price works on items vs order_items
     it "shows me order information" do
+      visit "/dashboard/orders/#{@order_1.id}"
       expect(page).to have_content(@user.name)
       expect(page).to have_content(@user.address)
       within "#item-#{@item_1.id}" do

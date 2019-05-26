@@ -5,6 +5,8 @@ class Admin::UsersController < Admin::BaseController
 
   def show
     @user = User.find(params[:id])
+
+    redirect_to admin_merchant_path(@user) if @user.merchant?
   end
 
   def upgrade
