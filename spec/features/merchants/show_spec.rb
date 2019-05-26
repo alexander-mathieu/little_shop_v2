@@ -44,18 +44,21 @@ describe "as a merchant" do
         expect(page).to have_content(@itemA.inventory)
         expect(page).to have_content("Edit")
         expect(page).to have_content("Disable")
+        expect(page).to have_content("Delete")
       end
       within "#item-#{@itemB.id}" do
         expect(page).to have_content(@itemB.name)
         expect(page).to have_content(@itemB.inventory)
         expect(page).to have_content("Edit")
         expect(page).to have_content("Disable")
+        expect(page).to have_content("Delete")
       end
       within "#item-#{@itemC.id}" do
         expect(page).to have_content(@itemC.name)
         expect(page).to have_content(@itemC.inventory)
         expect(page).to have_content("Edit")
         expect(page).to have_content("Disable")
+        expect(page).to have_content("Delete")
       end
     end
 
@@ -116,6 +119,26 @@ describe "as a merchant" do
         expect(page).to_not have_content("Enable")
         expect(page).to have_content("Disable")
       end
+    end
+
+    it "can edit an item" do
+      visit root_path
+
+      click_link "LogIn"
+      fill_in 'email', with: @merchant.email
+      fill_in 'password', with: @merchant.password
+      click_button "Log In"
+
+      click_link "Dashboard"
+      expect(current_path).to eq(dashboard_path)
+
+      within "#item-#{@itemA.id}" do
+        click_on "Delete"
+      end
+
+      expect(current_path).to eq('/dashboard')
+      expect(page).to have_content("Item has been deleted.")
+      expect(page).to_not have_content(@itemA.name)
     end
   end
 end

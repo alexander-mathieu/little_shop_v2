@@ -32,6 +32,12 @@ class ItemsController < ApplicationController
     redirect_to "/dashboard#item-#{params[:id]}"
   end
 
+  def destroy
+    Item.destroy(params[:id])
+    flash[:note] = "Item has been deleted."
+    redirect_to '/dashboard'
+  end
+
   private
 
   def item_params

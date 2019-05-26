@@ -25,6 +25,7 @@
         <% else %>
           <%= link_to "Enable", "/items/enable/#{item.id}", method: :post %>
         <% end %>
+        <%= link_to "Delete", item_path(item), method: :delete %>
       <% end %>
     </div>
   <% end %>
