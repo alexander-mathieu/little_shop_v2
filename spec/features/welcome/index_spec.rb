@@ -31,7 +31,7 @@ RSpec.describe "when I visit the welcome page" do
 
   context "as a registered user" do
     it "lets a user log out" do
-      user = User.create!(email: "bob@bob.com", password: "124355", name: "bob", address:"123 bob st.", city: "bobton", state:"MA", zip: 28234)
+      user = User.create!(email: "bob@bob.com", active: true, password: "124355", name: "bob", address:"123 bob st.", city: "bobton", state:"MA", zip: 28234)
 
       visit root_path
 
@@ -49,7 +49,7 @@ RSpec.describe "when I visit the welcome page" do
     end
 
     it "gives me different options as a user" do
-      user = User.create!(email: "bob@bob.com", password: "124355", name: "bob", address:"123 bob st.", city: "bobton", state:"MA", zip: 28234)
+      user = User.create!(email: "bob@bob.com", active: true, password: "124355", name: "bob", address:"123 bob st.", city: "bobton", state:"MA", zip: 28234)
 
       visit root_path
 
@@ -84,7 +84,7 @@ RSpec.describe "when I visit the welcome page" do
     end
 
     it "directs to a users profile if already logged in" do
-      user = User.create!(email: "bob@bob.com", password: "124355", name: "bob", address:"123 bob st.", city: "bobton", state:"MA", zip: 28234)
+      user = User.create!(email: "bob@bob.com", active: true, password: "124355", name: "bob", address:"123 bob st.", city: "bobton", state:"MA", zip: 28234)
 
       visit root_path
 
@@ -100,7 +100,7 @@ RSpec.describe "when I visit the welcome page" do
 
   context "as a merchant" do
     before :each do
-      @merchant = User.create!(email: "joe@joe.com", password: "124355",
+      @merchant = User.create!(email: "joe@joe.com", active: true, password: "124355",
         name: "joe", role: 1, address:"123 joe st.", city: "joeton", state:"MI", zip: 28334)
 
       visit root_path

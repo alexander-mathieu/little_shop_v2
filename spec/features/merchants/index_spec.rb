@@ -12,6 +12,7 @@ RSpec.describe 'As a visitor' do
     @user_8 = create(:user)
     @user_9 = create(:user)
     @user_10 = create(:user)
+
     @users = User.all
 
     @item_1 = create(:item, price: 10, user: @user_1)
@@ -54,6 +55,7 @@ RSpec.describe 'As a visitor' do
 
       within "#merchant-#{@user_1.id}" do
         expect(page).to have_content(@user_1.name)
+        expect(page).to_not have_link(@user_1.name)
         expect(page).to have_content(@user_1.city)
         expect(page).to have_content(@user_1.state)
         expect(page).to have_content(Date.strptime(@user_1.created_at.to_s))
@@ -61,6 +63,7 @@ RSpec.describe 'As a visitor' do
 
       within "#merchant-#{@user_3.id}" do
         expect(page).to have_content(@user_3.name)
+        expect(page).to_not have_link(@user_3.name)
         expect(page).to have_content(@user_3.city)
         expect(page).to have_content(@user_3.state)
         expect(page).to have_content(Date.strptime(@user_3.created_at.to_s))
@@ -68,6 +71,7 @@ RSpec.describe 'As a visitor' do
 
       within "#merchant-#{@user_4.id}" do
         expect(page).to have_content(@user_4.name)
+        expect(page).to_not have_link(@user_4.name)
         expect(page).to have_content(@user_4.city)
         expect(page).to have_content(@user_4.state)
         expect(page).to have_content(Date.strptime(@user_4.created_at.to_s))
@@ -154,6 +158,43 @@ RSpec.describe 'As a visitor' do
         end
       end
     end
+    describe "as an admin" do
+      it "show me names as links to admin_merchant_path(merchant)" do
+        @admin_1 = create(:admin)
+        visit root_path
+
+        click_on "LogIn"
+        fill_in "email", with: @admin_1.email
+        fill_in "password", with: @admin_1.password
+        click_on "Log In"
+        visit merchants_path
+
+        within "#merchant-#{@user_1.id}" do
+          expect(page).to have_link(@user_1.name)
+          expect(page).to have_content(@user_1.city)
+          expect(page).to have_content(@user_1.state)
+        end
+        within "#merchant-#{@user_4.id}" do
+          expect(page).to have_link(@user_4.name)
+          expect(page).to have_content(@user_4.city)
+          expect(page).to have_content(@user_4.state)
+        end
+
+        click_link @user_1.name
+        expect(current_path).to eq(admin_merchant_path(@user_1))
+        p current_path
+        visit merchants_path
+        click_link @user_4.name
+        expect(current_path).to eq(admin_merchant_path(@user_4))
+      end
+    end
+
+# And I click on a "disable" button for an enabled merchant
+# I am returned to the admin's merchant index page
+# And I see a flash message that the merchant's account is now disabled
+# And I see that the merchant's account is now disabled
+# This merchant cannot log in
+
   end
 
 end
