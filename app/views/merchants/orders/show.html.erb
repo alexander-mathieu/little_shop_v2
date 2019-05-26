@@ -7,6 +7,7 @@
   <img src="<%=order_item.item.image%>">
   <p>Price: <%= order_item.price.fdiv(order_item.quantity).round(2) %></p>
   <p>Quantity: <%= order_item.quantity %></p>
-  <%= button_to "Fulfill Order", "/merchants/orders/fulfill/#{@order.id}", method: :patch if order_item.item.inventory > order_item.quantity && !order_item.fulfilled  %>
+  <p><%= "Order Fulfilled" if order_item.fulfilled %></p>
+  <%= button_to "Fulfill Order", "/merchants/orders/fulfill/#{@order.id}", method: :patch, params: {order_item: order_item.id} if order_item.item.inventory > order_item.quantity && !order_item.fulfilled  %>
 </section>
 <% end %>

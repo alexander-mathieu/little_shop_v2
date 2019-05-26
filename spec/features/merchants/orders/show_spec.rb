@@ -74,8 +74,11 @@ describe "as a merchant" do
       end
         expect(current_path).to eq(merchant_order_path(@order_1))
         expect(page).to have_content("Fulfilled item #{@item_1.name} of this order")
-        expect(@item_1.quantity).to eq(9)
+        @order_item_1.reload
         expect(@order_item_1.fulfilled).to eq(true)
+        @item_1.reload
+        expect(@item_1.inventory).to eq(9)
+
 
         within "#item-#{@item_1.id}" do
           expect(page).to have_content("Order Fulfilled")
