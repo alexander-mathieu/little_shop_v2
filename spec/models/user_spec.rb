@@ -202,5 +202,11 @@ RSpec.describe User, type: :model do
 
       expect(@merchant_1.role).to eq("default")
     end
+
+    it "#upgrade_to_merchant" do
+      @user_2.upgrade_to_merchant
+
+      expect(@user_2.role).to eq("merchant")
+    end
   end
 end

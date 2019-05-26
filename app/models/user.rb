@@ -70,6 +70,10 @@ class User < ApplicationRecord
     update(role: 0)
   end
 
+  def upgrade_to_merchant
+    update(role: 1)
+  end
+
   # - total quantity of items I've sold, and as a percentage against my sold units plus remaining inventory (eg, if I have sold 1,000 things and still have 9,000 things in inventory, the message would say something like "Sold 1,000 items, which is 10% of your total inventory")
   # def total_quantity_items_sold
   #   # items.sum('order_items.quantity')
