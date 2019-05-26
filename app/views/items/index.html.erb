@@ -31,17 +31,58 @@
   </div>
 </div>
 
-<section class="all-items">
-  <% @items.each do |item| %>
-    <div class="item-<%= item.id %>-info">
-      <h4><%= link_to item.name, item_path(item) %></h4>
-      <%= link_to item_path(item) do %>
-        <%= image_tag item.image, {class: "item-#{item.id}-image", alt: "#{item.name}-image"} %>
+<div class="all-items">
+  <div class="row">
+    <div class="col s4">
+      <% @items_left.each do |item| %>
+        <div class="item-<%= item.id %>-info card red">
+          <div class="card-image">
+            <%= link_to item_path(item) do %>
+              <%= image_tag item.image, {class: "item-#{item.id}-image", alt: "#{item.name}-image"} %>
+            <% end %>
+          </div>
+          <div class="card-content">
+            <span class="card-title"><%= link_to item.name, item_path(item), class: "white-text" %></span>
+            <p>Seller: <%= item.user.name %></p>
+            <p>Available: <%= item.inventory %></p>
+            <p>Price: <%= number_to_currency(item.price)%></p>
+          </div>
+        </div>
       <% end %>
-      <p>Seller: <%= item.user.name %></p>
-      <p>Available: <%= item.inventory %></p>
-      <p>Price: <%= number_to_currency(item.price)%></p>
     </div>
-  <% end %>
-</section>
+    <div class="col s4">
+      <% @items_mid.each do |item| %>
+        <div class="item-<%= item.id %>-info card red">
+          <div class="card-image">
+            <%= link_to item_path(item) do %>
+              <%= image_tag item.image, {class: "item-#{item.id}-image", alt: "#{item.name}-image"} %>
+            <% end %>
+          </div>
+          <div class="card-content">
+            <span class="card-title"><%= link_to item.name, item_path(item), class: "white-text" %></span>
+            <p>Seller: <%= item.user.name %></p>
+            <p>Available: <%= item.inventory %></p>
+            <p>Price: <%= number_to_currency(item.price)%></p>
+          </div>
+        </div>
+      <% end %>
+    </div>
+    <div class="col s4">
+      <% @items_right.each do |item| %>
+        <div class="item-<%= item.id %>-info card red">
+          <div class="card-image">
+            <%= link_to item_path(item) do %>
+              <%= image_tag item.image, {class: "item-#{item.id}-image", alt: "#{item.name}-image"} %>
+            <% end %>
+          </div>
+          <div class="card-content">
+            <span class="card-title"><%= link_to item.name, item_path(item), class: "white-text" %></span>
+            <p>Seller: <%= item.user.name %></p>
+            <p>Available: <%= item.inventory %></p>
+            <p>Price: <%= number_to_currency(item.price)%></p>
+          </div>
+        </div>
+      <% end %>
+    </div>
+</div>
 </div>
