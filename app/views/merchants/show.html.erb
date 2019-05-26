@@ -44,8 +44,9 @@ Pending Orders:<br>
         <% end %>
       </div>
     <% end %>
+    <%= link_to "Add Item", new_item_path %>
   <% else %>
-    <p>No items.</p>
+    No items.
   <% end %>
 
   Merchant Statistics:<br>

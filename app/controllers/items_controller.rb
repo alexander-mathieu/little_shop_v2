@@ -10,14 +10,34 @@ class ItemsController < ApplicationController
     @average_fulfillment_time = @item.average_fulfillment_time
   end
 
+  def new
+    @merchant = current_user
+    @item = Item.new
+  end
+
+  def create
+    adding = current_user.items.create(item_params)
+    if adding.save
+      flash[:note] = "Item Added."
+      redirect_to "/dashboard##{adding.id}"
+    else
+      flash[:warn] = "Invalid input."
+      redirect_to new_item_path
+    end
+  end
+
   def edit
     @item = Item.find(params[:id])    
   end
 
   def update
-    Item.find(params[:id]).update(item_params)    
-    flash[:note] = "Item updated."
-    redirect_to '/dashboard'
+    if Item.find(params[:id]).update(item_params)
+      flash[:note] = "Item updated."
+      redirect_to '/dashboard'
+    else
+      flash[:warn] = "Input invalid."
+      redirect_to edit_item_path
+    end
   end
 
   def enable
