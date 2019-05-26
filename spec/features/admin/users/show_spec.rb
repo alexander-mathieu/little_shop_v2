@@ -7,7 +7,7 @@ RSpec.describe "when I visit a user's show page" do
       @merchant = User.create!(email: "merchant@gmail.com", role: 1, active: true, name: "Merchant", address: "Merchant Address", city: "Merchant City", state: "Merchant State", zip: "22345", password: "123456")
       @user = User.create!(email: "user@gmail.com", role: 0, active: true, name: "User", address: "User Address", city: "User City", state: "User State", zip: "52345", password: "123456")
 
-      @item = @user.items.create!(name: "Item", active: true, price: 1.00, description: "Item Description", image: "https://tradersofafrica.com/img/no-product-photo.jpg", inventory: 10)
+      @item = @merchant.items.create!(name: "Item", active: true, price: 1.00, description: "Item Description", image: "https://tradersofafrica.com/img/no-product-photo.jpg", inventory: 10)
       @order = @user.orders.create!(status: 3)
       @order_item = @order.order_items.create!(item_id: @item.id, quantity: 1, price: 1.00, fulfilled: true)
 

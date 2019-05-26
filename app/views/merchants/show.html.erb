@@ -1,7 +1,11 @@
-
 <br>
 Merchant Info:<br>
 <br>
+
+<% if current_user && current_user.admin? %>
+  <%= button_to "Downgrade to User", "/admin/merchants/downgrade/#{@merchant.id}", method: :patch %>
+<% end %>
+
 <% if @merchant.merchant?; %><h1>Logged in as: <%= current_user.email %></h1><% end %>
 <%= @merchant.name %>
 (<%= @merchant.email %>)<br>
