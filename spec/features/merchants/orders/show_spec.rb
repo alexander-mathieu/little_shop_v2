@@ -14,7 +14,7 @@ describe "as a merchant" do
       @item_4 = @merchant_2.items.create!(name: "Item 4", active: true, price: 1.00, description: "Item Description", image: "https://tradersofafrica.com/img/no-product-photo.jpg", inventory: 10)
       @order_1 = @user.orders.create!(status: 0)
       @order_2 = @user.orders.create!(status: 0)
-      @order_item_1 = @order_1.order_items.create!(item_id: @item_1.id, quantity: 1, price: 1.00, fulfilled: true)
+      @order_item_1 = @order_1.order_items.create!(item_id: @item_1.id, quantity: 1, price: 1.00, fulfilled: false)
       @order_item_2 = @order_1.order_items.create!(item_id: @item_2.id, quantity: 3, price: 6.00, fulfilled: true)
       @order_item_3 = @order_2.order_items.create!(item_id: @item_4.id, quantity: 6, price: 1.00, fulfilled: true)
 
