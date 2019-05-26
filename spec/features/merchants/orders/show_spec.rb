@@ -67,13 +67,24 @@ describe "as a merchant" do
 
 
 
-    xit "the fulfill button fulfills the order" do
+    it "the fulfill button fulfills the order" do
+
+      within "#item-#{@item_1.id}" do
+        click_button("Fulfill Order")
+      end
+        expect(current_path).to eq(merchant_order_path(@order_1))
+        expect(page).to have_content("Fulfilled item #{@item_1.name} of this order")
+        expect(@item_1.quantity).to eq(9)
+        expect(@order_item_1.fulfilled).to eq(true)
+
+        within "#item-#{@item_1.id}" do
+          expect(page).to have_content("Order Fulfilled")
+        end
+
 
     end
 
-    xit "tells me if an order has been fulfilled" do
 
-    end
 
 
 
