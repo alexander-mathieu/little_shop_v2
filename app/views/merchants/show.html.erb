@@ -1,6 +1,32 @@
+<% if @user.merchant?; %><h1>Logged in as: <%= current_user.email %></h1><% end %>
 <%= @user.name %>
 (<%= @user.email %>)<br>
 <%= @user.address %><br>
 <%= @user.city %>,
 <%= @user.state %>
 <%= @user.zip %>
+
+<%= link_to "Edit my Profile", profile_edit_path if @user.merchant? %> 
+
+<h3>Items:</h3>
+<section>
+  <% @items.each do |item| %>
+    <div id="item-<%= item.id %>">
+      <h4><%= link_to item.name, item_path(item) %></h4>
+      <%= link_to item_path(item) do %>
+        <%= image_tag item.image, {class: "item-#{item.id}-image", alt: "#{item.name}-image"} %>
+      <% end %>
+      <p>Available: <%= item.inventory %></p>
+      <p>Price: <%= number_to_currency(item.price)%></p>
+      <% if @user.merchant? %>
+        <%= link_to "Edit", edit_item_path(item) %>
+        <% if item.active %>
+          <%= link_to "Disable", "/items/disable/#{item.id}", method: :post %>
+        <% else %>
+          <%= link_to "Enable", "/items/enable/#{item.id}", method: :post %>
+        <% end %>
+        <%= link_to "Delete", item_path(item), method: :delete %>
+      <% end %>
+    </div>
+  <% end %>
+</section>

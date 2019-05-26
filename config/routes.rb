@@ -1,7 +1,11 @@
 Rails.application.routes.draw do
   root to: 'welcome#index'
 
-  resources :items, only: [:index, :show]
+  resources :items, only: [:index, :show, :edit, :destroy]
+  post '/items/:id', to: "items#update"
+  post '/items/enable/:id', to: "items#enable"
+  post '/items/disable/:id', to: "items#disable"
+
   resources :users, only: [:show, :create]
 
   get '/register', to: 'users#new'
@@ -14,7 +18,7 @@ Rails.application.routes.draw do
   get '/profile/edit', to: "users#edit"
 
   namespace :profile do
-    resources :orders, only: [:index, :show, :destroy]
+    resources :orders, only: [:index, :show]
   end
 
   put '/users', to: "users#update"
@@ -26,7 +30,6 @@ Rails.application.routes.draw do
   get '/cart', to: 'carts#show'
   post '/cart', to: 'carts#create'
   delete '/cart', to: 'carts#destroy'
-  post '/checkout', to: 'profile/orders#create'
 
   delete '/logout', to: "sessions#delete"
 
@@ -41,5 +44,4 @@ Rails.application.routes.draw do
 
     resources :users, only: [:index, :show]
   end
-
 end
