@@ -56,4 +56,10 @@ class User < ApplicationRecord
     .order('total_quantity DESC, items.name')
     .limit(5)
   end
+
+  def pending_orders
+    Order.joins(items: :order_items).select('orders.*', 'items.user_id')
+          .where('items.user_id' => self.id, 'orders.status' => 0)
+          .distinct
+  end
 end
