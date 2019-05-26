@@ -1,7 +1,7 @@
 require 'rails_helper'
 
-RSpec.describe "as an admin" do
-  describe "when I visit a user's show page" do
+RSpec.describe "when I visit a user's show page" do
+  describe "as an admin" do
     before :each do
       @admin = User.create!(email: "admin@gmail.com", role: 2, name: "Admin", address: "Admin Address", city: "Admin City", state: "Admin State", zip: "12345", password: "123456")
       @merchant = User.create!(email: "merchant@gmail.com", role: 1, name: "Merchant", address: "Merchant Address", city: "Merchant City", state: "Merchant State", zip: "22345", password: "123456")
@@ -60,16 +60,64 @@ RSpec.describe "as an admin" do
       end
     end
 
-    it "the page displays a link to upgrade the user's account to a merchant account" do
+    it "the page displays a button to upgrade the user's account to a merchant account" do
       visit admin_user_path(@user)
 
       expect(page).to have_button("Upgrade to Merchant")
     end
+
+    # describe "and click the 'Upgrade to Merchant' button" do
+    #   it "I am redirected to that user's new merchant dashboard"
+    #   it "I see a flash message indicated that the user has been upgraded"
+    # end
+
+    # The next time this user logs in they are now a merchant
+
+    context "as a visitor" do
+      it "I recieve a 404 error" do
+        click_link "Logout"
+
+        visit admin_user_path(@user)
+
+        expect(page.status_code).to eq(404)
+        expect(page).to have_content("The page you were looking for doesn't exist.")
+      end
+    end
+
+    context "as a user" do
+      it "I recieve a 404 error" do
+        click_link "Logout"
+
+        visit root_path
+
+        click_on "LogIn"
+        fill_in "email", with: @user.email
+        fill_in "password", with: @user.password
+        click_on "Log In"
+
+        visit admin_user_path(@user)
+
+        expect(page.status_code).to eq(404)
+        expect(page).to have_content("The page you were looking for doesn't exist.")
+      end
+    end
+
+    context "as a merchant" do
+      it "I recieve a 404 error" do
+        click_link "Logout"
+
+        visit root_path
+
+        click_on "LogIn"
+        fill_in "email", with: @merchant.email
+        fill_in "password", with: @merchant.password
+        click_on "Log In"
+
+        visit admin_user_path(@user)
+
+        expect(page.status_code).to eq(404)
+        expect(page).to have_content("The page you were looking for doesn't exist.")
+      end
+    end
   end
 end
-
-# When I click on that link
-# I am redirected to ("/admin/merchants/5") because the user is now a merchant
-# And I see a flash message indicating the user has been upgraded
-# The next time this user logs in they are now a merchant
-# Only admins can reach any route necessary to upgrade the user to merchant status
