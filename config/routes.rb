@@ -35,6 +35,7 @@ Rails.application.routes.draw do
   delete '/logout', to: "sessions#delete"
 
   get '/dashboard', to: "merchants#show"
+  get '/dashboard/orders/:id', to: "dashboard/orders#show", as: :merchant_order
 
   namespace :admin do
 
