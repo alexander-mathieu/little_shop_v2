@@ -1,4 +1,7 @@
-<h2><%= @user.name %></h2>
+<section>
+  <h2><%= @user.name %></h2>
+  <%= button_to "Upgrade to Merchant", "/admin/users/upgrade/#{@user.id}", method: :patch %>
+</section>
 
 <section class="user-profile-<%= @user.id %>">
   <p><%= @user.name %></p>

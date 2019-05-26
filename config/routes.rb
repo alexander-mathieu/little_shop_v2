@@ -37,11 +37,11 @@ Rails.application.routes.draw do
   get '/dashboard', to: "merchants#show"
 
   namespace :admin do
-
     get '/dashboard', to: 'dashboard#index'
-    resources :merchants, only: [:show, :update]
     get '/users/:user_id/orders', to: 'orders#index', as: :user_orders
+    patch '/users/upgrade/:user_id', to: 'users#upgrade', as: :user_upgrade
 
+    resources :merchants, only: [:show, :update]
     resources :users, only: [:index, :show]
   end
 end
