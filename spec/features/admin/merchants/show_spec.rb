@@ -45,22 +45,22 @@ RSpec.describe "when I visit a merchant's show page" do
       expect(page).to have_button("Downgrade to User")
     end
 
-    # describe "and click the 'Downgrade to User' button" do
-    #   it "I am redirected to that merchant's user profile" do
-    #     visit admin_user_path(@merchant)
-    #
-    #     click_button "Downgrade to User"
-    #
-    #     expect(current_path).to eq(admin_user_path(@merchant))
-    #   end
-    #
-    #   it "I see a flash message indicated that the user has been upgraded" do
-    #     visit admin_merchant_path(@merchant)
-    #
-    #     click_button "Downgrade to User"
-    #
-    #     expect(page).to have_content("#{@merchant.name} has been downgraded to a User.")
-    #   end
+    describe "and click the 'Downgrade to User' button" do
+      it "I am redirected to that merchant's user profile" do
+        visit admin_merchant_path(@merchant)
+
+        click_button "Downgrade to User"
+
+        expect(current_path).to eq(admin_user_path(@merchant))
+      end
+
+      # it "I see a flash message indicated that the user has been upgraded" do
+      #   visit admin_merchant_path(@merchant)
+      #
+      #   click_button "Downgrade to User"
+      #
+      #   expect(page).to have_content("#{@merchant.name} has been downgraded to a User.")
+      # end
     #
     #   it "the user becomes a merchant" do
     #     visit admin_merchant_path(@merchant)
@@ -118,6 +118,6 @@ RSpec.describe "when I visit a merchant's show page" do
     #     expect(page.status_code).to eq(404)
     #     expect(page).to have_content("The page you were looking for doesn't exist.")
     #   end
-    # end
+    end
   end
 end
