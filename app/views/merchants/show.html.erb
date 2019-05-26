@@ -1,6 +1,18 @@
+<br>
+Merchant Info:<br>
+<br>
 <%= @user.name %>
 (<%= @user.email %>)<br>
 <%= @user.address %><br>
 <%= @user.city %>,
 <%= @user.state %>
-<%= @user.zip %>
+<%= @user.zip %><br>
+<br>
+Pending Orders:<br>
+<br>
+<% @merchant_orders.each do |order| %>
+  Order #<%= order.id %><br>
+  Placed On: <%= order.created_at.to_formatted_s(:long).slice(0...-6) %><br>
+  Total Order Items: <%= order.total_item_count %><br>
+  Order Total Price: $<%= '%.2f' % order.total_price %><br><br>
+<% end %><br>
