@@ -18,7 +18,7 @@ Rails.application.routes.draw do
   get '/profile/edit', to: "users#edit"
 
   namespace :profile do
-    resources :orders, only: [:index, :show]
+    resources :orders, only: [:index, :show, :destroy]
   end
 
   put '/users', to: "users#update"
@@ -30,12 +30,18 @@ Rails.application.routes.draw do
   get '/cart', to: 'carts#show'
   post '/cart', to: 'carts#create'
   delete '/cart', to: 'carts#destroy'
+  post '/checkout', to: 'profile/orders#create'
 
   delete '/logout', to: "sessions#delete"
 
   get '/dashboard', to: "merchants#show"
 
   namespace :admin do
+
     get '/dashboard', to: 'dashboard#index'
+    resources :merchants, only: [:show, :update]
+    get '/users/:user_id/orders', to: 'orders#index', as: :user_orders
+
+    resources :users, only: [:index, :show]
   end
 end

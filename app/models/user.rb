@@ -12,7 +12,7 @@ class User < ApplicationRecord
   validates :state, presence: true
   validates :zip, presence: true, length: (5..5)
   validates :email, presence: true, uniqueness: true
-  validates :password, presence: true, length: (6..51)
+  validates :password_digest, presence: true
 
   def self.find_default_users
     where(role: "default").order(name: :asc)

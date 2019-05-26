@@ -11,6 +11,6 @@ class MerchantsController < ApplicationController
 
   def show
     @user = current_user
-    @items = Item.where("user_id = #{current_user.id}")
+    @items = current_user.items
   end
 end

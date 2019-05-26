@@ -10,23 +10,27 @@
 
 <h3>Items:</h3>
 <section>
-  <% @items.each do |item| %>
-    <div id="item-<%= item.id %>">
-      <h4><%= link_to item.name, item_path(item) %></h4>
-      <%= link_to item_path(item) do %>
-        <%= image_tag item.image, {class: "item-#{item.id}-image", alt: "#{item.name}-image"} %>
-      <% end %>
-      <p>Available: <%= item.inventory %></p>
-      <p>Price: <%= number_to_currency(item.price)%></p>
-      <% if @user.merchant? %>
-        <%= link_to "Edit", edit_item_path(item) %>
-        <% if item.active %>
-          <%= link_to "Disable", "/items/disable/#{item.id}", method: :post %>
-        <% else %>
-          <%= link_to "Enable", "/items/enable/#{item.id}", method: :post %>
+  <% if @items %>
+    <% @items.each do |item| %>
+      <div id="item-<%= item.id %>">
+        <h4><%= link_to item.name, item_path(item) %></h4>
+        <%= link_to item_path(item) do %>
+          <%= image_tag item.image, {class: "item-#{item.id}-image", alt: "#{item.name}-image"} %>
         <% end %>
-        <%= link_to "Delete", item_path(item), method: :delete %>
-      <% end %>
-    </div>
+        <p>Available: <%= item.inventory %></p>
+        <p>Price: <%= number_to_currency(item.price)%></p>
+        <% if @user.merchant? %>
+          <%= link_to "Edit", edit_item_path(item) %>
+          <% if item.active %>
+            <%= link_to "Disable", "/items/disable/#{item.id}", method: :post %>
+          <% else %>
+            <%= link_to "Enable", "/items/enable/#{item.id}", method: :post %>
+          <% end %>
+          <%= link_to "Delete", item_path(item), method: :delete %>
+        <% end %>
+      </div>
+    <% end %>
+  <% else %>
+    <p>No items.</p>
   <% end %>
 </section>
