@@ -12,13 +12,18 @@ class ItemsController < ApplicationController
 
   def new
     @merchant = current_user
+    @item = Item.new
   end
 
   def create
-    adding = Item.new(item_params)
-    adding.save
-
-    redirect_to "/dashboard##{adding.id}"
+    adding = current_user.items.create(item_params)
+    if adding.save
+      flash[:note] = "Item Added."
+      redirect_to "/dashboard##{adding.id}"
+    else
+      flash[:warn] = "Invalid input."
+      redirect_to new_item_path
+    end
   end
 
   def edit
