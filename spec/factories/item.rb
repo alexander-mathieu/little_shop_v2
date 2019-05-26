@@ -11,5 +11,7 @@ FactoryBot.define do
     sequence :image do |n|
       "item#{n}.jpg"
     end
+
+    active {true}
   end
 end
