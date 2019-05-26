@@ -9,7 +9,7 @@ class Admin::UsersController < Admin::BaseController
 
   def upgrade
     user = User.find(params[:user_id])
-    user.update(role: 1)
+    user.upgrade_to_merchant
 
     flash[:notice] = "#{user.name} has been upgraded to a Merchant."
 
