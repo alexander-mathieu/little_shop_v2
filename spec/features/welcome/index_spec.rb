@@ -1,13 +1,13 @@
 require 'rails_helper'
 
-###Tests for navbar showing number of items in cart are in cart_show reature spec
+###Tests for nav-wrapper showing number of items in cart are in cart_show reature spec
 
 RSpec.describe "when I visit the welcome page" do
   context "as a visitor" do
     it "it displays a navigation bar" do
       visit root_path
 
-      within ".navbar" do
+      within ".nav-wrapper" do
         click_link("Home")
         expect(current_path).to eq(root_path)
 
@@ -40,7 +40,7 @@ RSpec.describe "when I visit the welcome page" do
       fill_in "password", with: user.password
       click_on "Log In"
 
-      within ".navbar" do
+      within ".nav-wrapper" do
         click_link("Logout")
 
         expect(current_path).to eq(root_path)
@@ -58,7 +58,7 @@ RSpec.describe "when I visit the welcome page" do
       fill_in "password", with: user.password
       click_on "Log In"
 
-      within ".navbar" do
+      within ".nav-wrapper" do
         click_link("Home")
         expect(current_path).to eq(root_path)
 
@@ -156,7 +156,7 @@ RSpec.describe "when I visit the welcome page" do
     it "the page doesn't display a link to my cart or item count" do
       visit root_path
 
-      within ".navbar" do
+      within ".nav-wrapper" do
         expect(page).to_not have_link("Cart")
         expect(page).to_not have_content("Items in cart")
       end
@@ -165,7 +165,7 @@ RSpec.describe "when I visit the welcome page" do
     it "the page displays a link to my admin dashboard" do
       visit root_path
 
-      within ".navbar" do
+      within ".nav-wrapper" do
         expect(page).to have_link("Dashboard")
 
         click_link("Dashboard")
@@ -177,7 +177,7 @@ RSpec.describe "when I visit the welcome page" do
     it "the page displays a link to a users index" do
       visit root_path
 
-      within ".navbar" do
+      within ".nav-wrapper" do
         expect(page).to have_link("Users")
 
         click_link("Users")

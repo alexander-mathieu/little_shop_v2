@@ -15,17 +15,19 @@
     <%= javascript_include_tag 'application' %>
   </head>
 
-  <body class="grey darken-2">
+  <body class="grey darken-2 white-text">
     <div class="navbar-fixed">
       <nav>
         <div class="nav-wrapper z-depth-4 red darken-3">
           <a href="#" data-target="" class="sidenav-trigger"><i class="material-icons">menu</i></a>
           <ul class=" hide-on-med-and-down">
-            <li><%= link_to "Home", root_path %></li>
-            <li><%= link_to "Items", items_path %></li>
-            <li><%= link_to "Merchants", merchants_path %></li>
+            <li <%="class=active" if request.fullpath == '/'%>><%= link_to "Home", root_path %></li>
+            <li <%="class=active" if request.fullpath == '/items'%>><%= link_to "Items", items_path %></li>
+            <li <%="class=active" if request.fullpath == '/merchants'%>><%= link_to "Merchants", merchants_path %></li>
             <% if (current_user && !current_user.merchant? && !current_user.admin?) || !current_user %>
-              <li><%= link_to "Cart (#{pluralize(cart.quantity, "Items")})", cart_path %></li>
+              <li <%="class=active" if request.fullpath == '/cart'%>>
+                <%= link_to "Cart (#{pluralize(cart.quantity, "Items")})", cart_path %>
+              </li>
             <% end %>
           </ul>
           <span class="brand-logo center">Little Shop</span>
