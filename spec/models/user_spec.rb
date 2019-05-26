@@ -196,5 +196,11 @@ RSpec.describe User, type: :model do
       expect(@item_5.active).to eq(false)
       expect(@item_6.active).to eq(false)
     end
+
+    it "#downgrade_to_user" do
+      @merchant_1.downgrade_to_user
+
+      expect(@merchant_1.role).to eq("default")
+    end
   end
 end
