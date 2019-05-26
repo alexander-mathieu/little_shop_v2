@@ -56,31 +56,36 @@ RSpec.describe 'As a visitor' do
         expect(page).to have_content(@user_1.name)
         expect(page).to have_content(@user_1.city)
         expect(page).to have_content(@user_1.state)
-        expect(page).to have_content(Date.strptime(@user_1.created_at.to_s))
+        expect(page).to have_content(@user_1.created_at.to_formatted_s(:long).slice(0...-6))
       end
 
       within "#merchant-#{@user_3.id}" do
         expect(page).to have_content(@user_3.name)
         expect(page).to have_content(@user_3.city)
         expect(page).to have_content(@user_3.state)
-        expect(page).to have_content(Date.strptime(@user_3.created_at.to_s))
+        expect(page).to have_content(@user_3.created_at.to_formatted_s(:long).slice(0...-6))
       end
 
       within "#merchant-#{@user_4.id}" do
         expect(page).to have_content(@user_4.name)
         expect(page).to have_content(@user_4.city)
         expect(page).to have_content(@user_4.state)
-        expect(page).to have_content(Date.strptime(@user_4.created_at.to_s))
+        expect(page).to have_content(@user_4.created_at.to_formatted_s(:long).slice(0...-6))
       end
     end
 
     it 'I see stats with the top 3 highest revenue merchants' do
       visit merchants_path
 
+      revenue = @users.top_three_revenue.map { |user| user.revenue }
+
       within "#merchant-stats" do
         within "#top-3-revenue" do
           expect(@user_3.name).to appear_before(@user_4.name)
           expect(@user_4.name).to appear_before(@user_1.name)
+          expect(page).to have_content(revenue[0])
+          expect(page).to have_content(revenue[1])
+          expect(page).to have_content(revenue[2])
         end
       end
     end
