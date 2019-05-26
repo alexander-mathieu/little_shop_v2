@@ -78,7 +78,7 @@ describe "as a registered user" do
       expect(current_path).to eq(profile_path)
       expect(page).to have_content("Order #{@order_1.id} cancelled.")
       visit profile_orders_path
-      save_and_open_page
+
       within "#Order-#{@order_1.id}" do
         expect(page).to have_content("Status: cancelled")
       end
