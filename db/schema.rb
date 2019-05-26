@@ -22,7 +22,7 @@ ActiveRecord::Schema.define(version: 20190520225214) do
     t.decimal "price"
     t.text "description"
     t.string "image"
-    t.integer "inventory"
+    t.integer "inventory", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_items_on_user_id"
