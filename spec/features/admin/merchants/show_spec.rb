@@ -7,9 +7,13 @@ RSpec.describe "when I visit a merchant's show page" do
       @merchant = User.create!(email: "merchant@gmail.com", role: 1, active: true, name: "Merchant", address: "Merchant Address", city: "Merchant City", state: "Merchant State", zip: "22345", password: "123456")
       @user = User.create!(email: "user@gmail.com", role: 0, active: true, name: "User", address: "User Address", city: "User City", state: "User State", zip: "52345", password: "123456")
 
-      @item = @merchant.items.create!(name: "Item", active: true, price: 1.00, description: "Item Description", image: "https://tradersofafrica.com/img/no-product-photo.jpg", inventory: 10)
+      @item_1 = @merchant.items.create!(name: "Item 1", active: true, price: 1.00, description: "Item 1 Description", image: "https://tradersofafrica.com/img/no-product-photo.jpg", inventory: 10)
+      @item_2 = @merchant.items.create!(name: "Item 2", active: true, price: 2.00, description: "Item 2 Description", image: "https://tradersofafrica.com/img/no-product-photo.jpg", inventory: 15)
+      @item_3 = @merchant.items.create!(name: "Item 3", active: true, price: 3.00, description: "Item 3 Description", image: "https://tradersofafrica.com/img/no-product-photo.jpg", inventory: 20)
+      @item_4 = @merchant.items.create!(name: "Item 4", active: true, price: 4.00, description: "Item 4 Description", image: "https://tradersofafrica.com/img/no-product-photo.jpg", inventory: 25)
+
       @order = @user.orders.create!(status: 3)
-      @order_item = @order.order_items.create!(item_id: @item.id, quantity: 1, price: 1.00, fulfilled: true)
+      @order_item = @order.order_items.create!(item_id: @item_1.id, quantity: 1, price: 1.00, fulfilled: true)
 
       visit root_path
 
@@ -29,9 +33,36 @@ RSpec.describe "when I visit a merchant's show page" do
       expect(page).to have_content(@merchant.state)
       expect(page).to have_content(@merchant.zip)
 
-      within "#item-#{@item.id}" do
-        expect(page).to have_content(@item.name)
-        expect(page).to have_content(@item.inventory)
+      within "#item-#{@item_1.id}" do
+        expect(page).to have_content(@item_1.name)
+        expect(page).to have_content(@item_1.inventory)
+        expect(page).to have_content("Edit")
+        expect(page).to have_content("Disable")
+        expect(page).to_not have_content("Enable")
+        expect(page).to have_content("Delete")
+      end
+
+      within "#item-#{@item_2.id}" do
+        expect(page).to have_content(@item_2.name)
+        expect(page).to have_content(@item_2.inventory)
+        expect(page).to have_content("Edit")
+        expect(page).to have_content("Disable")
+        expect(page).to_not have_content("Enable")
+        expect(page).to have_content("Delete")
+      end
+
+      within "#item-#{@item_3.id}" do
+        expect(page).to have_content(@item_3.name)
+        expect(page).to have_content(@item_3.inventory)
+        expect(page).to have_content("Edit")
+        expect(page).to have_content("Disable")
+        expect(page).to_not have_content("Enable")
+        expect(page).to have_content("Delete")
+      end
+
+      within "#item-#{@item_4.id}" do
+        expect(page).to have_content(@item_4.name)
+        expect(page).to have_content(@item_4.inventory)
         expect(page).to have_content("Edit")
         expect(page).to have_content("Disable")
         expect(page).to_not have_content("Enable")
@@ -70,6 +101,17 @@ RSpec.describe "when I visit a merchant's show page" do
         @merchant.reload
 
         expect(@merchant.role).to eq("default")
+      end
+
+      it "all of the merchant's items are disabled" do
+        visit admin_merchant_path(@merchant)
+
+        click_button "Downgrade to User"
+
+        expect(@item_1.active).to eq(false)
+        expect(@item_2.active).to eq(false)
+        expect(@item_3.active).to eq(false)
+        expect(@item_4.active).to eq(false)
       end
     end
 
