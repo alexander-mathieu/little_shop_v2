@@ -178,8 +178,6 @@ describe "as a merchant" do
       fill_in 'password', with: @merchant_1.password
       click_button "Log In"
       expect(page).to have_content(@order_1.id)
-      #the ID of the order, which is a link to the order show page ("/dashboard/orders/15")
-      # expect(page).to have_link(@order_1.id) # might need to hard code this link in here, might be @order_1 without id
       expect(page).to have_content(@order_1.created_at.to_formatted_s(:long).slice(0...-6))
       expect(page).to have_content(@order_1.total_item_count)
       expect(page).to have_content('%.2f' % @order_1.total_price)
@@ -187,6 +185,8 @@ describe "as a merchant" do
       expect(page).to have_content(@order_2.created_at.to_formatted_s(:long).slice(0...-6))
       expect(page).to have_content(@order_2.total_item_count)
       expect(page).to have_content('%.2f' % @order_2.total_price)
+      click_link "#{@order_1.id}"
+      expect(current_path).to eq(merchant_order_path(@order_1))
     end
 
     describe "merchant statistics" do
@@ -240,13 +240,13 @@ describe "as a merchant" do
       end
       # - total quantity of items I've sold, and as a percentage against my sold units plus remaining inventory (eg, if I have sold 1,000 things and still have 9,000 things in inventory, the message would say something like "Sold 1,000 items, which is 10% of your total inventory")
 
-      # it 'i see stats with the total quantity of all items sold' do
-      #   within "#merchant-stats" do
-      #     within "#total-quantity-items-sold" do
-      #       expect(page).to have_content("Sold 15 items, which is 20% of your total inventory")
-      #     end
-      #   end
-      # end
+      it 'i see stats with the total quantity of all items sold' do
+        within "#merchant-stats" do
+          within "#total-quantity-items-sold" do
+            expect(page).to have_content("Sold 15 items, which is 20% of your total inventory")
+          end
+        end
+      end
       # - top 3 states where my items were shipped, and their quantities
       # - top 3 city/state where my items were shipped, and their quantities (Springfield, MI should not be grouped with Springfield, CO)
       # - name of the user with the most orders from me (pick one if there's a tie), and number of orders
