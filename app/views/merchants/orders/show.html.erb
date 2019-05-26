@@ -1,0 +1,11 @@
+<p><%= @order.user.name%></p>
+<p><%= @order.user.address%></p>
+
+<% @order_items.each do |order_item| %>
+<section id="item-<%=order_item.item.id%>">
+  <%= link_to order_item.item.name, item_path(order_item.item.id) %>
+  <img src="<%=order_item.item.image%>">
+  <p>Price: <%= order_item.price.fdiv(order_item.quantity).round(2) %></p>
+  <p>Quantity: <%= order_item.quantity %></p>
+</section>
+<% end %>
