@@ -9,15 +9,15 @@ RSpec.describe User, type: :model do
   describe "class methods" do
     before :each do
       @user_1 = create(:merchant, city: "Denver", state: "CO")
-      @user_2 = create(:user)
+      @user_2 = create(:user, name: "Adam")
       @user_3 = create(:merchant, city: "Sacramento", state: "CA")
       @user_4 = create(:merchant, city: "Springfield", state: "CO")
-      @user_5 = create(:user)
+      @user_5 = create(:user, name: "Carly")
       @user_6 = create(:merchant, city: "Springfield", state: "NY")
-      @user_7 = create(:user)
-      @user_8 = create(:user)
-      @user_9 = create(:user)
-      @user_10 = create(:user)
+      @user_7 = create(:user, name: "Daniel")
+      @user_8 = create(:user, name: "Gerald")
+      @user_9 = create(:user, name: "Tommy")
+      @user_10 = create(:user, name: "Yolanda")
       @users = User.all
 
       @item_1 = create(:item, price: 10, user: @user_1)
