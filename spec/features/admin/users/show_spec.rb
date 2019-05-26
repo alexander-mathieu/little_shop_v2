@@ -63,9 +63,7 @@ RSpec.describe "as an admin" do
     it "the page displays a link to upgrade the user's account to a merchant account" do
       visit admin_user_path(@user)
 
-      within ".admin-user-profile-#{@user_1}" do
-        expect(page).to have_button("Upgrade to Merchant")
-      end
+      expect(page).to have_button("Upgrade to Merchant")
     end
   end
 end
