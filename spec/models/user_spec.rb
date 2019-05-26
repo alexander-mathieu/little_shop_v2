@@ -185,5 +185,16 @@ RSpec.describe User, type: :model do
       order_item_41 = create(:order_item, item: @item_1, order: order_10)
       expect(@merchant_2.pending_orders).to eq([@order_8, order_9, order_10])
     end
+
+    it "#deactivate_all_items" do
+      @merchant_1.deactivate_all_items
+
+      expect(@item_1.active).to eq(false)
+      expect(@item_2.active).to eq(false)
+      expect(@item_3.active).to eq(false)
+      expect(@item_4.active).to eq(false)
+      expect(@item_5.active).to eq(false)
+      expect(@item_6.active).to eq(false)
+    end
   end
 end
