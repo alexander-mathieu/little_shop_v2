@@ -5,7 +5,8 @@
     <h3><%=current_admin? ? link_to(merchant.name, admin_merchant_path(merchant)) : merchant.name %></h3>
 
     <p>From: <%= merchant.city %>, <%= merchant.state %><br>
-    Date joined: <%= Date.strptime(merchant.created_at.to_s) %></p>
+
+    Date joined: <%= merchant.created_at.to_formatted_s(:long).slice(0...-6) %></p>
 
     <% if current_admin? %>
     <% if !merchant.active %>
@@ -23,51 +24,58 @@
       <% end %>
     <% end %>
 
+
   </section>
 <% end %>
 
-<h2> Merchant Stats </h2>
+<h2> Merchants Stats </h2>
 <section id="merchant-stats">
   <div id="top-3-revenue">
+    Top 3 Revenue:<br>
     <% @merchants_top_three_revenue.each do |merchant| %>
       <%= merchant.name %>:
-      <%= merchant.revenue.round(2) %><br><br>
-    <% end %>
+      $<%= '%2f' % merchant.revenue %><br>
+    <% end %><br>
   </div>
 
   <div id="top-3-fulfillments">
+    Top 3 Fastest Fulfillments:<br>
     <% @merchants_quickest_fulfillments.each do |merchant| %>
       <%= merchant.name %>:
-      <%= merchant.fulfillment_time %><br><br>
-    <% end %>
+      <%= merchant.fulfillment_time %><br>
+    <% end %><br>
   </div>
 
   <div id="bottom-3-fulfillments">
+    Top 3 Slowest Fulfillments:<br>
     <% @merchants_slowest_fulfillments.each do |merchant| %>
       <%= merchant.name %>:
-      <%= merchant.fulfillment_time %><br><br>
-    <% end %>
+      <%= merchant.fulfillment_time %><br>
+    <% end %><br>
   </div>
 
   <div id="top-3-states">
+    Top 3 States:<br>
     <% @merchants_top_three_states.each do |merchant| %>
       <%= merchant.state %>:
-      <%= merchant.state_order_count %><br><br>
-    <% end %>
+      <%= merchant.state_order_count %> orders<br>
+    <% end %><br>
   </div>
 
   <div id="top-3-cities">
+    Top 3 Cities:<br>
     <% @merchants_top_three_cities.each do |merchant| %>
       <%= merchant.city %>:
-      <%= merchant.city_order_count %><br><br>
-    <% end %>
+      <%= merchant.city_order_count %> orders<br>
+    <% end %><br>
   </div>
 
   <div id="top-3-orders">
+    Top 3 Orders with Most Items:<br>
     <% @top_three_orders.each do |order| %>
-      <%= order.id.to_s %>:
-      <%= order.order_item_quantity %><br><br>
-    <% end %>
+      Order #<%= order.id.to_s %>:
+      <%= order.order_item_quantity %> items<br>
+    <% end %><br>
   </div>
 
 </section>
