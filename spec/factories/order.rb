@@ -1,27 +1,17 @@
 FactoryBot.define do
-  factory :order do
-    sequence :status do |n|
-      "pending"
-    end
+  factory :pending, class: Order do
+    status {"pending"}
   end
-  factory :pending, parent: :order do
-    sequence :status do |n|
-      "pending"
-    end
+
+  factory :packaged, class: Order do
+    status {"packaged"}
   end
-  factory :packaged, parent: :order do
-    sequence :status do |n|
-      "packaged"
-    end
+
+  factory :shipped, class: Order do
+    status {"shipped"}
   end
-  factory :shipped, parent: :order do
-    sequence :status do |n|
-      "shipped"
-    end
-  end
-  factory :cancelled, parent: :order do
-    sequence :status do |n|
-      "cancelled"
-    end
+
+  factory :cancelled, class: Order do
+    status {"cancelled"}
   end
 end

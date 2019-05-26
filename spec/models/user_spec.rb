@@ -1,5 +1,4 @@
 require 'rails_helper'
-require "active_support/core_ext/time/calculations"
 
 RSpec.describe User, type: :model do
   describe "relationships" do
@@ -125,7 +124,7 @@ RSpec.describe User, type: :model do
       @order_5 = @user_3.orders.create!(status: 2)
       @order_6 = @user_3.orders.create!(status: 2)
       @order_7 = @user_4.orders.create!(status: 3)
-      @order_8 = @user_4.orders.create!(status: 1)
+      @order_8 = @user_4.orders.create!(status: 0)
 
       @order_item_1 = @order_1.order_items.create!(item_id: @item_1.id, quantity: 1, price: 1.00, fulfilled: true)
       @order_item_2 = @order_2.order_items.create!(item_id: @item_1.id, quantity: 1, price: 1.00, fulfilled: true)
@@ -163,6 +162,7 @@ RSpec.describe User, type: :model do
       @order_item_34 = @order_8.order_items.create!(item_id: @item_6.id, quantity: 6, price: 36.00, fulfilled: true)
       @order_item_35 = @order_8.order_items.create!(item_id: @item_7.id, quantity: 7, price: 49.00, fulfilled: true)
       @order_item_36 = @order_8.order_items.create!(item_id: @item_8.id, quantity: 8, price: 64.00, fulfilled: true)
+      @orders = Order.all
     end
 
     it "#top_five_sold" do
@@ -173,6 +173,17 @@ RSpec.describe User, type: :model do
       expect(@merchant_1.top_five_sold[2].total_quantity).to eq(10)
       expect(@merchant_1.top_five_sold[3].total_quantity).to eq(10)
       expect(@merchant_1.top_five_sold[4].total_quantity).to eq(6)
+    end
+
+    it '#pending_orders' do
+      order_9 = create(:pending, user: @user_2)
+      order_10 = create(:pending, user: @user_2)
+      order_item_37 = create(:order_item, item: @item_8, order: order_9)
+      order_item_38 = create(:order_item, item: @item_9, order: order_9)
+      order_item_39 = create(:order_item, item: @item_7, order: order_10)
+      order_item_40 = create(:order_item, item: @item_10, order: order_10)
+      order_item_41 = create(:order_item, item: @item_1, order: order_10)
+      expect(@merchant_2.pending_orders).to eq([@order_8, order_9, order_10])
     end
   end
 end

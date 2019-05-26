@@ -1,8 +1,3 @@
-# As a registered user
-# When I visit my own profile page
-# Then I see all of my profile data on the page except my password
-# And I see a link to edit my profile data
-
 require "rails_helper"
 
 describe "as a registered user" do

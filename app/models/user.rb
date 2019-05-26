@@ -23,7 +23,6 @@ class User < ApplicationRecord
   end
 
   def self.top_three_revenue
-    # select('books.*, avg(reviews.rating)').joins(:reviews).group('id').order('avg(reviews.rating) DESC').limit(3)
     find_merchants.joins(items: :order_items)
                   .select('users.*', 'SUM(order_items.price) AS revenue')
                   .group('users.id')
@@ -48,6 +47,12 @@ class User < ApplicationRecord
                   .limit(3)
   end
 
+  def pending_orders
+    Order.joins(items: :order_items).select('orders.*', 'items.user_id')
+    .where('items.user_id' => self.id, 'orders.status' => 0)
+    .distinct
+  end
+
   def top_five_sold
     items.select('items.*, SUM(order_items.quantity) AS total_quantity')
     .joins(:orders)
@@ -56,4 +61,14 @@ class User < ApplicationRecord
     .order('total_quantity DESC, items.name')
     .limit(5)
   end
+
+  # - total quantity of items I've sold, and as a percentage against my sold units plus remaining inventory (eg, if I have sold 1,000 things and still have 9,000 things in inventory, the message would say something like "Sold 1,000 items, which is 10% of your total inventory")
+  # def total_quantity_items_sold
+  #   # items.sum('order_items.quantity')
+  # end
+  # - top 3 states where my items were shipped, and their quantities
+  # - top 3 city/state where my items were shipped, and their quantities (Springfield, MI should not be grouped with Springfield, CO)
+  # - name of the user with the most orders from me (pick one if there's a tie), and number of orders
+  # - name of the user who bought the most total items from me (pick one if there's a tie), and the total quantity
+  # - top 3 users who have spent the most money on my items, and the total amount they've spent
 end

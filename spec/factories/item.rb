@@ -8,8 +8,8 @@ FactoryBot.define do
       "description #{n}"
     end
 
-    sequence :image do |n|
-      "item#{n}.jpg"
-    end
+    image {"https://tradersofafrica.com/img/no-product-photo.jpg"}
+
+    active {true}
   end
 end
