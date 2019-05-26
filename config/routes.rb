@@ -1,7 +1,11 @@
 Rails.application.routes.draw do
   root to: 'welcome#index'
 
-  resources :items, only: [:index, :show]
+  resources :items, only: [:index, :show, :edit, :destroy]
+  post '/items/:id', to: "items#update"
+  post '/items/enable/:id', to: "items#enable"
+  post '/items/disable/:id', to: "items#disable"
+
   resources :users, only: [:show, :create]
 
   get '/register', to: 'users#new'
@@ -36,10 +40,8 @@ Rails.application.routes.draw do
 
     get '/dashboard', to: 'dashboard#index'
     resources :merchants, only: [:show, :update]
-    # get '/dashboard/:id', to: 'merchants#show' I deleted this, It didnt break anything -Patrick neededfor ^^^
     get '/users/:user_id/orders', to: 'orders#index', as: :user_orders
 
     resources :users, only: [:index, :show]
   end
-
 end

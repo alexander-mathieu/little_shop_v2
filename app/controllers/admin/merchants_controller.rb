@@ -2,6 +2,7 @@ class Admin::MerchantsController < Admin::BaseController
 
   def show
     @merchant = User.find(params[:id])
+    @items = @merchant.items
     @merchant_orders = @merchant.pending_orders
     @top_five_items_sold = @merchant.top_five_sold
     render file: "/app/views/merchants/show.html", status: 200
