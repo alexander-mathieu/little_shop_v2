@@ -1,12 +1,12 @@
 class CartsController < ApplicationController
   def create
-    id = params[:item_id].keys[0] #Fix for the weird form behaviour
+    id = params[:item_id]
     @cart = Cart.new(session[:cart])
     if params[:quantity].class != String
       quantity = params[:quantity].keys
       quantity = quantity[0].to_i
     else
-      if params[:adding].keys[0] == "1"
+      if params[:adding] == "1"
         quantity = params[:quantity].to_i + @cart.quantity_of(id)
       else
         quantity = params[:quantity].to_i
