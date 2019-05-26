@@ -81,7 +81,7 @@ RSpec.describe "As a user," do
     end
 
     it "gives me a check out option if I'm logged in" do
-      click_on "LogIn"
+      click_on "Login"
       fill_in "email", with: @user.email
       fill_in "password", with: @user.password
       click_on "Log In"
@@ -92,7 +92,7 @@ RSpec.describe "As a user," do
     end
 
     it "can checkout" do
-      click_on "LogIn"
+      click_on "Login"
       fill_in "email", with: @user.email
       fill_in "password", with: @user.password
       click_on "Log In"

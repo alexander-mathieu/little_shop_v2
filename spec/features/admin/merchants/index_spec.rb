@@ -17,7 +17,7 @@ describe "as an admin" do
 
       visit root_path
 
-      click_on "LogIn"
+      click_on "Login"
       fill_in "email", with: @admin_1.email
       fill_in "password", with: @admin_1.password
       click_on "Log In"
@@ -59,13 +59,13 @@ describe "as an admin" do
 
     it "only lets enabled users log in" do
       click_on "Logout"
-      click_on "LogIn"
+      click_on "Login"
       fill_in "email", with: @merchant_1.email
       fill_in "password", with: @merchant_1.password
       click_on "Log In"
       expect(current_path).to eq(dashboard_path(@merchant_1))
       click_on "Logout"
-      click_on "LogIn"
+      click_on "Login"
       fill_in "email", with: @merchant_2.email
       fill_in "password", with: @merchant_2.password
       click_on "Log In"

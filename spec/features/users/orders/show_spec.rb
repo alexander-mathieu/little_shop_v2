@@ -22,7 +22,7 @@ describe "as a registered user" do
 
       visit root_path
 
-      click_on "LogIn"
+      click_on "Login"
 
       expect(current_path).to eq(login_path)
       fill_in "email", with: @user_8.email

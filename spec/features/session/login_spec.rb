@@ -8,7 +8,7 @@ RSpec.describe "As a visitor," do
 
       visit root_path
 
-      click_on "LogIn"
+      click_on "Login"
 
       expect(current_path).to eq(login_path)
       fill_in "email", with: user.email
@@ -24,7 +24,7 @@ RSpec.describe "As a visitor," do
         name: "bob", address:"123 bob st.", city: "bobton", state:"MA", zip: 28234)
       visit root_path
 
-      click_on "LogIn"
+      click_on "Login"
 
       expect(current_path).to eq(login_path)
       fill_in "email", with: "aaaah"

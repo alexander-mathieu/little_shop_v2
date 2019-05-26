@@ -20,7 +20,7 @@ RSpec.describe "when I visit the welcome page" do
         click_link("Cart")
         expect(current_path).to eq(cart_path)
 
-        click_link("LogIn")
+        click_link("Login")
         expect(current_path).to eq(login_path)
 
         click_link("Register")
@@ -35,7 +35,7 @@ RSpec.describe "when I visit the welcome page" do
 
       visit root_path
 
-      click_on "LogIn"
+      click_on "Login"
       fill_in "email", with: user.email
       fill_in "password", with: user.password
       click_on "Log In"
@@ -53,7 +53,7 @@ RSpec.describe "when I visit the welcome page" do
 
       visit root_path
 
-      click_on "LogIn"
+      click_on "Login"
       fill_in "email", with: user.email
       fill_in "password", with: user.password
       click_on "Log In"
@@ -70,7 +70,7 @@ RSpec.describe "when I visit the welcome page" do
 
         click_link("Cart")
         expect(current_path).to eq(cart_path)
-        expect(page).to_not have_link("LogIn")
+        expect(page).to_not have_link("Login")
         expect(page).to_not have_link("Register")
 
         click_link("Profile")
@@ -78,7 +78,7 @@ RSpec.describe "when I visit the welcome page" do
 
         click_link("Logout")
         expect(current_path).to eq(root_path)
-        expect(page).to have_link("LogIn")
+        expect(page).to have_link("Login")
         expect(page).to have_link("Register")
       end
     end
@@ -88,7 +88,7 @@ RSpec.describe "when I visit the welcome page" do
 
       visit root_path
 
-      click_on "LogIn"
+      click_on "Login"
       fill_in "email", with: user.email
       fill_in "password", with: user.password
       click_on "Log In"
@@ -105,7 +105,7 @@ RSpec.describe "when I visit the welcome page" do
 
       visit root_path
 
-      click_on "LogIn"
+      click_on "Login"
       fill_in "email", with: @merchant.email
       fill_in "password", with: @merchant.password
       click_on "Log In"
@@ -135,7 +135,7 @@ RSpec.describe "when I visit the welcome page" do
     it "doesnt show login/register or cart" do
       visit root_path
 
-      expect(page).to_not have_link("LogIn")
+      expect(page).to_not have_link("Login")
       expect(page).to_not have_link("Register")
       expect(page).to_not have_link("Cart")
     end
@@ -147,7 +147,7 @@ RSpec.describe "when I visit the welcome page" do
 
       visit root_path
 
-      click_on "LogIn"
+      click_on "Login"
       fill_in "email", with: @admin.email
       fill_in "password", with: @admin.password
       click_on "Log In"

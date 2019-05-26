@@ -13,7 +13,7 @@ RSpec.describe "when I visit a user's show page" do
 
       visit root_path
 
-      click_on "LogIn"
+      click_on "Login"
       fill_in "email", with: @admin.email
       fill_in "password", with: @admin.password
       click_on "Log In"
@@ -119,7 +119,7 @@ RSpec.describe "when I visit a user's show page" do
 
         visit root_path
 
-        click_on "LogIn"
+        click_on "Login"
         fill_in "email", with: @user.email
         fill_in "password", with: @user.password
         click_on "Log In"
@@ -137,7 +137,7 @@ RSpec.describe "when I visit a user's show page" do
 
         visit root_path
 
-        click_on "LogIn"
+        click_on "Login"
         fill_in "email", with: @merchant.email
         fill_in "password", with: @merchant.password
         click_on "Log In"

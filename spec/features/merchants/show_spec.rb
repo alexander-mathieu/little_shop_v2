@@ -35,7 +35,7 @@ describe "as a merchant" do
       visit root_path
       expect(page).to have_no_link("Dashboard")
 
-      click_link "LogIn"
+      click_link "Login"
       fill_in 'email', with: @user1.email
       fill_in 'password', with: @user1.password
       click_button "Log In"
@@ -47,7 +47,7 @@ describe "as a merchant" do
     it "shows all the stuff it should" do
       visit root_path
 
-      click_link "LogIn"
+      click_link "Login"
       fill_in 'email', with: @merchant.email
       fill_in 'password', with: @merchant.password
 
@@ -93,7 +93,7 @@ describe "as a merchant" do
     it "can edit an item" do
       visit root_path
 
-      click_link "LogIn"
+      click_link "Login"
 
       fill_in 'email', with: @merchant.email
       fill_in 'password', with: @merchant.password
@@ -120,7 +120,7 @@ describe "as a merchant" do
     it "can enable/disable items" do
       visit root_path
 
-      click_link "LogIn"
+      click_link "Login"
       fill_in 'email', with: @merchant.email
       fill_in 'password', with: @merchant.password
       click_button "Log In"
@@ -154,7 +154,7 @@ describe "as a merchant" do
     it "can edit an item" do
       visit root_path
 
-      click_link "LogIn"
+      click_link "Login"
       fill_in 'email', with: @merchant.email
       fill_in 'password', with: @merchant.password
       click_button "Log In"
@@ -173,7 +173,7 @@ describe "as a merchant" do
 
     it "displays a list of pending orders that contain merchant items" do
       visit root_path
-      click_link "LogIn"
+      click_link "Login"
       fill_in 'email', with: @merchant_1.email
       fill_in 'password', with: @merchant_1.password
       click_button "Log In"
@@ -216,7 +216,7 @@ describe "as a merchant" do
         @order_item_12 = create(:order_item, item: @item_9, order: @order_8, quantity: 1)
 
         visit root_path
-        click_link "LogIn"
+        click_link "Login"
         fill_in 'email', with: @merchant_3.email
         fill_in 'password', with: @merchant_3.password
         click_button "Log In"
