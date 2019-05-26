@@ -108,6 +108,11 @@ RSpec.describe "when I visit a merchant's show page" do
 
         click_button "Downgrade to User"
 
+        @item_1.reload
+        @item_2.reload
+        @item_3.reload
+        @item_4.reload
+
         expect(@item_1.active).to eq(false)
         expect(@item_2.active).to eq(false)
         expect(@item_3.active).to eq(false)
