@@ -1,7 +1,9 @@
-<%= form_tag login_path do %>
-  <%= label_tag :email %>
-  <%= text_field_tag :email %>
-  <%= label_tag :password %>
-  <%= password_field_tag :password %>
-  <%= submit_tag "Log In" %>
-<% end %>
+<div class="container">
+  <%= form_tag login_path do %>
+    <h4>Email</h4>
+    <%= text_field_tag :email %>
+    <h4>Password</h4>
+    <%= password_field_tag :password %>
+    <%= submit_tag "Log In", class: "btn", style: "margin-top: 2rem" %>
+  <% end %>
+</div>
