@@ -64,7 +64,8 @@ describe "as a registered user" do
       expect(OrderItem.find(@order_item_1.id).fulfilled).to eq(false)
       expect(OrderItem.find(@order_item_4.id).fulfilled).to eq(false)
       expect(Order.find(@order_1.id).status).to eq("cancelled")
-      #return item quantities to merchant page
+      expect(@item_1.inventory).to eq(11)
+      expect(@item_2.inventory).to eq(16)
       expect(current_path).to eq(profile_path)
       expect(page).to have_content("Order #{@order_1.id} cancelled.")
       visit profile_orders_path
