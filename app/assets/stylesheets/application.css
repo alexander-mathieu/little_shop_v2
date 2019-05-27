@@ -18,3 +18,4 @@
 .hoverable-dark {transition: box-shadow 0.25s}
 .hoverable-dark:hover {box-shadow: 0 8px 17px 0 rgba(0,0,0,0.5), 0 6px 20px 0 rgba(0,0,0,0.5);}
 .select-wrapper {background-color: grey}
+.cart-margins {margin: 2rem 0 1rem 0}
