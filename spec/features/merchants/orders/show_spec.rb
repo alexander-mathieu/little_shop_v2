@@ -49,17 +49,7 @@ describe "as a merchant" do
       expect(page).to_not have_css"#item-#{@item_4.id}"
     end
 
-# If the user's desired quantity is equal to or less than my current inventory quantity for that item
-# And I have not already "fulfilled" that item:
-# - Then I see a button or link to "fulfill" that item
-# - When I click on that link or button I am returned to the order show page
-# - I see the item is now fulfilled
-# - I also see a flash message indicating that I have fulfilled that item
-# - My inventory quantity is permanently reduced by the user's desired quantity
-
-
     it "shows me a fulfill button If i have inventory && item not fulfilled" do
-      save_and_open_page
       within "#item-#{@item_1.id}" do
         expect(page).to have_button("Fulfill Order")
       end
