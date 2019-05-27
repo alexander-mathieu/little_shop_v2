@@ -118,6 +118,14 @@ RSpec.describe "when I visit a merchant's show page" do
         expect(@item_3.active).to eq(false)
         expect(@item_4.active).to eq(false)
       end
+
+      describe "and that merchant is a user" do
+        it "I'm redirected to that user's show page" do
+          visit admin_merchant_path(@user)
+
+          expect(current_path).to eq(admin_user_path(@user))
+        end
+      end
     end
 
     context "as a visitor" do
