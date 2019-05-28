@@ -32,6 +32,18 @@ class MerchantsController < ApplicationController
     @merchant_orders = @merchant.pending_orders
     @top_five_items_sold = @merchant.top_five_sold
     @items = current_user.items
+
+    @items_left = []; @items_mid = []; @items_right = []
+    i = 0
+    @merchant.items.each do |item|
+      case i
+      when 0; @items_left << item
+      when 1; @items_mid << item
+      when 2; @items_right << item
+      end
+      i += 1; i = 0 if i > 2
+    end
+
     render file: "app/public/404.html" unless @merchant.merchant? || @merchant.admin?
   end
 end
