@@ -18,8 +18,11 @@
             <!-- current_admin? activate/deactivate merchant -->
             <% if current_admin? %>
               <div class="card-action">
-                <a href="#">Activate</a>
-                <a href="#">Edit</a>
+                <% if merchant.active %>
+                  <%= link_to "Disable", "admin/merchants/disable/#{item.id}", method: :post %>
+                <% else %>
+                  <%= link_to "Enable", "admin/merchants/enable/#{item.id}", method: :post %>
+                <% end %>
               </div>
             <% end %>
           </div>
@@ -43,9 +46,11 @@
             <!-- current_admin? activate/deactivate merchant -->
             <% if current_admin? %>
               <div class="card-action">
-                <a href="#">enable</a>
-                <a href="#">disable</a>
-                <a href="#">Edit</a>
+                <% if merchant.active %>
+                  <%= link_to "Disable", "admin/merchants/disable/#{item.id}", method: :post %>
+                <% else %>
+                  <%= link_to "Enable", "admin/merchants/enable/#{item.id}", method: :post %>
+                <% end %>
               </div>
             <% end %>
           </div>
@@ -69,8 +74,11 @@
             <!-- current_admin? activate/deactivate merchant -->
             <% if current_admin? %>
               <div class="card-action">
-                <a href="#">Activate</a>
-                <a href="#">Edit</a>
+                <% if merchant.active %>
+                  <%= link_to "Disable", "admin/merchants/disable/#{item.id}", method: :post %>
+                <% else %>
+                  <%= link_to "Enable", "admin/merchants/enable/#{item.id}", method: :post %>
+                <% end %>
               </div>
             <% end %>
           </div>

@@ -8,16 +8,15 @@ class Admin::MerchantsController < Admin::BaseController
     render file: "/app/views/merchants/show.html", status: 200
   end
 
-  def update
-    user = User.find_by(id: params[:id])
-    if params[:commit] == "enable"
+  def enable
+    Item.update(params[:id], active: true)
+    flash[:note] = "Merchant has been enabled."
+    redirect_to "admin/dashboard#merchant-#{params[:id]}"
+  end
 
-      User.update(user.id,active: true)
-      flash[:message] = "Merchant #{user.id} enabled"
-    elsif params[:commit] == "disable"
-      User.find(params[:id]).update(active: false)
-      flash[:message] = "Merchant #{user.id} disabled"
-    end
-    redirect_to merchants_path
+  def disable
+    Item.update(params[:id], active: false)
+    flash[:note] = "Merchant has been disabled."
+    redirect_to "admin/dashboard#merchant-#{params[:id]}"
   end
 end
