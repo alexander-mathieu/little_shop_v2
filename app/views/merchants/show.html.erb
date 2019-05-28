@@ -81,5 +81,13 @@ Pending Orders:<br>
       <% end %><br>
     </div>
     <br>
+    <div id="top-orders-customer">
+      Most orders:<br>
+      <% @merchant_top_orders_customer.each do |customer| %>
+        <%= customer.name %>
+        (<%= customer.order_count %> orders)<br>
+      <% end %>
+    </div>
+    <br>
   </section>
 </section>
