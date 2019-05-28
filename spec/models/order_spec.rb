@@ -29,16 +29,16 @@ RSpec.describe Order, type: :model do
       @item_9 = create(:item, price: 3000, user: @user_3)
       @item_10 = create(:item, price: 1, user: @user_6)
 
-      @order_1 = create(:packaged, user: @user_2)
-      @order_2 = create(:packaged, user: @user_7)
-      @order_3 = create(:packaged, user: @user_8)
-      @order_4 = create(:packaged, user: @user_9)
-      @order_5 = create(:packaged, user: @user_9)
-      @order_6 = create(:packaged, user: @user_9)
-      @order_7 = create(:packaged, user: @user_9)
-      @order_8 = create(:packaged, user: @user_9)
-      @order_9 = create(:packaged, user: @user_10)
-      @order_10 = create(:packaged, user: @user_10)
+      @order_1 = create(:packaged, user: @user_2, status: 0)
+      @order_2 = create(:packaged, user: @user_7, status: 0)
+      @order_3 = create(:packaged, user: @user_8, status: 0)
+      @order_4 = create(:packaged, user: @user_9, status: 1)
+      @order_5 = create(:packaged, user: @user_9, status: 1)
+      @order_6 = create(:packaged, user: @user_9, status: 1)
+      @order_7 = create(:packaged, user: @user_9, status: 2)
+      @order_8 = create(:packaged, user: @user_9, status: 2)
+      @order_9 = create(:packaged, user: @user_10, status: 2)
+      @order_10 = create(:packaged, user: @user_10, status: 3)
 
       @order_item_1 = @order_1.order_items.create!(item_id: @item_1.id, quantity: 1, price: 10.00, fulfilled: true, created_at: Time.zone.local(2018, 11, 24, 01, 04, 44), updated_at: Time.zone.local(2018, 11, 27, 01, 04, 44))
       @order_item_2 = @order_1.order_items.create!(item_id: @item_2.id, quantity: 2, price: 40.00, fulfilled: true)
@@ -55,6 +55,10 @@ RSpec.describe Order, type: :model do
 
     it '.top_three_order_item_quantity' do
       expect(@orders.top_three_order_item_quantity).to eq([@order_4, @order_3, @order_2])
+    end
+
+    it '.admin_dashboard_sort' do
+      expect(@orders.admin_dashboard_sort).to eq([@order_4, @order_5, @order_6, @order_1, @order_2, @order_3, @order_7, @order_8, @order_9, @order_10])
     end
   end
 
@@ -91,9 +95,12 @@ RSpec.describe Order, type: :model do
 
     it "#cancel_items" do
       @order_1.cancel_items
+
       expect(@order_item_4.fulfilled).to eq(false)
       expect(@order_item_1.fulfilled).to eq(false)
+
       @item_1.reload
+
       expect(@item_1.inventory).to eq(12)
     end
   end
