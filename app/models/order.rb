@@ -6,6 +6,13 @@ class Order < ApplicationRecord
 
   enum status: ["pending", "packaged", "shipped", "cancelled"]
 
+  def self.admin_dashboard_sort
+    order("CASE orders.status
+           WHEN 0 THEN 1
+           WHEN 1 THEN 0
+           END ASC, id ASC")
+  end
+
   def self.top_three_order_item_quantity
     joins(:order_items)
           .select('orders.*', 'SUM(order_items.quantity) AS order_item_quantity')
