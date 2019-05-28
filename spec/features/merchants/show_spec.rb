@@ -107,7 +107,7 @@ describe "as a merchant" do
         click_on "Edit"
       end
       expect(current_path).to eq("/items/#{@itemA.id}/edit")
-      fill_in 'Name', with: "ItemAHHHH"
+      fill_in 'item[name]', with: "ItemAHHHH"
       click_on "Update Item"
 
       expect(current_path).to eq('/dashboard')

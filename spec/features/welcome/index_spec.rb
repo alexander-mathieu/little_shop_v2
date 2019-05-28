@@ -73,7 +73,7 @@ RSpec.describe "when I visit the welcome page" do
         expect(page).to_not have_link("Login")
         expect(page).to_not have_link("Register")
 
-        click_link("Profile")
+        click_link(user.name)
         expect(current_path).to eq(profile_path)
 
         click_link("Logout")

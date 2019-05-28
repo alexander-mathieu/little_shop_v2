@@ -55,7 +55,7 @@ RSpec.describe 'As a visitor' do
 
       within "#merchant-#{@user_1.id}" do
         expect(page).to have_content(@user_1.name)
-        expect(page).to_not have_link(@user_1.name)
+        expect(page).to have_link(@user_1.name)
         expect(page).to have_content(@user_1.city)
         expect(page).to have_content(@user_1.state)
         expect(page).to have_content(@user_1.created_at.to_formatted_s(:long).slice(0...-6))
@@ -63,7 +63,7 @@ RSpec.describe 'As a visitor' do
 
       within "#merchant-#{@user_3.id}" do
         expect(page).to have_content(@user_3.name)
-        expect(page).to_not have_link(@user_3.name)
+        expect(page).to have_link(@user_3.name)
         expect(page).to have_content(@user_3.city)
         expect(page).to have_content(@user_3.state)
         expect(page).to have_content(@user_3.created_at.to_formatted_s(:long).slice(0...-6))
@@ -71,7 +71,7 @@ RSpec.describe 'As a visitor' do
 
       within "#merchant-#{@user_4.id}" do
         expect(page).to have_content(@user_4.name)
-        expect(page).to_not have_link(@user_4.name)
+        expect(page).to have_link(@user_4.name)
         expect(page).to have_content(@user_4.city)
         expect(page).to have_content(@user_4.state)
         expect(page).to have_content(@user_4.created_at.to_formatted_s(:long).slice(0...-6))

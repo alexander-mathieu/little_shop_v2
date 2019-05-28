@@ -29,13 +29,13 @@ describe "as an admin" do
         expect(page).to have_link(@merchant_1.name)
         expect(page).to have_content(@merchant_1.city)
         expect(page).to have_content(@merchant_1.state)
-        expect(page).to have_button("disable")
+        expect(page).to have_link("Disable")
       end
       within "#merchant-#{@merchant_2.id}" do
         expect(page).to have_link(@merchant_2.name)
         expect(page).to have_content(@merchant_2.city)
         expect(page).to have_content(@merchant_2.state)
-        expect(page).to have_button("enable")
+        expect(page).to have_link("Enable")
       end
 
     end
@@ -43,14 +43,14 @@ describe "as an admin" do
     it "lets an admin know if a merchant was enabled/disabled" do
       visit merchants_path
       within "#merchant-#{@merchant_2.id}" do
-        click_button "enable"
+        click_link "Enable"
       end
         expect(current_path).to eq(merchants_path)
         expect(page).to have_content("Merchant #{@merchant_2.id} enabled")
         @merchant_2.reload
         expect(@merchant_2.active).to eq(true)
         within "#merchant-#{@merchant_2.id}" do
-          click_button "disable"
+          click_link "Disable"
         end
         expect(current_path).to eq(merchants_path)
         expect(page).to have_content("Merchant #{@merchant_2.id} disabled")
