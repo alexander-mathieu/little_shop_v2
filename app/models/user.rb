@@ -74,6 +74,15 @@ class User < ApplicationRecord
     .limit(1)
   end
 
+  def self.top_items_customer(merchant)
+    joins(orders: :order_items)
+    .select('users.*', 'COUNT(order_items.id) AS item_count')
+    .where(role: 0, 'order_items.item_id' => merchant.items.ids)
+    .group('users.id')
+    .order('item_count desc')
+    .limit(1)
+  end
+
   def pending_orders
     Order.joins(items: :order_items).select('orders.*', 'items.user_id')
     .where('items.user_id' => self.id, 'orders.status' => 0)

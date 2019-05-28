@@ -123,13 +123,19 @@ RSpec.describe User, type: :model do
       expect(order_count_per_city).to eq([3, 2, 1])
     end
 
-    it '.customer_most_orders' do
+    it '.top_orders_customer' do
       order_10 = create(:packaged, user: @user_2)
       order_item_10 = @order_4.order_items.create!(item_id: @item_1.id, quantity: 2, price: 40.00, fulfilled: true)
 
       expect(@users.top_orders_customer(@user_1)).to eq([@user_2])
     end
 
+    it '.top_items_customer' do
+      order_10 = create(:packaged, user: @user_2)
+      order_item_10 = @order_4.order_items.create!(item_id: @item_1.id, quantity: 2, price: 40.00, fulfilled: true)
+
+      expect(@users.top_items_customer(@user_1)).to eq([@user_2])
+    end
   end
 
   describe "instance methods" do
