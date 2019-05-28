@@ -54,11 +54,14 @@ Pending Orders:<br>
   <section id="merchant-stats">
     <div id="top-5-items-sold">
       Top 5 Items Sold:<br>
-      <% @top_five_items_sold.each do |item| %>
+      <% @merchant_top_five_items_sold.each do |item| %>
         <%= item.name %>,
         (sold <%= item.total_quantity %>)<br>
       <% end %><br>
     </div>
     <br>
-
+    <div id="total-quantity-items-sold">
+      Sold <%= @merchant_total_quantity_items_sold %> items, which is <%= @merchant_total_percentage_inventory_sold %>% of your total inventory
+    </div>
+    <br>
 </section>

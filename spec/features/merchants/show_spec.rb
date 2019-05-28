@@ -209,11 +209,11 @@ describe "as a merchant" do
         @order_8 = create(:shipped, user: @user_4)
         @order_9 = create(:shipped, user: @user_5)
 
-        @order_item_8 = create(:order_item, item: @item_5, order: @order_5, quantity: 3)
-        @order_item_9 = create(:order_item, item: @item_6, order: @order_5, quantity: 4)
-        @order_item_10 = create(:order_item, item: @item_7, order: @order_6, quantity: 5)
-        @order_item_11 = create(:order_item, item: @item_8, order: @order_7, quantity: 2)
-        @order_item_12 = create(:order_item, item: @item_9, order: @order_8, quantity: 1)
+        @order_item_8 = create(:order_item, item: @item_5, order: @order_5, quantity: 3, fulfilled: true)
+        @order_item_9 = create(:order_item, item: @item_6, order: @order_5, quantity: 4, fulfilled: true)
+        @order_item_10 = create(:order_item, item: @item_7, order: @order_6, quantity: 5, fulfilled: true)
+        @order_item_11 = create(:order_item, item: @item_8, order: @order_7, quantity: 2, fulfilled: true)
+        @order_item_12 = create(:order_item, item: @item_9, order: @order_8, quantity: 1, fulfilled: true)
 
         visit root_path
         click_link "LogIn"
@@ -238,12 +238,13 @@ describe "as a merchant" do
           end
         end
       end
-      # - total quantity of items I've sold, and as a percentage against my sold units plus remaining inventory (eg, if I have sold 1,000 things and still have 9,000 things in inventory, the message would say something like "Sold 1,000 items, which is 10% of your total inventory")
 
       it 'i see stats with the total quantity of all items sold' do
         within "#merchant-stats" do
           within "#total-quantity-items-sold" do
-            expect(page).to have_content("Sold 15 items, which is 20% of your total inventory")
+            order_item_13 = create(:order_item, item: @item_9, order: @order_8, quantity: 6, fulfilled: false)
+
+            expect(page).to have_content("Sold 15 items, which is 20.0% of your total inventory")
           end
         end
       end
