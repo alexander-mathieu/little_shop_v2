@@ -22,6 +22,9 @@ class Order < ApplicationRecord
 
   end
 
+  def ship
+    update(status: 2)
+  end
 
   def user_name
     user.name
