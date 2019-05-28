@@ -9,6 +9,8 @@ class Admin::MerchantsController < Admin::BaseController
     @merchant_total_percentage_inventory_sold = @merchant.total_percentage_inventory_sold
     @merchant_top_three_states_shipped = User.top_three_states_shipped_to(@merchant)
     @merchant_top_three_cities_shipped = User.top_three_cities_shipped_to(@merchant)
+    @merchant_top_orders_customer = User.top_orders_customer(@merchant)
+    # @merchant_top_customer_items = User.top_customer_items(@merchant)
     render file: "/app/views/merchants/show.html", status: 200
   end
 
