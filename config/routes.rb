@@ -10,8 +10,7 @@ Rails.application.routes.draw do
   resources :users, only: [:new, :edit, :create]
   get '/register', to: 'users#new'
 
-  resources :merchants, only: [:index] do
-  end
+  resources :merchants, only: [:index, :show]
 
   resources :users, only: [:new, :edit, :create]
 
@@ -45,7 +44,9 @@ Rails.application.routes.draw do
     patch '/users/upgrade/:user_id', to: 'users#upgrade', as: :user_upgrade
     patch '/merchants/downgrade/:merchant_id', to: 'merchants#downgrade', as: :merchant_downgrade
 
-    resources :merchants, only: [:show, :update]
+    resources :merchants, only: [:update]
+    post '/merchants/enable/:id', to: 'merchants#enable'
+    post '/merchants/disable/:id', to: 'merchants#disable'
     resources :users, only: [:index, :show]
   end
 end

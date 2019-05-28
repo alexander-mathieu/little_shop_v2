@@ -17,14 +17,14 @@ RSpec.describe "when I visit a merchant's show page" do
 
       visit root_path
 
-      click_on "LogIn"
+      click_on "Login"
       fill_in "email", with: @admin.email
       fill_in "password", with: @admin.password
       click_on "Log In"
     end
 
     it "I see all the same information that merchant would see" do
-      visit admin_merchant_path(@merchant)
+      visit merchant_path(@merchant)
 
       expect(page).to have_content(@merchant.name)
       expect(page).to have_content(@merchant.email)
@@ -71,14 +71,14 @@ RSpec.describe "when I visit a merchant's show page" do
     end
 
     it "the page displays a button to downgrade the merchant's account to a user account" do
-      visit admin_merchant_path(@merchant)
+      visit merchant_path(@merchant)
 
       expect(page).to have_button("Downgrade to User")
     end
 
     describe "and click the 'Downgrade to User' button" do
       it "I am redirected to that merchant's user profile" do
-        visit admin_merchant_path(@merchant)
+        visit merchant_path(@merchant)
 
         click_button "Downgrade to User"
 
@@ -86,7 +86,7 @@ RSpec.describe "when I visit a merchant's show page" do
       end
 
       it "I see a flash message indicated that the user has been upgraded" do
-        visit admin_merchant_path(@merchant)
+        visit merchant_path(@merchant)
 
         click_button "Downgrade to User"
 
@@ -94,7 +94,7 @@ RSpec.describe "when I visit a merchant's show page" do
       end
 
       it "the user becomes a merchant" do
-        visit admin_merchant_path(@merchant)
+        visit merchant_path(@merchant)
 
         click_button "Downgrade to User"
 
@@ -104,7 +104,7 @@ RSpec.describe "when I visit a merchant's show page" do
       end
 
       it "all of the merchant's items are disabled" do
-        visit admin_merchant_path(@merchant)
+        visit merchant_path(@merchant)
 
         click_button "Downgrade to User"
 
@@ -121,9 +121,9 @@ RSpec.describe "when I visit a merchant's show page" do
 
       describe "and that merchant is a user" do
         it "I'm redirected to that user's show page" do
-          visit admin_merchant_path(@user)
+          visit merchant_path(@user)
 
-          expect(current_path).to eq(admin_user_path(@user))
+          expect(current_path).to eq(merchant_path(@user))
         end
       end
     end
@@ -132,7 +132,7 @@ RSpec.describe "when I visit a merchant's show page" do
       it "I do not see the 'Downgrade to User' button" do
         click_link "Logout"
 
-        visit admin_merchant_path(@merchant)
+        visit merchant_path(@merchant)
 
         expect(page).to_not have_content("Downgrade to User")
       end
@@ -144,12 +144,12 @@ RSpec.describe "when I visit a merchant's show page" do
 
         visit root_path
 
-        click_on "LogIn"
+        click_on "Login"
         fill_in "email", with: @user.email
         fill_in "password", with: @user.password
         click_on "Log In"
 
-        visit admin_merchant_path(@merchant)
+        visit merchant_path(@merchant)
 
         expect(page).to_not have_content("Downgrade to User")
       end
@@ -161,12 +161,12 @@ RSpec.describe "when I visit a merchant's show page" do
 
         visit root_path
 
-        click_on "LogIn"
+        click_on "Login"
         fill_in "email", with: @merchant.email
         fill_in "password", with: @merchant.password
         click_on "Log In"
 
-        visit admin_merchant_path(@merchant)
+        visit merchant_path(@merchant)
 
         expect(page).to_not have_content("Downgrade to User")
       end
