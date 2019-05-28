@@ -139,6 +139,24 @@ RSpec.describe "as an admin" do
       end
     end
 
+    describe "and click 'Ship' beside an order name" do
+      it "the order is shipped" do
+        visit admin_dashboard_path
+
+        within ".order-#{@order_3.id}" do
+          click_button "Ship"
+
+          expect(@order_3.shipped?).to eq(true)
+        end
+
+        within ".order-#{@order_4.id}" do
+          click_button "Ship"
+
+          expect(@order_4.shipped?).to eq(true)
+        end
+      end
+    end
+
     describe "and click on a user's name" do
       it "I'm taken to that user's profile page" do
         visit admin_dashboard_path
