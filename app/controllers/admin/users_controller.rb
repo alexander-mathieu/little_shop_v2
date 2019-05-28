@@ -6,7 +6,7 @@ class Admin::UsersController < Admin::BaseController
   def show
     @user = User.find(params[:id])
 
-    redirect_to admin_merchant_path(@user) if @user.merchant?
+    redirect_to merchant_path(@user) if @user.merchant?
   end
 
   def upgrade
@@ -15,6 +15,6 @@ class Admin::UsersController < Admin::BaseController
 
     flash[:notice] = "#{user.name} has been upgraded to a Merchant."
 
-    redirect_to admin_merchant_path(user)
+    redirect_to merchant_path(user)
   end
 end

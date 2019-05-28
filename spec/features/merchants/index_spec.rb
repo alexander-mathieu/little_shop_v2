@@ -55,7 +55,7 @@ RSpec.describe 'As a visitor' do
 
       within "#merchant-#{@user_1.id}" do
         expect(page).to have_content(@user_1.name)
-        expect(page).to_not have_link(@user_1.name)
+        expect(page).to have_link(@user_1.name)
         expect(page).to have_content(@user_1.city)
         expect(page).to have_content(@user_1.state)
         expect(page).to have_content(@user_1.created_at.to_formatted_s(:long).slice(0...-6))
@@ -63,7 +63,7 @@ RSpec.describe 'As a visitor' do
 
       within "#merchant-#{@user_3.id}" do
         expect(page).to have_content(@user_3.name)
-        expect(page).to_not have_link(@user_3.name)
+        expect(page).to have_link(@user_3.name)
         expect(page).to have_content(@user_3.city)
         expect(page).to have_content(@user_3.state)
         expect(page).to have_content(@user_3.created_at.to_formatted_s(:long).slice(0...-6))
@@ -71,7 +71,7 @@ RSpec.describe 'As a visitor' do
 
       within "#merchant-#{@user_4.id}" do
         expect(page).to have_content(@user_4.name)
-        expect(page).to_not have_link(@user_4.name)
+        expect(page).to have_link(@user_4.name)
         expect(page).to have_content(@user_4.city)
         expect(page).to have_content(@user_4.state)
         expect(page).to have_content(@user_4.created_at.to_formatted_s(:long).slice(0...-6))
@@ -165,11 +165,11 @@ RSpec.describe 'As a visitor' do
     end
 
     describe "as an admin" do
-      it "show me names as links to admin_merchant_path(merchant)" do
+      it "show me names as links to merchant_path(merchant)" do
         @admin_1 = create(:admin)
         visit root_path
 
-        click_on "LogIn"
+        click_on "Login"
         fill_in "email", with: @admin_1.email
         fill_in "password", with: @admin_1.password
         click_on "Log In"
@@ -187,10 +187,10 @@ RSpec.describe 'As a visitor' do
         end
 
         click_link @user_1.name
-        expect(current_path).to eq(admin_merchant_path(@user_1))
+        expect(current_path).to eq(merchant_path(@user_1))
         visit merchants_path
         click_link @user_4.name
-        expect(current_path).to eq(admin_merchant_path(@user_4))
+        expect(current_path).to eq(merchant_path(@user_4))
       end
     end
 

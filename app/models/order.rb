@@ -22,12 +22,21 @@ class Order < ApplicationRecord
 
   end
 
+
   def user_name
     user.name
   end
 
   def user_id
     user.id
+
+  def items_of_merchant(merchant_id)
+  items.where("items.user_id = #{merchant_id}")
+  end
+## Any is active record, unsure on all
+  def all_fulfilled?
+    !order_items.any?{|order_item| order_item.fulfilled == false }
+
   end
 
   def total_item_count
