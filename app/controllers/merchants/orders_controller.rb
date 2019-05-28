@@ -2,6 +2,7 @@ class Merchants::OrdersController < ApplicationController
   def show
     @order = Order.find(params[:id])
     @order_items = @order.order_items
+    @items = @order.items_of_merchant(current_user.id)
   end
 
   def fulfill

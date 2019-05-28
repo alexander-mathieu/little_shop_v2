@@ -2,6 +2,7 @@
 <p><%= @order.user.address%></p>
 
 <% @order_items.each do |order_item| %>
+  <% if order_item.item.user_id == current_user.id %>
 <section id="item-<%=order_item.item.id%>">
   <%= link_to order_item.item.name, item_path(order_item.item.id) %>
   <img src="<%=order_item.item.image%>">
@@ -13,4 +14,5 @@
   <h2 style="color:red;">"Insufficient Inventory"</h2>
   <% end %>
 </section>
+<% end %>
 <% end %>
