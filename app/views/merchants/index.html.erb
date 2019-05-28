@@ -100,7 +100,7 @@
     Top 3 Revenue:<br>
     <% @merchants_top_three_revenue.each do |merchant| %>
       <%= merchant.name %>:
-      $<%= '%2f' % merchant.revenue %><br>
+      $<%= "%.2f" % merchant.revenue %><br>
     <% end %><br>
   </div>
 
