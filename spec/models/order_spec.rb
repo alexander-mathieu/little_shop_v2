@@ -71,12 +71,15 @@ RSpec.describe Order, type: :model do
 
       @order_1 = @user_8.orders.create!(status: 3)
       @order_2 = @user_8.orders.create!(status: 2)
+      @order_3 = @user_8.orders.create!(status: 0)
 
       @order_item_1 = @order_1.order_items.create!(item_id: @item_1.id, quantity: 1, price: 1.00, fulfilled: true)
       @order_item_2 = @order_2.order_items.create!(item_id: @item_1.id, quantity: 1, price: 1.00, fulfilled: true)
       @order_item_3 = @order_2.order_items.create!(item_id: @item_2.id, quantity: 2, price: 4.00, fulfilled: true)
       @order_item_4 = @order_1.order_items.create!(item_id: @item_1.id, quantity: 1, price: 1.00, fulfilled: true)
       @order_item_5 = @order_2.order_items.create!(item_id: @item_2.id, quantity: 2, price: 4.00, fulfilled: true)
+      @order_item_6 = @order_3.order_items.create!(item_id: @item_2.id, quantity: 2, price: 4.00, fulfilled: false)
+      @order_item_7 = @order_3.order_items.create!(item_id: @item_2.id, quantity: 2, price: 4.00, fulfilled: true)
     end
 
     it "#total_item_count" do
@@ -99,6 +102,10 @@ RSpec.describe Order, type: :model do
     it "#items_of_merchant" do
       expect(@order_1.items_of_merchant(@user_1.id)).to eq([@item_1, @item_1])
       expect(@order_2.items_of_merchant(@user_2.id)).to eq([@item_2, @item_2])
+    end
+    it "all_fulfilled?" do
+      expect(@order_1.all_fulfilled?).to eq(true)
+      expect(@order_3.all_fulfilled?).to eq(false)
     end
   end
 end
