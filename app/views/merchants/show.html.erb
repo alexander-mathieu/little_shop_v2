@@ -1,18 +1,15 @@
 <div class="container">
-<br>
-Merchant Info:<br>
-<br>
-<% if @merchant.merchant?; %><h1>Logged in as: <%= current_user.email %></h1><% end %>
-<%= @merchant.name %>
-(<%= @merchant.email %>)<br>
-<%= @merchant.address %><br>
-<%= @merchant.city %>,
-<%= @merchant.state %>
-<%= @merchant.zip %>
+<h4><%="Logged in as: " if @merchant.merchant?%><%= @merchant.name %> (<%= @merchant.email %>)</h4>
+<p style="margin-bottom: 2rem">
+  <%= @merchant.address %><br>
+  <%= @merchant.city %>,
+  <%= @merchant.state %>
+  <%= @merchant.zip %>
+</p>
 
-<%= link_to "Edit my Profile", profile_edit_path if @merchant.merchant? %>
+<%= link_to "Edit my Profile", profile_edit_path, class: "btn", style: "margin-bottom: 2rem" if @merchant.merchant? %>
 
-Pending Orders:<br>
+<h4><%="Your " if @merchant.merchant?%>Orders</h4>
 <br>
 <% @merchant_orders.each do |order| %>
   Order #<%= order.id %><br>
