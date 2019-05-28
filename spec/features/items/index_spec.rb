@@ -23,12 +23,12 @@ RSpec.describe "as a user" do
       @item_9 = @merchant_4.items.create!(name: "Item 9", active: true, price: 9.00, description: "Item 9 Description", image: "https://tradersofafrica.com/img/no-product-photo.jpg", inventory: 50)
       @item_10 = @merchant_4.items.create!(name: "Item !0", active: true, price: 10.00, description: "Item 10 Description", image: "https://tradersofafrica.com/img/no-product-photo.jpg", inventory: 55)
 
-      @order_1 = @user_1.orders.create!(status: 3)
-      @order_2 = @user_1.orders.create!(status: 3)
-      @order_3 = @user_2.orders.create!(status: 3)
-      @order_4 = @user_2.orders.create!(status: 3)
-      @order_5 = @user_3.orders.create!(status: 3)
-      @order_6 = @user_3.orders.create!(status: 3)
+      @order_1 = @user_1.orders.create!(status: 0)
+      @order_2 = @user_1.orders.create!(status: 0)
+      @order_3 = @user_2.orders.create!(status: 1)
+      @order_4 = @user_2.orders.create!(status: 1)
+      @order_5 = @user_3.orders.create!(status: 2)
+      @order_6 = @user_3.orders.create!(status: 2)
       @order_7 = @user_4.orders.create!(status: 3)
       @order_8 = @user_4.orders.create!(status: 3)
 
