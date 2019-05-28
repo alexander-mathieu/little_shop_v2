@@ -4,6 +4,9 @@
   <% @orders.each do |order| %>
     <div class="order-<%= order.id %>">
       <p>Order <%= order.id %>: placed at <%= order.created_at %> by <%= link_to order.user_name, admin_user_path(order.user_id) %></p>
+      <% if order.packaged? %>
+        <%= button_to "Ship", "/admin/orders/ship/#{order.id}", method: :patch %>
+      <% end %>
     </div>
   <% end %>
 </section>
