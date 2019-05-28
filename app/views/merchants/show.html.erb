@@ -7,11 +7,11 @@
   <%= @merchant.zip %>
 </p>
 
-<% if current_user && current_user.admin? %>
-  <%= button_to "Downgrade to User", "/admin/merchants/downgrade/#{@merchant.id}", method: :patch %>
-<% end %>
-
 <%= link_to "Edit my Profile", profile_edit_path, class: "btn", style: "margin-bottom: 2rem" if @dashboard %>
+
+<% if current_admin? %>
+  <%= button_to "Downgrade to User", "/admin/merchants/downgrade/#{@merchant.id}", method: :patch, class: "btn" %>
+<% end %>
 
 <% if @dashboard %>
   <h4>Your Orders</h4>
@@ -20,7 +20,7 @@
       <% @orders_left.each do |order| %>
         <div class="card-panel red">
           <h5>Order #<%= order.id %></h5>
-          Placed On: <%= order.created_at.to_formatted_s(:long).slice(0...-6) %><br>
+          Placed On: <%= order.created_at.to_formatted_s(:long).slice(0..-6) %><br>
           Total Order Items: <%= order.total_item_count %><br>
           Order Total Price: $<%= '%.2f' % order.total_price %>
         </div>
@@ -31,7 +31,7 @@
       <% @orders_mid.each do |order| %>
         <div class="card-panel red">
           <h5>Order #<%= order.id %></h5>
-          Placed On: <%= order.created_at.to_formatted_s(:long).slice(0...-6) %><br>
+          Placed On: <%= order.created_at.to_formatted_s(:long).slice(0..-6) %><br>
           Total Order Items: <%= order.total_item_count %><br>
           Order Total Price: $<%= '%.2f' % order.total_price %>
         </div>
@@ -42,7 +42,7 @@
       <% @orders_right.each do |order| %>
         <div class="card-panel red">
           <h5>Order #<%= order.id %></h5>
-          Placed On: <%= order.created_at.to_formatted_s(:long).slice(0...-6) %><br>
+          Placed On: <%= order.created_at.to_formatted_s(:long).slice(0..-6) %><br>
           Total Order Items: <%= order.total_item_count %><br>
           Order Total Price: $<%= '%.2f' % order.total_price %>
         </div>

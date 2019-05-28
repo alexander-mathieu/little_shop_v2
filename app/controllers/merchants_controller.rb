@@ -33,7 +33,7 @@ class MerchantsController < ApplicationController
     else
       @merchant = current_user
     end
-    @dashboard = @merchant == current_user ? true : false
+    @dashboard = @merchant == current_user || current_admin? ? true : false
     @merchant_orders = @merchant.pending_orders
     @top_five_items_sold = @merchant.top_five_sold
     @items = @merchant.items
