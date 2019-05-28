@@ -103,7 +103,6 @@ describe "as a merchant" do
         expect(page).to_not have_css('h2', :text => 'Insufficient Inventory')
       end
     end
-<<<<<<< HEAD
 
     it "fulfilling all order_items in an order changes its status to packaged" do
       visit "/dashboard/orders/#{@order_3.id}"
@@ -114,9 +113,9 @@ describe "as a merchant" do
       within "#item-#{@item_3.id}" do
         click_button("Fulfill Order")
       end
-      save_and_open_page
       click_link("Logout")
-      click_on "LogIn"
+      save_and_open_page
+      click_on "Login"
       fill_in "email", with: @merchant_2.email
       fill_in "password", with: @merchant_2.password
       click_on "Log In"
@@ -130,7 +129,5 @@ describe "as a merchant" do
 
     end
 
-=======
->>>>>>> d2e7a3641184fc73b4855746dde028614a775be1
   end
 end
