@@ -4,7 +4,7 @@ describe "as a merchant" do
     before :each do
       @merchant_1 = create(:merchant)
       @merchant_2 = create(:merchant)
-      @user_1 = create(:user)
+      @user_1 = create(:user, city: "Denver", state: "CO")
 
       @item_1 = create(:item, user: @merchant_1)
       @item_2 = create(:item, user: @merchant_1)
@@ -192,10 +192,10 @@ describe "as a merchant" do
     describe "merchant statistics" do
       before :each do
         @merchant_3 = create(:merchant)
-        @user_2 = create(:user)
-        @user_3 = create(:user)
-        @user_4 = create(:user)
-        @user_5 = create(:user)
+        @user_2 = create(:user, city: "Billings", state: "MT")
+        @user_3 = create(:user, city: "Denver", state: "CO")
+        @user_4 = create(:user, city: "Colorado Springs", state: "CO")
+        @user_5 = create(:user, city: "Cheyenne", state: "WY")
 
         @item_5 = create(:item, inventory: 15, user: @merchant_3)
         @item_6 = create(:item, inventory: 20, user: @merchant_3)
@@ -208,12 +208,24 @@ describe "as a merchant" do
         @order_7 = create(:shipped, user: @user_3)
         @order_8 = create(:shipped, user: @user_4)
         @order_9 = create(:shipped, user: @user_5)
+        @order_10 = create(:shipped, user: @user_5)
+        @order_11 = create(:shipped, user: @user_4)
+        @order_12 = create(:shipped, user: @user_4)
+        @order_13 = create(:shipped, user: @user_3)
+        @order_14 = create(:shipped, user: @user_3)
+        @order_15 = create(:shipped, user: @user_3)
 
         @order_item_8 = create(:order_item, item: @item_5, order: @order_5, quantity: 3, fulfilled: true)
         @order_item_9 = create(:order_item, item: @item_6, order: @order_5, quantity: 4, fulfilled: true)
         @order_item_10 = create(:order_item, item: @item_7, order: @order_6, quantity: 5, fulfilled: true)
         @order_item_11 = create(:order_item, item: @item_8, order: @order_7, quantity: 2, fulfilled: true)
         @order_item_12 = create(:order_item, item: @item_9, order: @order_8, quantity: 1, fulfilled: true)
+        @order_item_13 = create(:order_item, item: @item_7, order: @order_10, quantity: 2, fulfilled: true)
+        @order_item_14 = create(:order_item, item: @item_7, order: @order_11, quantity: 2, fulfilled: true)
+        @order_item_15 = create(:order_item, item: @item_7, order: @order_12, quantity: 2, fulfilled: true)
+        @order_item_16 = create(:order_item, item: @item_7, order: @order_13, quantity: 2, fulfilled: true)
+        @order_item_17 = create(:order_item, item: @item_7, order: @order_14, quantity: 2, fulfilled: true)
+        @order_item_18 = create(:order_item, item: @item_7, order: @order_9, quantity: 2, fulfilled: true)
 
         visit root_path
         click_link "LogIn"
@@ -242,14 +254,30 @@ describe "as a merchant" do
       it 'i see stats with the total quantity of all items sold' do
         within "#merchant-stats" do
           within "#total-quantity-items-sold" do
-            order_item_13 = create(:order_item, item: @item_9, order: @order_8, quantity: 6, fulfilled: false)
-
-            expect(page).to have_content("Sold 15 items, which is 20.0% of your total inventory")
+            expect(page).to have_content("Sold 27 items, which is 36.0% of your total inventory")
           end
         end
       end
-      # - top 3 states where my items were shipped, and their quantities
-      # - top 3 city/state where my items were shipped, and their quantities (Springfield, MI should not be grouped with Springfield, CO)
+
+      it 'i see stats with the top 3 states shipped to with each quantity' do
+        within "#merchant-stats" do
+          within "#top-3-states-shipped" do
+            expect(@user_3.state).to appear_before(@user_5.state)
+            expect(@user_5.state).to appear_before(@user_2.state)
+          end
+        end
+      end
+
+      it 'i see stats with the top 3 cities shipped to with each quantity' do
+        within "#merchant-stats" do
+          within "#top-3-cities-shipped" do
+            expect(page).to have_content("Denver, CO")
+            expect(page).to have_content("Colorado Springs, CO")
+            expect(page).to have_content("Cheyenne, WY")
+          end
+        end
+      end
+
       # - name of the user with the most orders from me (pick one if there's a tie), and number of orders
       # - name of the user who bought the most total items from me (pick one if there's a tie), and the total quantity
       # - top 3 users who have spent the most money on my items, and the total amount they've spent
