@@ -195,6 +195,14 @@
       <% end %>
     </div>
     <br>
+    <div id="top-items-customer">
+      Most items:<br>
+      <% @merchant_top_items_customer.each do |customer| %>
+        <%= customer.name %>
+        (<%= customer.item_count %> items)<br>
+      <% end %>
+    </div>
+    <br>
   </section>
 </section>
 </div>

@@ -279,7 +279,7 @@ describe "as a merchant" do
         end
       end
 
-      it 'i see stats with the top 3 cities shipped to with each quantity' do
+      it 'i see stats with the top customer for orders' do
         within "#merchant-stats" do
           within "#top-orders-customer" do
             expect(page).to have_content(@user_3.name)
@@ -288,7 +288,15 @@ describe "as a merchant" do
         end
       end
 
-      # - name of the user who bought the most total items from me (pick one if there's a tie), and the total quantity
+      it 'i see stats with the top customer for items' do
+        within "#merchant-stats" do
+          within "#top-orders-customer" do
+            expect(page).to have_content(@user_3.name)
+            expect(page).to have_content(3)
+            save_and_open_page
+          end
+        end
+      end
       # - top 3 users who have spent the most money on my items, and the total amount they've spent
     end
   end
