@@ -119,6 +119,26 @@ RSpec.describe "as an admin" do
       end
     end
 
+    it "I see a link to 'Ship' orders that are packaged" do
+      visit admin_dashboard_path
+
+      within ".order-#{@order_3.id}" do
+        expect(page).to have_button("Ship")
+      end
+
+      within ".order-#{@order_4.id}" do
+        expect(page).to have_button("Ship")
+      end
+
+      within ".order-#{@order_2.id}" do
+        expect(page).to_not have_button("Ship")
+      end
+
+      within ".order-#{@order_6.id}" do
+        expect(page).to_not have_button("Ship")
+      end
+    end
+
     describe "and click on a user's name" do
       it "I'm taken to that user's profile page" do
         visit admin_dashboard_path
@@ -132,3 +152,8 @@ RSpec.describe "as an admin" do
     end
   end
 end
+
+# Then I see any "packaged" orders ready to ship.
+# Next to each order I see a button to "ship" the order.
+# When I click that button for an order, the status of that order changes to "shipped"
+# And the user can no longer "cancel" the order.
