@@ -203,6 +203,14 @@
       <% end %>
     </div>
     <br>
+    <div id="top-three-money-customers">
+      Most money paid:<br>
+      <% @merchant_top_three_money_customers.each do |customer| %>
+        <%= customer.name %>
+        ($<%= '%.2f' % customer.money_total %>)<br>
+      <% end %>
+    </div>
+    <br>
   </section>
 </section>
 </div>

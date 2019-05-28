@@ -216,17 +216,17 @@ describe "as a merchant" do
         @order_14 = create(:shipped, user: @user_3)
         @order_15 = create(:shipped, user: @user_3)
 
-        @order_item_8 = create(:order_item, item: @item_5, order: @order_5, quantity: 3, fulfilled: true)
-        @order_item_9 = create(:order_item, item: @item_6, order: @order_5, quantity: 4, fulfilled: true)
-        @order_item_10 = create(:order_item, item: @item_7, order: @order_6, quantity: 5, fulfilled: true)
-        @order_item_11 = create(:order_item, item: @item_8, order: @order_7, quantity: 2, fulfilled: true)
-        @order_item_12 = create(:order_item, item: @item_9, order: @order_8, quantity: 1, fulfilled: true)
-        @order_item_13 = create(:order_item, item: @item_7, order: @order_10, quantity: 2, fulfilled: true)
-        @order_item_14 = create(:order_item, item: @item_7, order: @order_11, quantity: 2, fulfilled: true)
-        @order_item_15 = create(:order_item, item: @item_7, order: @order_12, quantity: 2, fulfilled: true)
-        @order_item_16 = create(:order_item, item: @item_7, order: @order_13, quantity: 2, fulfilled: true)
-        @order_item_17 = create(:order_item, item: @item_7, order: @order_14, quantity: 2, fulfilled: true)
-        @order_item_18 = create(:order_item, item: @item_7, order: @order_9, quantity: 2, fulfilled: true)
+        @order_item_8 = create(:order_item, item: @item_5, order: @order_5, quantity: 3, price: 3000, fulfilled: true)
+        @order_item_9 = create(:order_item, item: @item_6, order: @order_5, quantity: 4, price: 3000, fulfilled: true)
+        @order_item_10 = create(:order_item, item: @item_7, order: @order_6, quantity: 5, price: 500, fulfilled: true)
+        @order_item_11 = create(:order_item, item: @item_8, order: @order_7, quantity: 2, price: 30, fulfilled: true)
+        @order_item_12 = create(:order_item, item: @item_9, order: @order_8, quantity: 1, price: 1000, fulfilled: true)
+        @order_item_13 = create(:order_item, item: @item_7, order: @order_10, quantity: 2, price: 30, fulfilled: true)
+        @order_item_14 = create(:order_item, item: @item_7, order: @order_11, quantity: 2, price: 30, fulfilled: true)
+        @order_item_15 = create(:order_item, item: @item_7, order: @order_12, quantity: 2, price: 30, fulfilled: true)
+        @order_item_16 = create(:order_item, item: @item_7, order: @order_13, quantity: 2, price: 30, fulfilled: true)
+        @order_item_17 = create(:order_item, item: @item_7, order: @order_14, quantity: 2, price: 30, fulfilled: true)
+        @order_item_18 = create(:order_item, item: @item_7, order: @order_9, quantity: 2, price: 30, fulfilled: true)
 
         visit root_path
         click_link "Login"
@@ -293,11 +293,21 @@ describe "as a merchant" do
           within "#top-orders-customer" do
             expect(page).to have_content(@user_3.name)
             expect(page).to have_content(3)
-            save_and_open_page
           end
         end
       end
-      # - top 3 users who have spent the most money on my items, and the total amount they've spent
+
+      it 'i see stats with the top 3 customers for money paid' do
+        within "#merchant-stats" do
+          within "#top-three-money-customers" do
+            expect(@user_1.name).to appear_before(@user_4.name)
+            expect(@user_4.name).to appear_before(@user_2.name)
+            expect(page).to have_content(6000.00)
+            expect(page).to have_content(1060.00)
+            expect(page).to have_content(500.00)
+          end
+        end
+      end
     end
   end
 end
