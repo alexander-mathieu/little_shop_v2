@@ -4,7 +4,7 @@ describe "as a merchant" do
     before :each do
       @merchant_1 = create(:merchant)
       @merchant_2 = create(:merchant)
-      @user_1 = create(:user)
+      @user_1 = create(:user, city: "Denver", state: "CO")
 
       @item_1 = create(:item, user: @merchant_1)
       @item_2 = create(:item, user: @merchant_1)
@@ -181,8 +181,6 @@ describe "as a merchant" do
       fill_in 'password', with: @merchant_1.password
       click_button "Log In"
       expect(page).to have_content(@order_1.id)
-      #the ID of the order, which is a link to the order show page ("/dashboard/orders/15")
-      # expect(page).to have_link(@order_1.id) # might need to hard code this link in here, might be @order_1 without id
       expect(page).to have_content(@order_1.created_at.to_formatted_s(:long).slice(0...-6))
       expect(page).to have_content(@order_1.total_item_count)
       expect(page).to have_content('%.2f' % @order_1.total_price)
@@ -190,15 +188,18 @@ describe "as a merchant" do
       expect(page).to have_content(@order_2.created_at.to_formatted_s(:long).slice(0...-6))
       expect(page).to have_content(@order_2.total_item_count)
       expect(page).to have_content('%.2f' % @order_2.total_price)
+      # DONT FORGET TO TURN THE ORDER.ID INTO A BUTTON OR LINK AND TEST FOR IT!
+      # click_link "#{@order_1.id}"
+      # expect(current_path).to eq(merchant_order_path(@order_1))
     end
 
     describe "merchant statistics" do
       before :each do
         @merchant_3 = create(:merchant)
-        @user_2 = create(:user)
-        @user_3 = create(:user)
-        @user_4 = create(:user)
-        @user_5 = create(:user)
+        @user_2 = create(:user, city: "Billings", state: "MT")
+        @user_3 = create(:user, city: "Denver", state: "CO")
+        @user_4 = create(:user, city: "Colorado Springs", state: "CO")
+        @user_5 = create(:user, city: "Cheyenne", state: "WY")
 
         @item_5 = create(:item, inventory: 15, user: @merchant_3)
         @item_6 = create(:item, inventory: 20, user: @merchant_3)
@@ -211,12 +212,24 @@ describe "as a merchant" do
         @order_7 = create(:shipped, user: @user_3)
         @order_8 = create(:shipped, user: @user_4)
         @order_9 = create(:shipped, user: @user_5)
+        @order_10 = create(:shipped, user: @user_5)
+        @order_11 = create(:shipped, user: @user_4)
+        @order_12 = create(:shipped, user: @user_4)
+        @order_13 = create(:shipped, user: @user_3)
+        @order_14 = create(:shipped, user: @user_3)
+        @order_15 = create(:shipped, user: @user_3)
 
-        @order_item_8 = create(:order_item, item: @item_5, order: @order_5, quantity: 3)
-        @order_item_9 = create(:order_item, item: @item_6, order: @order_5, quantity: 4)
-        @order_item_10 = create(:order_item, item: @item_7, order: @order_6, quantity: 5)
-        @order_item_11 = create(:order_item, item: @item_8, order: @order_7, quantity: 2)
-        @order_item_12 = create(:order_item, item: @item_9, order: @order_8, quantity: 1)
+        @order_item_8 = create(:order_item, item: @item_5, order: @order_5, quantity: 3, price: 3000, fulfilled: true)
+        @order_item_9 = create(:order_item, item: @item_6, order: @order_5, quantity: 4, price: 3000, fulfilled: true)
+        @order_item_10 = create(:order_item, item: @item_7, order: @order_6, quantity: 5, price: 500, fulfilled: true)
+        @order_item_11 = create(:order_item, item: @item_8, order: @order_7, quantity: 2, price: 30, fulfilled: true)
+        @order_item_12 = create(:order_item, item: @item_9, order: @order_8, quantity: 1, price: 1000, fulfilled: true)
+        @order_item_13 = create(:order_item, item: @item_7, order: @order_10, quantity: 2, price: 30, fulfilled: true)
+        @order_item_14 = create(:order_item, item: @item_7, order: @order_11, quantity: 2, price: 30, fulfilled: true)
+        @order_item_15 = create(:order_item, item: @item_7, order: @order_12, quantity: 2, price: 30, fulfilled: true)
+        @order_item_16 = create(:order_item, item: @item_7, order: @order_13, quantity: 2, price: 30, fulfilled: true)
+        @order_item_17 = create(:order_item, item: @item_7, order: @order_14, quantity: 2, price: 30, fulfilled: true)
+        @order_item_18 = create(:order_item, item: @item_7, order: @order_9, quantity: 2, price: 30, fulfilled: true)
 
         visit root_path
         click_link "Login"
@@ -241,20 +254,63 @@ describe "as a merchant" do
           end
         end
       end
-      # - total quantity of items I've sold, and as a percentage against my sold units plus remaining inventory (eg, if I have sold 1,000 things and still have 9,000 things in inventory, the message would say something like "Sold 1,000 items, which is 10% of your total inventory")
 
-      # it 'i see stats with the total quantity of all items sold' do
-      #   within "#merchant-stats" do
-      #     within "#total-quantity-items-sold" do
-      #       expect(page).to have_content("Sold 15 items, which is 20% of your total inventory")
-      #     end
-      #   end
-      # end
-      # - top 3 states where my items were shipped, and their quantities
-      # - top 3 city/state where my items were shipped, and their quantities (Springfield, MI should not be grouped with Springfield, CO)
-      # - name of the user with the most orders from me (pick one if there's a tie), and number of orders
-      # - name of the user who bought the most total items from me (pick one if there's a tie), and the total quantity
-      # - top 3 users who have spent the most money on my items, and the total amount they've spent
+      it 'i see stats with the total quantity of all items sold' do
+        within "#merchant-stats" do
+          within "#total-quantity-items-sold" do
+            expect(page).to have_content("Sold 27 items, which is 36.0% of your total inventory")
+          end
+        end
+      end
+
+      it 'i see stats with the top 3 states shipped to with each quantity' do
+        within "#merchant-stats" do
+          within "#top-3-states-shipped" do
+            expect(@user_3.state).to appear_before(@user_5.state)
+            expect(@user_5.state).to appear_before(@user_2.state)
+          end
+        end
+      end
+
+      it 'i see stats with the top 3 cities shipped to with each quantity' do
+        within "#merchant-stats" do
+          within "#top-3-cities-shipped" do
+            expect(page).to have_content("Denver, CO")
+            expect(page).to have_content("Colorado Springs, CO")
+            expect(page).to have_content("Cheyenne, WY")
+          end
+        end
+      end
+
+      it 'i see stats with the top customer for orders' do
+        within "#merchant-stats" do
+          within "#top-orders-customer" do
+            expect(page).to have_content(@user_3.name)
+            expect(page).to have_content(3)
+          end
+        end
+      end
+
+      it 'i see stats with the top customer for items' do
+        within "#merchant-stats" do
+          within "#top-orders-customer" do
+            expect(page).to have_content(@user_3.name)
+            expect(page).to have_content(3)
+          end
+        end
+      end
+
+      it 'i see stats with the top 3 customers for money paid' do
+        within "#merchant-stats" do
+          within "#top-three-money-customers" do
+            expect(@user_1.name).to appear_before(@user_4.name)
+            expect(@user_4.name).to appear_before(@user_2.name)
+            expect(page).to have_content(6000.00)
+            expect(page).to have_content(1060.00)
+            expect(page).to have_content(500.00)
+          end
+        end
+      end
     end
   end
 end

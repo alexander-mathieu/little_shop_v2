@@ -10,7 +10,7 @@
 <%= link_to "Edit my Profile", profile_edit_path, class: "btn", style: "margin-bottom: 2rem" if @dashboard %>
 
 <% if current_admin? %>
-  <%= button_to "Downgrade to User", "/admin/merchants/downgrade/#{@merchant.id}", method: :patch, class: "btn" %>
+  <%= button_to "Downgrade to User", admin_merchant_downgrade_path(@merchant.id), method: :patch, class: "btn" %>
 <% end %>
 
 <% if @dashboard %>
@@ -19,7 +19,9 @@
     <div class="col s4">
       <% @orders_left.each do |order| %>
         <div class="card-panel red">
+
           <h5>Order #<%= link_to order.id, merchant_order_path(order)%></h5>
+
           Placed On: <%= order.created_at.to_formatted_s(:long).slice(0..-6) %><br>
           Total Order Items: <%= order.total_item_count %><br>
           Order Total Price: $<%= '%.2f' % order.total_price %>
@@ -153,18 +155,63 @@
       </div>
     <% end %>
   </div>
-</div>
 
+<section>
   Merchant Statistics:<br>
   <br>
   <section id="merchant-stats">
     <div id="top-5-items-sold">
       Top 5 Items Sold:<br>
-      <% @top_five_items_sold.each do |item| %>
-        <%= item.name %>,
+      <% @merchant_top_five_items_sold.each do |item| %>
+        <%= item.name %>
         (sold <%= item.total_quantity %>)<br>
       <% end %><br>
     </div>
     <br>
+    <div id="total-quantity-items-sold">
+      Sold <%= @merchant_total_quantity_items_sold %> items, which is <%= @merchant_total_percentage_inventory_sold.round(2) %>% of your total inventory
+    </div>
+    <br>
+    <div id="top-3-states-shipped">
+      Top 3 States Shipped to:<br>
+      <% @merchant_top_three_states_shipped.each do |state| %>
+        <%= state.state %>
+        (<%= state.order_count %> orders)<br>
+      <% end %><br>
+    </div>
+    <br>
+    <div id="top-3-cities-shipped">
+      Top 3 Cities Shipped to:<br>
+      <% @merchant_top_three_cities_shipped.each do |city| %>
+        <%= city.city_state %>
+        (<%= city.order_count %> orders)<br>
+      <% end %><br>
+    </div>
+    <br>
+    <div id="top-orders-customer">
+      Most orders:<br>
+      <% @merchant_top_orders_customer.each do |customer| %>
+        <%= customer.name %>
+        (<%= customer.order_count %> orders)<br>
+      <% end %>
+    </div>
+    <br>
+    <div id="top-items-customer">
+      Most items:<br>
+      <% @merchant_top_items_customer.each do |customer| %>
+        <%= customer.name %>
+        (<%= customer.item_count %> items)<br>
+      <% end %>
+    </div>
+    <br>
+    <div id="top-three-money-customers">
+      Most money paid:<br>
+      <% @merchant_top_three_money_customers.each do |customer| %>
+        <%= customer.name %>
+        ($<%= '%.2f' % customer.money_total %>)<br>
+      <% end %>
+    </div>
+    <br>
+  </section>
 </section>
 </div>
