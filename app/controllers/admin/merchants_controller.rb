@@ -4,7 +4,9 @@ class Admin::MerchantsController < Admin::BaseController
     @merchant = User.find(params[:id])
     @items = @merchant.items
     @merchant_orders = @merchant.pending_orders
-    @top_five_items_sold = @merchant.top_five_sold
+    @merchant_top_five_items_sold = @merchant.top_five_sold
+    @merchant_total_quantity_items_sold = @merchant.total_quantity_items_sold
+    @merchant_total_percentage_inventory_sold = @merchant.total_percentage_inventory_sold
     render file: "/app/views/merchants/show.html", status: 200
   end
 
