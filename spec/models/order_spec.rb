@@ -87,6 +87,10 @@ RSpec.describe Order, type: :model do
       expect(@order_1.user_name).to eq(@user_8.name)
     end
 
+    it "#user_id" do
+      expect(@order_1.user_id).to eq(@user_8.id)
+    end
+
     it "#total_item_count" do
       expect(@order_1.total_item_count).to eq(2)
       expect(@order_2.total_item_count).to eq(5)

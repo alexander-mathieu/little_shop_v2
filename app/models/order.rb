@@ -26,6 +26,10 @@ class Order < ApplicationRecord
     user.name
   end
 
+  def user_id
+    user.id
+  end
+
   def total_item_count
     items.sum(:quantity)
   end
