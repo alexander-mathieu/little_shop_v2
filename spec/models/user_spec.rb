@@ -115,7 +115,7 @@ RSpec.describe User, type: :model do
       @item_7 = @merchant_2.items.create!(name: "Item 7", active: true, price: 7.00, description: "Item 7 Description", image: "https://tradersofafrica.com/img/no-productphoto.jpg", inventory: 40)
       @item_8 = @merchant_2.items.create!(name: "Item 8", active: true, price: 8.00, description: "Item 8 Description", image: "https://tradersofafrica.com/img/no-productphoto.jpg", inventory: 45)
       @item_9 = @merchant_2.items.create!(name: "Item 9", active: true, price: 9.00, description: "Item 9 Description", image: "https://tradersofafrica.com/img/no-productphoto.jpg", inventory: 50)
-      @item_10 = @merchant_2.items.create!(name: "Item !0",active: true,  price: 10.00, description: "Item 10 Description", image: "https://tradersofafrica.com/img/noproduct-photo.jpg", inventory: 55)
+      @item_10 = @merchant_2.items.create!(name: "Item !0", active: true,  price: 10.00, description: "Item 10 Description", image: "https://tradersofafrica.com/img/noproduct-photo.jpg", inventory: 55)
 
       @order_1 = @user_1.orders.create!(status: 2)
       @order_2 = @user_1.orders.create!(status: 2)
@@ -184,6 +184,25 @@ RSpec.describe User, type: :model do
       order_item_40 = create(:order_item, item: @item_10, order: order_10)
       order_item_41 = create(:order_item, item: @item_1, order: order_10)
       expect(@merchant_2.pending_orders).to eq([@order_8, order_9, order_10])
+
+    end
+
+    it '#total_quantity_items_sold' do
+      order_9 = create(:pending, user: @user_2)
+      order_item_37 = create(:order_item, item: @item_8, order: order_9, quantity: 100, fulfilled: false)
+
+      expect(@merchant_2.total_quantity_items_sold).to eq(22)
+    end
+
+    it '#total_items_in_inventory' do
+      expect(@merchant_2.total_items_in_inventory).to eq(190)
+    end
+
+    it '#total_percentage_inventory_sold' do
+      order_9 = create(:pending, user: @user_2)
+      order_item_37 = create(:order_item, item: @item_8, order: order_9, quantity: 16, fulfilled: true)
+
+      expect(@merchant_2.total_percentage_inventory_sold).to eq(20)
     end
   end
 end

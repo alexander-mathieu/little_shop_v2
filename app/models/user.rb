@@ -61,11 +61,20 @@ class User < ApplicationRecord
     .order('total_quantity DESC, items.name')
     .limit(5)
   end
-
   # - total quantity of items I've sold, and as a percentage against my sold units plus remaining inventory (eg, if I have sold 1,000 things and still have 9,000 things in inventory, the message would say something like "Sold 1,000 items, which is 10% of your total inventory")
-  # def total_quantity_items_sold
-  #   # items.sum('order_items.quantity')
-  # end
+  def total_quantity_items_sold
+    items.joins(:order_items).select("order_items.*")
+    .where("order_items.fulfilled": true)
+    .sum("order_items.quantity")
+  end
+
+  def total_items_in_inventory
+    items.sum(:inventory)
+  end
+
+  def total_percentage_inventory_sold
+    (total_quantity_items_sold.to_f / total_items_in_inventory) * 100
+  end
   # - top 3 states where my items were shipped, and their quantities
   # - top 3 city/state where my items were shipped, and their quantities (Springfield, MI should not be grouped with Springfield, CO)
   # - name of the user with the most orders from me (pick one if there's a tie), and number of orders
