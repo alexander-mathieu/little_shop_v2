@@ -96,5 +96,8 @@ RSpec.describe Order, type: :model do
       @item_1.reload
       expect(@item_1.inventory).to eq(12)
     end
+    it "#items_of_merchant" do
+
+    end
   end
 end

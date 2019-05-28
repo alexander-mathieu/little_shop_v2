@@ -15,6 +15,11 @@ class Order < ApplicationRecord
 
   end
 
+  def items_of_merchant(merchant_id)
+  order_items.where("item_id = #{current_user.id}")
+
+  end
+
   def total_item_count
     items.sum(:quantity)
   end
