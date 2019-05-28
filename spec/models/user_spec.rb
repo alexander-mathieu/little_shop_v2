@@ -15,9 +15,9 @@ RSpec.describe User, type: :model do
       @user_5 = create(:user, name: "Carly")
       @user_6 = create(:merchant, city: "Springfield", state: "NY")
       @user_7 = create(:user, name: "Daniel")
-      @user_8 = create(:user, name: "Gerald")
-      @user_9 = create(:user, name: "Tommy")
-      @user_10 = create(:user, name: "Yolanda")
+      @user_8 = create(:user, city: "Cheyenne", state: "WY", name: "Gerald")
+      @user_9 = create(:user, city: "Billings", state: "MT", name: "Tommy")
+      @user_10 = create(:user, city: "Boise", state: "ID", name: "Yolanda")
       @users = User.all
 
       @item_1 = create(:item, price: 10, user: @user_1)
@@ -95,6 +95,49 @@ RSpec.describe User, type: :model do
       expect(order_count_per_city).to eq ([6, 3, 1])
     end
 
+    it '.top_three_states_shipped_to' do
+      order_item_10 = @order_4.order_items.create!(item_id: @item_10.id, quantity: 2, price: 40.00, fulfilled: true)
+      order_item_11 = @order_4.order_items.create!(item_id: @item_10.id, quantity: 2, price: 40.00, fulfilled: true)
+      order_item_12 = @order_3.order_items.create!(item_id: @item_10.id, quantity: 1, price: 100.00, fulfilled: true)
+      order_item_13 = @order_9.order_items.create!(item_id: @item_10.id, quantity: 100, price: 100.00, fulfilled: true)
+      order_item_14 = @order_9.order_items.create!(item_id: @item_10.id, quantity: 100, price: 100.00, fulfilled: true)
+
+      states = @users.top_three_states_shipped_to(@user_6).map { |user| user.state }
+      order_count_per_state = @users.top_three_states_shipped_to(@user_6).map { |user| user.order_count }
+
+      expect(states).to eq([@user_9.state, @user_10.state, @user_8.state])
+      expect(order_count_per_state).to eq([3, 2, 1])
+    end
+
+    it '.top_three_cities_shipped_to' do
+      order_item_10 = @order_4.order_items.create!(item_id: @item_10.id, quantity: 2, price: 40.00, fulfilled: true)
+      order_item_11 = @order_4.order_items.create!(item_id: @item_10.id, quantity: 2, price: 40.00, fulfilled: true)
+      order_item_12 = @order_3.order_items.create!(item_id: @item_10.id, quantity: 1, price: 100.00, fulfilled: true)
+      order_item_13 = @order_9.order_items.create!(item_id: @item_10.id, quantity: 100, price: 100.00, fulfilled: true)
+      order_item_14 = @order_9.order_items.create!(item_id: @item_10.id, quantity: 100, price: 100.00, fulfilled: true)
+
+      cities = @users.top_three_cities_shipped_to(@user_6).map { |user| user.city_state }
+      order_count_per_city = @users.top_three_cities_shipped_to(@user_6).map { |user| user.order_count }
+
+      expect(cities).to eq(["Billings, MT", "Boise, ID", "Cheyenne, WY"])
+      expect(order_count_per_city).to eq([3, 2, 1])
+    end
+
+    it '.top_orders_customer' do
+      expect(@users.top_orders_customer(@user_1)).to eq([@user_2])
+    end
+
+    it '.top_items_customer' do
+      expect(@users.top_items_customer(@user_1)).to eq([@user_2])
+    end
+
+    it '.top_three_money_customers' do
+      order_item_10 = @order_8.order_items.create!(item_id: @item_1.id, quantity: 2, price: 40.00, fulfilled: true)
+      order_item_11 = @order_10.order_items.create!(item_id: @item_1.id, quantity: 2, price: 50.00, fulfilled: true)
+
+      expect(@users.top_three_money_customers(@user_1)).to eq([@user_2, @user_10, @user_9])
+
+    end
   end
 
   describe "instance methods" do
@@ -115,7 +158,7 @@ RSpec.describe User, type: :model do
       @item_7 = @merchant_2.items.create!(name: "Item 7", active: true, price: 7.00, description: "Item 7 Description", image: "https://tradersofafrica.com/img/no-productphoto.jpg", inventory: 40)
       @item_8 = @merchant_2.items.create!(name: "Item 8", active: true, price: 8.00, description: "Item 8 Description", image: "https://tradersofafrica.com/img/no-productphoto.jpg", inventory: 45)
       @item_9 = @merchant_2.items.create!(name: "Item 9", active: true, price: 9.00, description: "Item 9 Description", image: "https://tradersofafrica.com/img/no-productphoto.jpg", inventory: 50)
-      @item_10 = @merchant_2.items.create!(name: "Item !0",active: true,  price: 10.00, description: "Item 10 Description", image: "https://tradersofafrica.com/img/noproduct-photo.jpg", inventory: 55)
+      @item_10 = @merchant_2.items.create!(name: "Item !0", active: true,  price: 10.00, description: "Item 10 Description", image: "https://tradersofafrica.com/img/noproduct-photo.jpg", inventory: 55)
 
       @order_1 = @user_1.orders.create!(status: 2)
       @order_2 = @user_1.orders.create!(status: 2)
@@ -184,6 +227,25 @@ RSpec.describe User, type: :model do
       order_item_40 = create(:order_item, item: @item_10, order: order_10)
       order_item_41 = create(:order_item, item: @item_1, order: order_10)
       expect(@merchant_2.pending_orders).to eq([@order_8, order_9, order_10])
+
+    end
+
+    it '#total_quantity_items_sold' do
+      order_9 = create(:pending, user: @user_2)
+      order_item_37 = create(:order_item, item: @item_8, order: order_9, quantity: 100, fulfilled: false)
+
+      expect(@merchant_2.total_quantity_items_sold).to eq(22)
+    end
+
+    it '#total_items_in_inventory' do
+      expect(@merchant_2.total_items_in_inventory).to eq(190)
+    end
+
+    it '#total_percentage_inventory_sold' do
+      order_9 = create(:pending, user: @user_2)
+      order_item_37 = create(:order_item, item: @item_8, order: order_9, quantity: 16, fulfilled: true)
+
+      expect(@merchant_2.total_percentage_inventory_sold).to eq(20)
     end
 
     it "#deactivate_all_items" do
