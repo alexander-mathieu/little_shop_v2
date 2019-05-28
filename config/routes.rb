@@ -41,12 +41,15 @@ Rails.application.routes.draw do
   namespace :admin do
     get '/dashboard', to: 'dashboard#index'
     get '/users/:user_id/orders', to: 'orders#index', as: :user_orders
+
+    patch '/orders/ship/:order_id', to: 'orders#ship', as: :order_ship
     patch '/users/upgrade/:user_id', to: 'users#upgrade', as: :user_upgrade
     patch '/merchants/downgrade/:merchant_id', to: 'merchants#downgrade', as: :merchant_downgrade
 
-    resources :merchants, only: [:update]
     post '/merchants/enable/:id', to: 'merchants#enable'
     post '/merchants/disable/:id', to: 'merchants#disable'
+
+    resources :merchants, only: [:update]
     resources :users, only: [:index, :show]
   end
 end
