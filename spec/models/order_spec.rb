@@ -97,7 +97,8 @@ RSpec.describe Order, type: :model do
       expect(@item_1.inventory).to eq(12)
     end
     it "#items_of_merchant" do
-
+      expect(@order_1.items_of_merchant(@user_1.id)).to eq([@item_1, @item_1])
+      expect(@order_2.items_of_merchant(@user_2.id)).to eq([@item_2, @item_2])
     end
   end
 end

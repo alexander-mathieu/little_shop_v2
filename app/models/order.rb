@@ -16,7 +16,8 @@ class Order < ApplicationRecord
   end
 
   def items_of_merchant(merchant_id)
-  order_items.where("item_id = #{current_user.id}")
+
+  items.where("items.user_id = #{merchant_id}")
 
   end
 
