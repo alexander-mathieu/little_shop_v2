@@ -24,7 +24,7 @@ RSpec.describe "when I visit a user's profile page" do
     before :each do
       visit root_path
 
-      click_link "LogIn"
+      click_link "Login"
 
       fill_in 'email', with: @user_1.email
       fill_in 'password', with: @user_1.password

@@ -13,3 +13,11 @@
  *= require_tree .
  *= require_self
  */
+
+.clearfix::after {content: ""; clear: both; display: table;}
+.hoverable-dark {transition: box-shadow 0.25s}
+.hoverable-dark:hover {box-shadow: 0 8px 17px 0 rgba(0,0,0,0.5), 0 6px 20px 0 rgba(0,0,0,0.5);}
+.select-wrapper {background-color: rgba(0,0,0,0.2)}
+input[type=text]:not(.browser-default) {background-color: rgba(0,0,0,0.2); color: #ffffff}
+input[type=password]:not(.browser-default) {background-color: rgba(0,0,0,0.2); color: #ffffff}
+.cart-margins {margin: 2rem 0 1rem 0}

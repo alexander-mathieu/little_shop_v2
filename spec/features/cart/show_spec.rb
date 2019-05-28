@@ -21,8 +21,8 @@ RSpec.describe "As a user," do
     end
 
     it "I see a list of items and quantities" do
-      within ".navbar" do
-        expect(page).to have_content("8 Items in cart")
+      within ".nav-wrapper" do
+        expect(page).to have_content("8 Items")
       end
       expect(page).to have_content("#{@itemA.name}: 1")
       expect(page).to have_content("#{@itemB.name}: 5")
@@ -41,8 +41,8 @@ RSpec.describe "As a user," do
       click_on "Empty"
 
       expect(page).to have_content("Your cart is empty.")
-      within ".navbar" do
-        expect(page).to have_content("0 Items in cart")
+      within ".nav-wrapper" do
+        expect(page).to have_content("0 Items")
       end
     end
 
@@ -81,7 +81,7 @@ RSpec.describe "As a user," do
     end
 
     it "gives me a check out option if I'm logged in" do
-      click_on "LogIn"
+      click_on "Login"
       fill_in "email", with: @user.email
       fill_in "password", with: @user.password
       click_on "Log In"
@@ -92,7 +92,7 @@ RSpec.describe "As a user," do
     end
 
     it "can checkout" do
-      click_on "LogIn"
+      click_on "Login"
       fill_in "email", with: @user.email
       fill_in "password", with: @user.password
       click_on "Log In"

@@ -22,7 +22,7 @@ describe "as a merchant" do
 
       visit root_path
 
-      click_on "LogIn"
+      click_on "Login"
       fill_in "email", with: @merchant_1.email
       fill_in "password", with: @merchant_1.password
       click_on "Log In"

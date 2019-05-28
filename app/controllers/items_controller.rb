@@ -1,8 +1,17 @@
 class ItemsController < ApplicationController
   def index
-    @items = Item.all
-    @most_popular = @items.most_popular
-    @least_popular = @items.least_popular
+    i = 0
+    @items_left = []; @items_mid = []; @items_right = []
+    Item.all.each do |item|
+      case i
+      when 0; @items_left << item
+      when 1; @items_mid << item
+      when 2; @items_right << item
+      end
+      i += 1; i = 0 if i > 2
+    end
+    @most_popular = Item.most_popular
+    @least_popular = Item.least_popular
   end
 
   def show
