@@ -12,7 +12,9 @@ class MerchantsController < ApplicationController
   def show
     @merchant = current_user
     @merchant_orders = @merchant.pending_orders
-    @top_five_items_sold = @merchant.top_five_sold
+    @merchant_top_five_items_sold = @merchant.top_five_sold
+    @merchant_total_quantity_items_sold = @merchant.total_quantity_items_sold
+    @merchant_total_percentage_inventory_sold = @merchant.total_percentage_inventory_sold
     @items = current_user.items
     render file: "app/public/404.html" unless @merchant.merchant? || @merchant.admin?
   end
