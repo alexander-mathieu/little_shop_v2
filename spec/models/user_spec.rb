@@ -9,15 +9,15 @@ RSpec.describe User, type: :model do
   describe "class methods" do
     before :each do
       @user_1 = create(:merchant, city: "Denver", state: "CO")
-      @user_2 = create(:user)
+      @user_2 = create(:user, name: "Adam")
       @user_3 = create(:merchant, city: "Sacramento", state: "CA")
       @user_4 = create(:merchant, city: "Springfield", state: "CO")
-      @user_5 = create(:user)
+      @user_5 = create(:user, name: "Carly")
       @user_6 = create(:merchant, city: "Springfield", state: "NY")
-      @user_7 = create(:user)
-      @user_8 = create(:user, city: "Cheyenne", state: "WY")
-      @user_9 = create(:user, city: "Billings", state: "MT")
-      @user_10 = create(:user, city: "Boise", state: "ID")
+      @user_7 = create(:user, name: "Daniel")
+      @user_8 = create(:user, city: "Cheyenne", state: "WY", name: "Gerald")
+      @user_9 = create(:user, city: "Billings", state: "MT", name: "Tommy")
+      @user_10 = create(:user, city: "Boise", state: "ID", name: "Yolanda")
       @users = User.all
 
       @item_1 = create(:item, price: 10, user: @user_1)
@@ -127,7 +127,7 @@ RSpec.describe User, type: :model do
       order_10 = create(:packaged, user: @user_2)
       order_item_10 = @order_4.order_items.create!(item_id: @item_1.id, quantity: 2, price: 40.00, fulfilled: true)
 
-      expect(@users.customer_most_orders(@user_1)).to eq(@user_2)
+      expect(@users.top_orders_customer(@user_1)).to eq([@user_2])
     end
 
   end

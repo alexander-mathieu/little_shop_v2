@@ -65,13 +65,13 @@ class User < ApplicationRecord
     .limit(3)
   end
 
-  def self.customer_most_orders(merchant)
+  def self.top_orders_customer(merchant)
     joins(orders: :order_items)
     .select('users.*', 'COUNT(DISTINCT(order_items.order_id)) AS order_count')
     .where(role: 0, 'order_items.item_id' => merchant.items.ids)
     .group('users.id')
     .order('order_count desc')
-    .first
+    .limit(1)
   end
 
   def pending_orders
@@ -103,7 +103,7 @@ class User < ApplicationRecord
     (total_quantity_items_sold / total_items_in_inventory.to_f) * 100
   end
 
-  # - name of the user with the most orders from me (pick one if there's a tie), and number of orders
   # - name of the user who bought the most total items from me (pick one if there's a tie), and the total quantity
+
   # - top 3 users who have spent the most money on my items, and the total amount they've spent
 end
