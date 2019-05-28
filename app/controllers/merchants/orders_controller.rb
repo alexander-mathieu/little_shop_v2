@@ -11,7 +11,9 @@ class Merchants::OrdersController < ApplicationController
     item = order_item.item
     order_item.update!(fulfilled: true)
     order_item.item.update!(inventory: (item.inventory - order_item.quantity))
+
     flash[:message] = "Fulfilled item #{order_item.item.name} of this order"
+    order.update(status:  1) if order.all_fulfilled?
     redirect_to merchant_order_path(order)
   end
 end
