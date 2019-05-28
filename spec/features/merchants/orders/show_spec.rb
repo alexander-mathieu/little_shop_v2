@@ -112,7 +112,8 @@ describe "as a merchant" do
       within "#item-#{@item_3.id}" do
         click_button("Fulfill Order")
       end
-      click_button("Logout")
+      save_and_open_page
+      click_link("Logout")
       click_on "LogIn"
       fill_in "email", with: @merchant_2.email
       fill_in "password", with: @merchant_2.password
