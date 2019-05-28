@@ -124,17 +124,19 @@ RSpec.describe User, type: :model do
     end
 
     it '.top_orders_customer' do
-      order_10 = create(:packaged, user: @user_2)
-      order_item_10 = @order_4.order_items.create!(item_id: @item_1.id, quantity: 2, price: 40.00, fulfilled: true)
-
       expect(@users.top_orders_customer(@user_1)).to eq([@user_2])
     end
 
     it '.top_items_customer' do
-      order_10 = create(:packaged, user: @user_2)
-      order_item_10 = @order_4.order_items.create!(item_id: @item_1.id, quantity: 2, price: 40.00, fulfilled: true)
-
       expect(@users.top_items_customer(@user_1)).to eq([@user_2])
+    end
+
+    it '.top_three_money_customers' do
+      order_item_10 = @order_8.order_items.create!(item_id: @item_1.id, quantity: 2, price: 40.00, fulfilled: true)
+      order_item_11 = @order_10.order_items.create!(item_id: @item_1.id, quantity: 2, price: 50.00, fulfilled: true)
+
+      expect(@users.top_three_money_customers(@user_1)).to eq([@user_2, @user_10, @user_9])
+
     end
   end
 

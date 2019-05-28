@@ -83,6 +83,16 @@ class User < ApplicationRecord
     .limit(1)
   end
 
+  # - top 3 users who have spent the most money on my items, and the total amount they've spent
+  def self.top_three_money_customers(merchant)
+    joins(orders: :order_items)
+    .select('users.*', 'SUM(order_items.price) AS money_total')
+    .where(role: 0, 'order_items.item_id' => merchant.items.ids)
+    .group('users.id')
+    .order('money_total desc')
+    .limit(3)
+  end
+
   def pending_orders
     Order.joins(items: :order_items).select('orders.*', 'items.user_id')
     .where('items.user_id' => self.id, 'orders.status' => 0)
