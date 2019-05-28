@@ -106,7 +106,7 @@ describe "as a merchant" do
 
     it "fulfilling all order_items in an order changes its status to packaged" do
       visit "/dashboard/orders/#{@order_3.id}"
-      save_and_open_page
+
       within "#item-#{@item_2.id}" do
         click_button("Fulfill Order")
       end
@@ -114,7 +114,6 @@ describe "as a merchant" do
         click_button("Fulfill Order")
       end
       click_link("Logout")
-      save_and_open_page
       click_on "Login"
       fill_in "email", with: @merchant_2.email
       fill_in "password", with: @merchant_2.password
