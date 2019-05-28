@@ -76,6 +76,7 @@ RSpec.describe Order, type: :model do
       @order_1 = @user_8.orders.create!(status: 3)
       @order_2 = @user_8.orders.create!(status: 2)
       @order_3 = @user_8.orders.create!(status: 0)
+      @order_4 = @user_8.orders.create!(status: 1)
 
       @order_item_1 = @order_1.order_items.create!(item_id: @item_1.id, quantity: 1, price: 1.00, fulfilled: true)
       @order_item_2 = @order_2.order_items.create!(item_id: @item_1.id, quantity: 1, price: 1.00, fulfilled: true)
@@ -84,6 +85,12 @@ RSpec.describe Order, type: :model do
       @order_item_5 = @order_2.order_items.create!(item_id: @item_2.id, quantity: 2, price: 4.00, fulfilled: true)
       @order_item_6 = @order_3.order_items.create!(item_id: @item_2.id, quantity: 2, price: 4.00, fulfilled: false)
       @order_item_7 = @order_3.order_items.create!(item_id: @item_2.id, quantity: 2, price: 4.00, fulfilled: true)
+    end
+
+    it "#ship" do
+      @order_4.ship
+
+      expect(@order_4.status).to eq("shipped")
     end
 
     it "#user_name" do
