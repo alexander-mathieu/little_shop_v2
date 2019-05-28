@@ -84,25 +84,25 @@ RSpec.describe "as an admin" do
       within ".order-#{@order_1.id}" do
         expect(page).to have_content(@order_1.id)
         expect(page).to have_content(@order_1.created_at)
-        expect(page).to have_link(@order_1.user.name)
+        expect(page).to have_link(@order_1.user_name)
       end
 
       within ".order-#{@order_2.id}" do
         expect(page).to have_content(@order_2.id)
         expect(page).to have_content(@order_2.created_at)
-        expect(page).to have_link(@order_2.user.name)
+        expect(page).to have_link(@order_2.user_name)
       end
 
       within ".order-#{@order_3.id}" do
         expect(page).to have_content(@order_3.id)
         expect(page).to have_content(@order_3.created_at)
-        expect(page).to have_link(@order_3.user.name)
+        expect(page).to have_link(@order_3.user_name)
       end
 
       within ".order-#{@order_4.id}" do
         expect(page).to have_content(@order_4.id)
         expect(page).to have_content(@order_4.created_at)
-        expect(page).to have_link(@order_4.user.name)
+        expect(page).to have_link(@order_4.user_name)
       end
     end
 
@@ -119,10 +119,16 @@ RSpec.describe "as an admin" do
       end
     end
 
-    # describe "and click on a user's name" do
-    #   it "I'm taken to that user's profile page" do
-    #
-    #   end
-    # end
+    describe "and click on a user's name" do
+      it "I'm taken to that user's profile page" do
+        visit admin_dashboard_path
+
+        within ".order-#{@order_1.id}" do
+          click_link "#{@order_1.user_name}"
+
+          expect(current_path).to eq(admin_user_path(@order_1.user_id))
+        end
+      end
+    end
   end
 end
