@@ -5,29 +5,21 @@
   <div class="row">
     <div class="col s6 most-popular">
       <h4>Most Popular:</h4>
-      <ul>
       <% @most_popular.each do |result_set_item| %>
         <div class="card-panel clearfix red">
-          <li>
-            <h5 style="margin: 0; display: inline-block"><%= result_set_item.name %></h5>
-            <h5 class="right" style="margin: 0"><%= result_set_item.total_quantity %> total purchases</h5>
-          </li>
+          <h5 style="margin: 0; display: inline-block"><%= result_set_item.name %></h5>
+          <h5 class="right" style="margin: 0"><%= result_set_item.total_quantity %> total purchases</h5>
         </div>
       <% end %>
-      </ul>
     </div>
   <div class="col s6 least-popular">
     <h4>Least Popular:</h4>
-    <ul>
     <% @least_popular.each do |result_set_item| %>
       <div class="card-panel clearfix red">
-        <li>
-          <h5 style="margin: 0; display: inline-block"><%= result_set_item.name %></h5>
-          <h5 class="right" style="margin: 0"><%= result_set_item.total_quantity %> total purchases</h5>
-        </li>
+        <h5 style="margin: 0; display: inline-block"><%= result_set_item.name %></h5>
+        <h5 class="right" style="margin: 0"><%= result_set_item.total_quantity %> total purchases</h5>
       </div>
     <% end %>
-    </ul>
   </div>
 </div>
 

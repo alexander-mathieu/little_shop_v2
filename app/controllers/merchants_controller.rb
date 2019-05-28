@@ -28,10 +28,15 @@ class MerchantsController < ApplicationController
   end
 
   def show
-    @merchant = current_user
+    if params[:id]
+      @merchant = User.find(params[:id])
+    else
+      @merchant = current_user
+    end
+    @dashboard = @merchant == current_user ? true : false
     @merchant_orders = @merchant.pending_orders
     @top_five_items_sold = @merchant.top_five_sold
-    @items = current_user.items
+    @items = @merchant.items
 
     @items_left = []; @items_mid = []; @items_right = []
     i = 0
@@ -44,6 +49,15 @@ class MerchantsController < ApplicationController
       i += 1; i = 0 if i > 2
     end
 
-    render file: "app/public/404.html" unless @merchant.merchant? || @merchant.admin?
+    @orders_left = []; @orders_mid = []; @orders_right = []
+    i = 0
+    @merchant.pending_orders.each do |order|
+      case i
+      when 0; @orders_left << order
+      when 1; @orders_mid << order
+      when 2; @orders_right << order
+      end
+      i += 1; i = 0 if i > 2
+    end
   end
 end

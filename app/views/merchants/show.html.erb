@@ -1,5 +1,5 @@
 <div class="container">
-<h4><%="Logged in as: " if @merchant.merchant?%><%= @merchant.name %> (<%= @merchant.email %>)</h4>
+<h4><%="Logged in as: " if @dashboard%><%= @merchant.name %> (<%= @merchant.email %>)</h4>
 <p style="margin-bottom: 2rem">
   <%= @merchant.address %><br>
   <%= @merchant.city %>,
@@ -7,19 +7,47 @@
   <%= @merchant.zip %>
 </p>
 
-<%= link_to "Edit my Profile", profile_edit_path, class: "btn", style: "margin-bottom: 2rem" if @merchant.merchant? %>
+<%= link_to "Edit my Profile", profile_edit_path, class: "btn", style: "margin-bottom: 2rem" if @dashboard %>
 
-<h4><%="Your " if @merchant.merchant?%>Orders</h4>
-<br>
-<% @merchant_orders.each do |order| %>
-  Order #<%= order.id %><br>
-  Placed On: <%= order.created_at.to_formatted_s(:long).slice(0...-6) %><br>
-  Total Order Items: <%= order.total_item_count %><br>
-  Order Total Price: $<%= '%.2f' % order.total_price %><br><br>
-<% end %><br>
-<br>
+<% if @dashboard %>
+  <h4>Your Orders</h4>
+  <div class="row">
+    <div class="col s4">
+      <% @orders_left.each do |order| %>
+        <div class="card-panel red">
+          <h5>Order #<%= order.id %></h5>
+          Placed On: <%= order.created_at.to_formatted_s(:long).slice(0...-6) %><br>
+          Total Order Items: <%= order.total_item_count %><br>
+          Order Total Price: $<%= '%.2f' % order.total_price %>
+        </div>
+      <% end %>
+    </div>
 
+    <div class="col s4">
+      <% @orders_mid.each do |order| %>
+        <div class="card-panel red">
+          <h5>Order #<%= order.id %></h5>
+          Placed On: <%= order.created_at.to_formatted_s(:long).slice(0...-6) %><br>
+          Total Order Items: <%= order.total_item_count %><br>
+          Order Total Price: $<%= '%.2f' % order.total_price %>
+        </div>
+      <% end %>
+    </div>
 
+    <div class="col s4">
+      <% @orders_right.each do |order| %>
+        <div class="card-panel red">
+          <h5>Order #<%= order.id %></h5>
+          Placed On: <%= order.created_at.to_formatted_s(:long).slice(0...-6) %><br>
+          Total Order Items: <%= order.total_item_count %><br>
+          Order Total Price: $<%= '%.2f' % order.total_price %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+<% end %>
+
+<h4><%="Your " if @dashboard %>Items</h4>
 <div class="row">
   <div class="col s4">
     <% @items_left.each do |item| %>
@@ -35,7 +63,7 @@
               Price: <%=number_to_currency(item.price)%>
             </p>
           </div>
-          <% if @merchant.merchant? %>
+          <% if @dashboard %>
             <div class="card-action center">
               <%= link_to "Edit", edit_item_path(item) %>
               <% if item.active %>
@@ -65,7 +93,7 @@
               Price: <%=number_to_currency(item.price)%>
             </p>
           </div>
-          <% if @merchant.merchant? %>
+          <% if @dashboard %>
             <div class="card-action center">
               <%= link_to "Edit", edit_item_path(item) %>
               <% if item.active %>
@@ -95,7 +123,7 @@
               Price: <%=number_to_currency(item.price)%>
             </p>
           </div>
-          <% if @merchant.merchant? %>
+          <% if @dashboard %>
             <div class="card-action center">
               <%= link_to "Edit", edit_item_path(item) %>
               <% if item.active %>
