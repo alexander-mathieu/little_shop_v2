@@ -82,6 +82,7 @@ class User < ApplicationRecord
     .where(role: 0, 'order_items.item_id' => merchant.items.ids, 'order_items.fulfilled' => true)
     .group('users.state').distinct
     .order('order_count desc')
+    .limit(3)
   end
 
   def self.top_three_cities_shipped_to(merchant)
@@ -90,8 +91,9 @@ class User < ApplicationRecord
     .where(role: 0, 'order_items.item_id' => merchant.items.ids, 'order_items.fulfilled' => true)
     .group('city_state').distinct
     .order('order_count desc')
+    .limit(3)
   end
-  # - top 3 city/state where my items were shipped, and their quantities (Springfield, MI should not be grouped with Springfield, CO)
+  
   # - name of the user with the most orders from me (pick one if there's a tie), and number of orders
   # - name of the user who bought the most total items from me (pick one if there's a tie), and the total quantity
   # - top 3 users who have spent the most money on my items, and the total amount they've spent
