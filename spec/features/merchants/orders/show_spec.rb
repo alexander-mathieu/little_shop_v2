@@ -15,10 +15,19 @@ describe "as a merchant" do
       @item_4 = @merchant_2.items.create!(name: "Item 4", active: true, price: 1.00, description: "Item Description", image: "https://tradersofafrica.com/img/no-product-photo.jpg", inventory: 10)
       @order_1 = @user.orders.create!(status: 0)
       @order_2 = @user.orders.create!(status: 0)
+      @order_3 = @user.orders.create!(status: 0)
+
       @order_item_1 = @order_1.order_items.create!(item_id: @item_1.id, quantity: 1, price: 1.00, fulfilled: false)
       @order_item_2 = @order_1.order_items.create!(item_id: @item_2.id, quantity: 3, price: 6.00, fulfilled: true)
       @order_item_3 = @order_2.order_items.create!(item_id: @item_4.id, quantity: 6, price: 1.00, fulfilled: true)
       @order_item_4 = @order_1.order_items.create!(item_id: @item_5.id, quantity: 3, price: 6.00, fulfilled: false)
+
+      @order_item_5 = @order_3.order_items.create!(item_id: @item_2.id, quantity: 1, price: 6.00, fulfilled: false)
+      @order_item_6 = @order_3.order_items.create!(item_id: @item_4.id, quantity: 6, price: 1.00, fulfilled: false)
+      @order_item_7 = @order_3.order_items.create!(item_id: @item_3.id, quantity: 2, price: 6.00, fulfilled: false)
+
+
+
 
       visit root_path
 
@@ -92,7 +101,40 @@ describe "as a merchant" do
       end
 
     end
-    
+
+    it "fulfilling all order_items in an order changes its status to packaged" do
+      visit root_path
+
+      click_on "LogIn"
+      fill_in "email", with: @merchant_1.email
+      fill_in "password", with: @merchant_1.password
+      click_on "Log In"
+      visit "/dashboard/orders/#{@order_3.id}"
+      within "#item-#{@item_1.id}" do
+        click_button("Fulfill Order")
+      end
+      within "#item-#{@item_2.id}" do
+        click_button("Fulfill Order")
+      end
+      within "#item-#{@item_3.id}" do
+        click_button("Fulfill Order")
+      end
+      click_button("Logout")
+      click_on "LogIn"
+      fill_in "email", with: @merchant_2.email
+      fill_in "password", with: @merchant_2.password
+      click_on "Log In"
+      visit "/dashboard/orders/#{@order_3.id}"
+      within "#item-#{@item_4.id}" do
+        click_button("Fulfill Order")
+      end
+      @order_3.reload
+      expect(@order_3.packaged?).to eq(true)
+      expect(@order_3.pending?).to eq(false)
+
+
+    end
+
   end
 
 end
