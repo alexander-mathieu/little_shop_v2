@@ -24,6 +24,13 @@ class Order < ApplicationRecord
   end
 
   def cancel_items
-    order_items.each{|order_item| order_item.update(fulfilled: false)}
+    order_items.each do |order_item|
+      if order_item.fulfilled
+      order_item.reload
+      order_item.update(fulfilled: false)
+      new_quantity = order_item.item.inventory + order_item.quantity
+      order_item.item.update(inventory: new_quantity)
+      end
+    end
   end
 end

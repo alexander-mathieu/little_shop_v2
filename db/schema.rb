@@ -18,11 +18,11 @@ ActiveRecord::Schema.define(version: 20190520225214) do
   create_table "items", force: :cascade do |t|
     t.bigint "user_id"
     t.string "name"
-    t.boolean "active", default: true
+    t.boolean "active"
     t.decimal "price"
     t.text "description"
     t.string "image"
-    t.integer "inventory", default: 0
+    t.integer "inventory"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_items_on_user_id"

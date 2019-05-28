@@ -93,6 +93,8 @@ RSpec.describe Order, type: :model do
       @order_1.cancel_items
       expect(@order_item_4.fulfilled).to eq(false)
       expect(@order_item_1.fulfilled).to eq(false)
+      @item_1.reload
+      expect(@item_1.inventory).to eq(12)
     end
   end
 end
