@@ -5,27 +5,29 @@
   <div class="row">
     <div class="col s4">
       <% @merch_left.each do |merchant| %>
+        <% link_path = current_admin? ? admin_merchant_path(merchant) : merchants_path %>
         <div id="merchant-<%=merchant.id%>" class="card hoverable-dark red">
+          <%= link_to link_path, class: "white-text" do %>
           <div class="card-content">
             <span class="card-title">
-              <%=current_admin? ? link_to(merchant.name, admin_merchant_path(merchant)) : merchant.name %>
+              <%= merchant.name %>
             </span>
             <p>
             From: <%= merchant.city %>, <%= merchant.state %><br>
             Date joined: <%= merchant.created_at.to_formatted_s(:long).slice(0...-6) %>
             </p>
-
-            <!-- current_admin? activate/deactivate merchant -->
-            <% if current_admin? %>
-              <div class="card-action">
-                <% if merchant.active %>
-                  <%= link_to "Disable", "admin/merchants/disable/#{item.id}", method: :post %>
-                <% else %>
-                  <%= link_to "Enable", "admin/merchants/enable/#{item.id}", method: :post %>
-                <% end %>
-              </div>
-            <% end %>
           </div>
+          <% end %>
+          <!-- current_admin? activate/deactivate merchant -->
+          <% if current_admin? %>
+            <div class="card-action">
+              <% if merchant.active %>
+                <%= link_to "Disable", "admin/merchants/disable/#{merchant.id}", method: :post %>
+              <% else %>
+                <%= link_to "Enable", "admin/merchants/enable/#{merchant.id}", method: :post %>
+              <% end %>
+            </div>
+          <% end %>
         </div>
       <% end %>
     </div>
@@ -33,27 +35,29 @@
 
     <div class="col s4">
       <% @merch_mid.each do |merchant| %>
+        <% link_path = current_admin? ? admin_merchant_path(merchant) : merchants_path %>
         <div id="merchant-<%=merchant.id%>" class="card hoverable-dark red">
+          <%= link_to link_path, class: "white-text" do %>
           <div class="card-content">
             <span class="card-title">
-              <%=current_admin? ? link_to(merchant.name, admin_merchant_path(merchant)) : merchant.name %>
+              <%= merchant.name %>
             </span>
             <p>
             From: <%= merchant.city %>, <%= merchant.state %><br>
             Date joined: <%= merchant.created_at.to_formatted_s(:long).slice(0...-6) %>
             </p>
-
-            <!-- current_admin? activate/deactivate merchant -->
-            <% if current_admin? %>
-              <div class="card-action">
-                <% if merchant.active %>
-                  <%= link_to "Disable", "admin/merchants/disable/#{item.id}", method: :post %>
-                <% else %>
-                  <%= link_to "Enable", "admin/merchants/enable/#{item.id}", method: :post %>
-                <% end %>
-              </div>
-            <% end %>
           </div>
+          <% end %>
+          <!-- current_admin? activate/deactivate merchant -->
+          <% if current_admin? %>
+            <div class="card-action">
+              <% if merchant.active %>
+                <%= link_to "Disable", "admin/merchants/disable/#{merchant.id}", method: :post %>
+              <% else %>
+                <%= link_to "Enable", "admin/merchants/enable/#{merchant.id}", method: :post %>
+              <% end %>
+            </div>
+          <% end %>
         </div>
       <% end %>
     </div>
@@ -61,27 +65,29 @@
 
     <div class="col s4">
       <% @merch_right.each do |merchant| %>
+        <% link_path = current_admin? ? admin_merchant_path(merchant) : merchants_path %>
         <div id="merchant-<%=merchant.id%>" class="card hoverable-dark red">
+          <%= link_to link_path, class: "white-text" do %>
           <div class="card-content">
             <span class="card-title">
-              <%=current_admin? ? link_to(merchant.name, admin_merchant_path(merchant)) : merchant.name %>
+              <%= merchant.name %>
             </span>
             <p>
             From: <%= merchant.city %>, <%= merchant.state %><br>
             Date joined: <%= merchant.created_at.to_formatted_s(:long).slice(0...-6) %>
             </p>
-
-            <!-- current_admin? activate/deactivate merchant -->
-            <% if current_admin? %>
-              <div class="card-action">
-                <% if merchant.active %>
-                  <%= link_to "Disable", "admin/merchants/disable/#{item.id}", method: :post %>
-                <% else %>
-                  <%= link_to "Enable", "admin/merchants/enable/#{item.id}", method: :post %>
-                <% end %>
-              </div>
-            <% end %>
           </div>
+          <% end %>
+          <!-- current_admin? activate/deactivate merchant -->
+          <% if current_admin? %>
+            <div class="card-action">
+              <% if merchant.active %>
+                <%= link_to "Disable", "admin/merchants/disable/#{merchant.id}", method: :post %>
+              <% else %>
+                <%= link_to "Enable", "admin/merchants/enable/#{merchant.id}", method: :post %>
+              <% end %>
+            </div>
+          <% end %>
         </div>
       <% end %>
     </div>

@@ -44,8 +44,8 @@ Rails.application.routes.draw do
     patch '/users/upgrade/:user_id', to: 'users#upgrade', as: :user_upgrade
 
     resources :merchants, only: [:show, :update]
-    get '/merchants/enable/:id', to: 'merchants#enable'
-    get '/merchants/disable/:id', to: 'merchants#disable'
+    post '/merchants/enable/:id', to: 'merchants#enable'
+    post '/merchants/disable/:id', to: 'merchants#disable'
     resources :users, only: [:index, :show]
   end
 end
