@@ -13,7 +13,7 @@ RSpec.describe "when I visit a user's show page" do
 
       visit root_path
 
-      click_on "LogIn"
+      click_on "Login"
       fill_in "email", with: @admin.email
       fill_in "password", with: @admin.password
       click_on "Log In"
@@ -72,7 +72,7 @@ RSpec.describe "when I visit a user's show page" do
 
         click_button "Upgrade to Merchant"
 
-        expect(current_path).to eq(admin_merchant_path(@user))
+        expect(current_path).to eq(merchant_path(@user))
       end
 
       it "I see a flash message indicated that the user has been upgraded" do
@@ -98,7 +98,7 @@ RSpec.describe "when I visit a user's show page" do
       it "I'm redirected to their merchant dashboard" do
         visit admin_user_path(@merchant)
 
-        expect(current_path).to eq(admin_merchant_path(@merchant))
+        expect(current_path).to eq(merchant_path(@merchant))
       end
     end
 
@@ -119,7 +119,7 @@ RSpec.describe "when I visit a user's show page" do
 
         visit root_path
 
-        click_on "LogIn"
+        click_on "Login"
         fill_in "email", with: @user.email
         fill_in "password", with: @user.password
         click_on "Log In"
@@ -137,7 +137,7 @@ RSpec.describe "when I visit a user's show page" do
 
         visit root_path
 
-        click_on "LogIn"
+        click_on "Login"
         fill_in "email", with: @merchant.email
         fill_in "password", with: @merchant.password
         click_on "Log In"

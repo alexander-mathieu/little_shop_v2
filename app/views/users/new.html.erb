@@ -1,30 +1,39 @@
-<h2>Create Account</h2>
+<div class="container">
+  <h2>Create Account</h2>
 
-<%= form_for @user do |f| %>
+  <%= form_for @user do |f| %>
 
-<%= f.label "Your Name" %><br>
-<%= f.text_field :name, size: "40" %><br>
+    <h5>Name:</h5>
+    <%= f.text_field :name, size: "40" %><br>
 
-<%= f.label "Street Address" %><br>
-<%= f.text_field :address, size: "40" %><br>
+    <h5>Address:</h5>
+    <%= f.text_field :address, size: "40" %><br>
 
-<%= f.label "City/State" %><br>
-<%= f.text_field :city, size: "32" %>
+    <h5>City, State, Zip:</h5>
+    <div class="row">
+      <div class="col s6" style="padding: 0">
+        <%= f.text_field :city, size: "32" %>
+      </div>
 
-<%= f.select :state, %w(AK AL AR AZ CA CO CT DC DE FL GA HI IA ID IL IN KS KY LA MA MD ME MI MN MO MS MT NC ND NE NH NJ NM NV NY OH OK OR PA RI SC SD TN TX UT VA VT WA WI WV WY) %><br>
+      <div class="col s2" style="padding: 0">
+        <%= f.select :state, %w(AK AL AR AZ CA CO CT DC DE FL GA HI IA ID IL IN KS KY LA MA MD ME MI MN MO MS MT NC ND NE NH NJ NM NV NY OH OK OR PA RI SC SD TN TX UT VA VT WA WI WV WY) %><br>
+      </div>
+      <div class="col s4" style="padding: 0">
+        <%= f.text_field :zip, size: "40" %><br>
+      </div>
+    </div>
 
-<%= f.label "Zip Code" %><br>
-<%= f.text_field :zip, size: "40" %><br>
 
-<%= f.label "Email" %><br>
-<%= f.text_field :email, size: "40" %><br>
+    <h5>Email:</h5>
+    <%= f.text_field :email, size: "40" %><br>
 
-<%= f.label "Password" %><br>
-<%= f.text_field :password, placeholder: "Must be 6 characters", size: "40" %><br>
+    <h5>Password:</h5>
+    <%= f.text_field :password, placeholder: "Must be 6 characters", size: "40" %><br>
 
-<%= f.label "Re-enter Password" %><br>
-<%= f.text_field :password_confirmation, size: "40" %><br>
-<br>
-<%= f.submit "Sign Up" %>
+    <h5>Confirm Password:</h5>
+    <%= f.text_field :password_confirmation, size: "40" %><br>
+    <br>
+    <%= f.submit "Sign Up", class: "btn" %>
 
-<% end %>
+  <% end %>
+</div>

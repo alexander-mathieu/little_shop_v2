@@ -5,27 +5,45 @@
     <%= csrf_meta_tags %>
     <link rel="icon" href="https://vignette.wikia.nocookie.net/gtawiki/images/7/79/LosSantosKings-GTAV-Logo.png/revision/latest?cb=20130928210400">
 
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+    <!-- <link type="text/css" rel="stylesheet" href="materialize.min.css" media="screen,projection"/> -->
+
     <%= stylesheet_link_tag    'application', media: 'all' %>
     <%= javascript_include_tag 'application' %>
   </head>
 
-  <body>
-    <section class="navbar">
-      <%= link_to "Home", root_path %>
-      <%= link_to "Items", items_path %>
-      <%= link_to "Merchants", merchants_path %>
-      <%= link_to "LogIn", login_path unless current_user %>
-      <%= link_to "Register", register_path unless current_user %>
-      <%= link_to "Cart", cart_path if (current_user && !current_user.merchant? && !current_user.admin?) || !current_user %>
-      <% if (current_user && !current_user.merchant? && !current_user.admin?) || !current_user %>
-        <p> <%= pluralize(cart.quantity, "Item") %> in cart</p>
-      <% end %>
-      <%= link_to "Profile", profile_path if current_user %>
-      <%= link_to "Logout", logout_path, method: "delete" if current_user %>
-      <%= link_to "Dashboard", dashboard_path if current_user && current_user.merchant? %>
-      <%= link_to "Dashboard", admin_dashboard_path if current_user && current_user.admin? %>
-      <%= link_to "Users", admin_users_path if current_user && current_user.admin? %>
-    </section>
+  <body class="grey darken-2 white-text">
+    <div class="navbar-fixed">
+      <nav>
+        <div class="nav-wrapper z-depth-4 red">
+          <a href="#" data-target="" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+          <ul class="hide-on-small-and-down">
+            <li <%="class=active" if request.fullpath == '/'%>><%= link_to "Home", root_path %></li>
+            <li <%="class=active" if request.fullpath == '/items'%>><%= link_to "Items", items_path %></li>
+            <li <%="class=active" if request.fullpath == '/merchants'%>><%= link_to "Merchants", merchants_path %></li>
+            <% if (current_user && !current_user.merchant? && !current_user.admin?) || !current_user %>
+              <li <%="class=active" if request.fullpath == '/cart'%>>
+                <%= link_to "Cart (#{pluralize(cart.quantity, "Items")})", cart_path %>
+              </li>
+            <% end %>
+          </ul>
+          <span class="brand-logo center">Little Shop</span>
+          <ul class="right hide-on-small-and-down">
+            <li><%= link_to "Register", register_path unless current_user %></li>
+            <li><%= link_to "Login", login_path unless current_user %></li>
+            <% if current_user %>
+              <li><%= link_to current_user.name, profile_path %></li>
+            <% end %>
+            <li><%= link_to "Dashboard", dashboard_path if current_user && current_user.merchant? %></li>
+            <li><%= link_to "Dashboard", admin_dashboard_path if current_user && current_user.admin? %></li>
+            <li><%= link_to "Users", admin_users_path if current_user && current_user.admin? %></li>
+            <li><%= link_to "Logout", logout_path, method: "delete" if current_user %></li>
+          </ul>
+        </div>
+      </nav>
+    </div>
 
     <section class="flash">
       <% flash.each do |type, message| %>

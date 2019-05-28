@@ -6,7 +6,7 @@ describe "as a merchant" do
       @merchant = create(:merchant, email: "m1@gmail.com")
       visit root_path
 
-      click_link "LogIn"
+      click_link "Login"
       fill_in 'email', with: @merchant.email
       fill_in 'password', with: @merchant.password
       click_button "Log In"
