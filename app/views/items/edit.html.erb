@@ -1,13 +1,17 @@
-<%= form_for @item, url: item_path(@item.id), method: "post" do |f| %>
-<%= f.label :name %>
-<%= f.text_field :name %>
-<%= f.label :price %>
-<%= f.text_field :price %>
-<%= f.label :description %>
-<%= f.text_field :description %>
-<%= f.label :image %>
-<%= f.text_field :image %>
-<%= f.label :inventory %>
-<%= f.text_field :inventory %>
-<%= f.submit "Update Item" %>
-<% end %>
+<div class="container">
+  <h2>Edit Item:</h2>
+
+  <%= form_for @item, url: item_path(@item.id), method: "post" do |f| %>
+  <h4>Name:</h4>
+  <%= f.text_field :name %>
+  <h4>Price:</h4>
+  <%= f.text_field :price %>
+  <h4>Description</h4>
+  <%= f.text_field :description %>
+  <h4>Image Path:</h4>
+  <%= f.text_field :image %>
+  <h4>Inventory:</h4>
+  <%= f.text_field :inventory %>
+  <%= f.submit "Update Item", class: "btn", style: "margin-top: 2rem" %>
+  <% end %>
+</div>

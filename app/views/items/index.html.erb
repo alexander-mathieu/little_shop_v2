@@ -1,32 +1,80 @@
-<h2>All Items</h2>
+<div class="container">
+<h2 class="center-align">All Items</h2>
 
-<section class="item-stats">
-  <div class="most-popular">
-    <ul>Most Popular:
-    <% @most_popular.each do |result_set_item| %>
-      <li><%= result_set_item.name %>, <%= result_set_item.total_quantity %> total purchases</li>
-    <% end %>
-    </ul>
-  </div>
-  <div class="least-popular">
-    <ul>Least Popular:<br>
-    <% @least_popular.each do |result_set_item| %>
-      <li><%= result_set_item.name %>, <%= result_set_item.total_quantity %> total purchases</li>
-    <% end %>
-    </ul>
-    </div>
-</section>
-
-<section class="all-items">
-  <% @items.each do |item| %>
-    <div class="item-<%= item.id %>-info">
-      <h4><%= link_to item.name, item_path(item) %></h4>
-      <%= link_to item_path(item) do %>
-        <%= image_tag item.image, {class: "item-#{item.id}-image", alt: "#{item.name}-image"} %>
+<div class="item-stats">
+  <div class="row">
+    <div class="col s6 most-popular">
+      <h4>Most Popular:</h4>
+      <% @most_popular.each do |result_set_item| %>
+        <div class="card-panel clearfix red">
+          <h5 style="margin: 0; display: inline-block"><%= result_set_item.name %></h5>
+          <h5 class="right" style="margin: 0"><%= result_set_item.total_quantity %> total purchases</h5>
+        </div>
       <% end %>
-      <p>Seller: <%= item.user.name %></p>
-      <p>Available: <%= item.inventory %></p>
-      <p>Price: <%= number_to_currency(item.price)%></p>
     </div>
-  <% end %>
-</section>
+  <div class="col s6 least-popular">
+    <h4>Least Popular:</h4>
+    <% @least_popular.each do |result_set_item| %>
+      <div class="card-panel clearfix red">
+        <h5 style="margin: 0; display: inline-block"><%= result_set_item.name %></h5>
+        <h5 class="right" style="margin: 0"><%= result_set_item.total_quantity %> total purchases</h5>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<div class="all-items">
+  <div class="row">
+    <div class="col s4">
+      <% @items_left.each do |item| %>
+        <div class="item-<%= item.id %>-info card hoverable-dark red">
+          <div class="card-image">
+            <%= link_to item_path(item) do %>
+              <%= image_tag item.image, {class: "item-#{item.id}-image", alt: "#{item.name}-image"} %>
+            <% end %>
+          </div>
+          <div class="card-content">
+            <span class="card-title"><%= link_to item.name, item_path(item), class: "white-text" %></span>
+            <p>Seller: <%= item.user.name %></p>
+            <p>Available: <%= item.inventory %></p>
+            <p>Price: <%= number_to_currency(item.price)%></p>
+          </div>
+        </div>
+      <% end %>
+    </div>
+    <div class="col s4">
+      <% @items_mid.each do |item| %>
+        <div class="item-<%= item.id %>-info card hoverable-dark red">
+          <div class="card-image">
+            <%= link_to item_path(item) do %>
+              <%= image_tag item.image, {class: "item-#{item.id}-image", alt: "#{item.name}-image"} %>
+            <% end %>
+          </div>
+          <div class="card-content">
+            <span class="card-title"><%= link_to item.name, item_path(item), class: "white-text" %></span>
+            <p>Seller: <%= item.user.name %></p>
+            <p>Available: <%= item.inventory %></p>
+            <p>Price: <%= number_to_currency(item.price)%></p>
+          </div>
+        </div>
+      <% end %>
+    </div>
+    <div class="col s4">
+      <% @items_right.each do |item| %>
+        <div class="item-<%= item.id %>-info card hoverable-dark red">
+          <div class="card-image">
+            <%= link_to item_path(item) do %>
+              <%= image_tag item.image, {class: "item-#{item.id}-image", alt: "#{item.name}-image"} %>
+            <% end %>
+          </div>
+          <div class="card-content">
+            <span class="card-title"><%= link_to item.name, item_path(item), class: "white-text" %></span>
+            <p>Seller: <%= item.user.name %></p>
+            <p>Available: <%= item.inventory %></p>
+            <p>Price: <%= number_to_currency(item.price)%></p>
+          </div>
+        </div>
+      <% end %>
+    </div>
+</div>
+</div>

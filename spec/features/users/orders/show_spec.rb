@@ -22,7 +22,7 @@ describe "as a registered user" do
 
       visit root_path
 
-      click_on "LogIn"
+      click_on "Login"
 
       expect(current_path).to eq(login_path)
       fill_in "email", with: @user_8.email
@@ -64,7 +64,10 @@ describe "as a registered user" do
       expect(OrderItem.find(@order_item_1.id).fulfilled).to eq(false)
       expect(OrderItem.find(@order_item_4.id).fulfilled).to eq(false)
       expect(Order.find(@order_1.id).status).to eq("cancelled")
-      #return item quantities to merchant page
+      @item_1.reload
+      expect(@item_1.inventory).to eq(11)
+      @item_2.reload
+      expect(@item_2.inventory).to eq(16)
       expect(current_path).to eq(profile_path)
       expect(page).to have_content("Order #{@order_1.id} cancelled.")
       visit profile_orders_path

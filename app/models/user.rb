@@ -103,6 +103,18 @@ class User < ApplicationRecord
     (total_quantity_items_sold / total_items_in_inventory.to_f) * 100
   end
 
+  def deactivate_all_items
+    items.update(active: false)
+  end
+
+  def downgrade_to_user
+    update(role: 0)
+  end
+
+  def upgrade_to_merchant
+    update(role: 1)
+  end
+
   # - name of the user who bought the most total items from me (pick one if there's a tie), and the total quantity
 
   # - top 3 users who have spent the most money on my items, and the total amount they've spent

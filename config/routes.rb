@@ -7,10 +7,10 @@ Rails.application.routes.draw do
   post '/items/disable/:id', to: "items#disable"
 
   resources :users, only: [:show, :create]
-
+  resources :users, only: [:new, :edit, :create]
   get '/register', to: 'users#new'
 
-  resources :merchants, only: [:index]
+  resources :merchants, only: [:index, :show]
 
   resources :users, only: [:new, :edit, :create]
 
@@ -35,14 +35,18 @@ Rails.application.routes.draw do
   delete '/logout', to: "sessions#delete"
 
   get '/dashboard', to: "merchants#show"
-  get '/dashboard/orders/:id', to: "dashboard/orders#show", as: :merchant_order
+  get '/dashboard/orders/:id', to: 'merchants/orders#show', as: :merchant_order
+  patch "/merchants/orders/fulfill/:id", to: 'merchants/orders#fulfill'
 
   namespace :admin do
-
     get '/dashboard', to: 'dashboard#index'
-    resources :merchants, only: [:show, :update]
     get '/users/:user_id/orders', to: 'orders#index', as: :user_orders
+    patch '/users/upgrade/:user_id', to: 'users#upgrade', as: :user_upgrade
+    patch '/merchants/downgrade/:merchant_id', to: 'merchants#downgrade', as: :merchant_downgrade
 
+    resources :merchants, only: [:update]
+    post '/merchants/enable/:id', to: 'merchants#enable'
+    post '/merchants/disable/:id', to: 'merchants#disable'
     resources :users, only: [:index, :show]
   end
 end
