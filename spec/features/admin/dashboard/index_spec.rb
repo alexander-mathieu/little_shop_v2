@@ -69,6 +69,13 @@ RSpec.describe "as an admin" do
       @order_item_34 = @order_8.order_items.create!(item_id: @item_6.id, quantity: 6, price: 6.00, fulfilled: true)
       @order_item_35 = @order_8.order_items.create!(item_id: @item_7.id, quantity: 7, price: 7.00, fulfilled: true)
       @order_item_36 = @order_8.order_items.create!(item_id: @item_8.id, quantity: 8, price: 8.00, fulfilled: true)
+
+      visit root_path
+
+      click_on "LogIn"
+      fill_in "email", with: @admin.email
+      fill_in "password", with: @admin.password
+      click_on "Log In"
     end
 
     it "the page displays all orders in the system" do
@@ -77,25 +84,25 @@ RSpec.describe "as an admin" do
       within ".order-#{@order_1.id}" do
         expect(page).to have_content(@order_1.id)
         expect(page).to have_content(@order_1.created_at)
-        expect(page).to have_link(@order_1.user)
+        expect(page).to have_link(@order_1.user.name)
       end
 
       within ".order-#{@order_2.id}" do
         expect(page).to have_content(@order_2.id)
         expect(page).to have_content(@order_2.created_at)
-        expect(page).to have_link(@order_2.user)
+        expect(page).to have_link(@order_2.user.name)
       end
 
       within ".order-#{@order_3.id}" do
         expect(page).to have_content(@order_3.id)
         expect(page).to have_content(@order_3.created_at)
-        expect(page).to have_link(@order_3.user)
+        expect(page).to have_link(@order_3.user.name)
       end
 
       within ".order-#{@order_4.id}" do
         expect(page).to have_content(@order_4.id)
         expect(page).to have_content(@order_4.created_at)
-        expect(page).to have_link(@order_4.user)
+        expect(page).to have_link(@order_4.user.name)
       end
     end
 
