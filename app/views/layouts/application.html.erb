@@ -19,7 +19,7 @@
       <nav>
         <div class="nav-wrapper z-depth-4 red">
           <a href="#" data-target="" class="sidenav-trigger"><i class="material-icons">menu</i></a>
-          <ul class="hide-on-med-and-down">
+          <ul class="hide-on-small-and-down">
             <li <%="class=active" if request.fullpath == '/'%>><%= link_to "Home", root_path %></li>
             <li <%="class=active" if request.fullpath == '/items'%>><%= link_to "Items", items_path %></li>
             <li <%="class=active" if request.fullpath == '/merchants'%>><%= link_to "Merchants", merchants_path %></li>
@@ -30,7 +30,7 @@
             <% end %>
           </ul>
           <span class="brand-logo center">Little Shop</span>
-          <ul class="right hide-on-med-and-down">
+          <ul class="right hide-on-small-and-down">
             <li><%= link_to "Register", register_path unless current_user %></li>
             <li><%= link_to "Login", login_path unless current_user %></li>
             <% if current_user %>
