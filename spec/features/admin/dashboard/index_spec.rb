@@ -146,14 +146,34 @@ RSpec.describe "as an admin" do
         within ".order-#{@order_3.id}" do
           click_button "Ship"
 
+          @order_3.reload
+
           expect(@order_3.shipped?).to eq(true)
         end
 
         within ".order-#{@order_4.id}" do
           click_button "Ship"
 
+          @order_4.reload
+
           expect(@order_4.shipped?).to eq(true)
         end
+      end
+
+      it "I see a flash message stating that the order was shipped" do
+        visit admin_dashboard_path
+
+        within ".order-#{@order_3.id}" do
+          click_button "Ship"
+        end
+
+        expect(page).to have_content("Order #{@order_3.id} shipped!")
+
+        within ".order-#{@order_4.id}" do
+          click_button "Ship"
+        end
+
+        expect(page).to have_content("Order #{@order_4.id} shipped!")
       end
     end
 
