@@ -40,7 +40,7 @@ class MerchantsController < ApplicationController
     @merchant_top_three_states_shipped = User.top_three_states_shipped_to(@merchant)
     @merchant_top_three_cities_shipped = User.top_three_cities_shipped_to(@merchant)
     @merchant_top_orders_customer = User.top_orders_customer(@merchant)
-    # @merchant_top_customer_items = User.top_customer_items(@merchant)
+    @merchant_top_items_customer = User.top_items_customer(@merchant)
 
     @items_left = []; @items_mid = []; @items_right = []
     i = 0
