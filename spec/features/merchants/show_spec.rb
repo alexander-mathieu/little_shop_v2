@@ -61,6 +61,9 @@ describe "as a merchant" do
       expect(page).to have_content(@merchant.address)
       expect(page).to have_content(@merchant.city)
       expect(page).to have_content(@merchant.state)
+      
+
+
 
       within "#item-#{@itemA.id}" do
         expect(page).to have_content(@itemA.name)
