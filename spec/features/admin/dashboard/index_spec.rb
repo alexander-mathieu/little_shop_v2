@@ -190,8 +190,3 @@ RSpec.describe "as an admin" do
     end
   end
 end
-
-# Then I see any "packaged" orders ready to ship.
-# Next to each order I see a button to "ship" the order.
-# When I click that button for an order, the status of that order changes to "shipped"
-# And the user can no longer "cancel" the order.
