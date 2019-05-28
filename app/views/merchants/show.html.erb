@@ -53,7 +53,9 @@
     <% @items_left.each do |item| %>
       <div id="item-<%=item.id%>" class="card horizontal red">
         <div class="card-image">
-          <%= image_tag item.image, {class: "item-#{item.id}-image", alt: "#{item.name}-image"} %>
+          <%= link_to item_path(item) do %>
+            <%= image_tag item.image, {class: "item-#{item.id}-image", alt: "#{item.name}-image"} %>
+          <% end %>
         </div>
         <div class="card-stacked">
           <div class="card-content">
@@ -83,7 +85,9 @@
     <% @items_mid.each do |item| %>
       <div id="item-<%=item.id%>" class="card horizontal red">
         <div class="card-image">
-          <%= image_tag item.image, {class: "item-#{item.id}-image", alt: "#{item.name}-image"} %>
+          <%= link_to item_path(item) do %>
+            <%= image_tag item.image, {class: "item-#{item.id}-image", alt: "#{item.name}-image"} %>
+          <% end %>
         </div>
         <div class="card-stacked">
           <div class="card-content">
