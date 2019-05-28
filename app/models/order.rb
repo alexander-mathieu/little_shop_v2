@@ -29,6 +29,7 @@ class Order < ApplicationRecord
 
   def user_id
     user.id
+  end
 
   def items_of_merchant(merchant_id)
   items.where("items.user_id = #{merchant_id}")
