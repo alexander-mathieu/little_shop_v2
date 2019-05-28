@@ -5,7 +5,12 @@ class Admin::MerchantsController < Admin::BaseController
     @items = @merchant.items
     @merchant_orders = @merchant.pending_orders
     @top_five_items_sold = @merchant.top_five_sold
-    render file: "/app/views/merchants/show.html", status: 200
+
+    if @merchant.default?
+      redirect_to admin_user_path(@merchant)
+    else
+      render file: "/app/views/merchants/show.html", status: 200
+    end
   end
 
   def update
