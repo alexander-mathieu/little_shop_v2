@@ -42,7 +42,7 @@ RSpec.describe "as a merchant" do
         expect(page).to have_content("Enable")
         expect(page).to have_content("Delete")
       end
-      save_and_open_page
+
       within "#item-#{@item_3.id}" do
         expect(page).to have_content(@item_3.name)
         expect(page).to have_content(@item_3.inventory)
@@ -82,7 +82,7 @@ RSpec.describe "as a merchant" do
       end
     end
 
-    it "can enable/disable items" do
+    it "I can enable/disable items" do
       within "#item-#{@item_1.id}" do
         click_on "Disable"
       end
@@ -108,6 +108,18 @@ RSpec.describe "as a merchant" do
         expect(page).to have_content("Disable")
         expect(page).to_not have_content("Enable")
       end
+    end
+
+    it "I can delete an item" do
+      within "#item-#{@item_1.id}" do
+        click_on "Delete"
+      end
+
+      expect(current_path).to eq(dashboard_path)
+
+      expect(page).to have_content("Item has been deleted.")
+
+      expect(page).to_not have_content(@item_1.name)
     end
   end
 end
