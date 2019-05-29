@@ -61,5 +61,53 @@ RSpec.describe "as a merchant" do
         expect(page).to have_content("Delete")
       end
     end
+
+    it "I can edit an item" do
+      within "#item-#{@item_1.id}" do
+        click_on "Edit"
+      end
+
+      expect(current_path).to eq(edit_item_path(@item_1))
+
+      fill_in "item[name]", with: "Updated Item 1"
+
+      click_on "Update Item"
+
+      expect(current_path).to eq(dashboard_path)
+
+      expect(page).to have_content("Item updated.")
+
+      within "#item-#{@item_1.id}" do
+        expect(page).to have_content("Updated Item 1")
+      end
+    end
+
+    it "can enable/disable items" do
+      within "#item-#{@item_1.id}" do
+        click_on "Disable"
+      end
+
+      expect(current_path).to eq(dashboard_path)
+
+      expect(page).to have_content("Item has been disabled.")
+
+      within "#item-#{@item_1.id}" do
+        expect(page).to have_content("Enable")
+        expect(page).to_not have_content("Disable")
+      end
+
+      within "#item-#{@item_1.id}" do
+        click_on "Enable"
+      end
+
+      expect(current_path).to eq(dashboard_path)
+
+      expect(page).to have_content("Item has been enabled.")
+
+      within "#item-#{@item_1.id}" do
+        expect(page).to have_content("Disable")
+        expect(page).to_not have_content("Enable")
+      end
+    end
   end
 end
