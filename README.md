@@ -1,9 +1,13 @@
 # Little Shop of Orders, v2
-This is a website built by [Patrick Duvall](https://github.com/Patrick-Duvall)
+This is a website built by [Kyle Cornelissen](https://github.com/kylecornelissen), [Patrick Duvall](https://github.com/Patrick-Duvall), [Aurie Gochenour](https://github.com/Myrdden), and [Alexande Mathieu](https://github.com/alexander-mathieu) made in 10 days at Turing School of Software Development and design. 
+
+###### You can see Our site [HERE](https://little-shop-of-cards.herokuapp.com/)
 
 ## Background and Description
 
 "Little Shop of Orders" is a fictitious e-commerce platform where users can register to place items into a shopping cart and 'check out'. Merchant users can mark their items as 'fulfilled'; the last merchant to mark items in an order as 'fulfilled' will automatically set the order status to "shipped". Each user role will have access to some or all CRUD functionality for application models.
+
+
 
 
 ## Learning Goals
@@ -13,24 +17,13 @@ This is a website built by [Patrick Duvall](https://github.com/Patrick-Duvall)
 - Session management and use of POROs for shopping cart
 - Authentication, Authorization, separation of user roles and permissions
 
-## Requirements
-- must use Rails 5.1.x
-- must use PostgreSQL
-- must use 'bcrypt' for authentication
-- all controller and model code must be tested via feature tests and model tests, respectively
-- must use good GitHub branching, team code reviews via GitHub comments, and use of a project planning tool like waffle.io
-- must include a thorough README to describe their project
-
 ## Schema
 
-You should use this schema:
+Our website uses the following schema
 
 ![Imgur](https://i.imgur.com/kEcAZdw.png)
 
-## User Stories
-Co-authored-by: Patrick Duvall <duvallp208@gmail.com>
-Co-authored-by: Kyle Cornelissen <kyle.cornelissen@gmail.com>
-Co-authored-by: Aurie Gochenour <myrdden42@gmail.com>"
+
 
 
 Summary about the project, what it is intended for
