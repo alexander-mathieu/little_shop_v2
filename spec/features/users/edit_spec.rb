@@ -51,12 +51,20 @@ describe "as a user" do
         expect(page).to have_content("That email is already in use")
     end
 
-#     As a registered user
-# When I attempt to edit my profile data
-# If I try to change my email address to one that belongs to another user
-# When I submit the form
-# Then I am returned to the profile edit page
-# And I see a flash message telling me that email address is already in use
+    it "Lets me change my password" do
+      @user_2 = User.create!(email: "george@bob.com", password: "124344", name: "george", address:"123 george st.", city: "georgeton", state:"MA", zip: 28234)
+      visit root_path
+      click_link "Login"
+      click_link "Edit my Profile"
+      fill_in "password", with: "newpassword"
+      click_button "Change my Profile"
+      click_link "Logout"
+      click_link "Login"
+      fill_in "password", with: "newpassword"
+      fill_in "user_name", with: @user_2.name
+      expect(current_path).to eq(profile_path)
+
+    end
 
   end
 
