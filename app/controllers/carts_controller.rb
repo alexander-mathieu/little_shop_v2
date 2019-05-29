@@ -19,7 +19,7 @@ class CartsController < ApplicationController
   end
 
   def show
-    if current_user.merchant? || current_admin?
+    if current_user && (current_user.merchant? || current_admin?)
       render file: "/public/404", status: 404
     end
     @cart = Cart.new(session[:cart])
