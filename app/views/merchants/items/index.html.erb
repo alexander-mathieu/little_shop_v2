@@ -1,0 +1,103 @@
+<% if @dashboard %>
+  <div class="row clearfix">
+    <h4 class="left" style="margin-left: 10px">Your Items</h4>
+    <%= link_to "Add Item", new_item_path, class: "btn", style: "margin-top: 1.52rem; margin-left: 1.52rem" %>
+  </div>
+<% else %>
+  <h4>Items</h4>
+<% end %>
+<div class="row">
+  <div class="col s4">
+    <% @items_left.each do |item| %>
+      <div id="item-<%=item.id%>" class="card horizontal red">
+        <div class="card-image">
+          <%= link_to item_path(item) do %>
+            <%= image_tag item.image, {class: "item-#{item.id}-image", alt: "#{item.name}-image"} %>
+          <% end %>
+        </div>
+        <div class="card-stacked">
+          <div class="card-content">
+            <h5><%=item.name%></h5>
+            <p>
+              Avaliable: <%=item.inventory%><br>
+              Price: <%=number_to_currency(item.price)%>
+            </p>
+          </div>
+          <% if @dashboard %>
+            <div class="card-action center">
+              <%= link_to "Edit", edit_item_path(item) %>
+              <% if item.active %>
+                <%= link_to "Disable", "/items/disable/#{item.id}", method: :post %>
+              <% else %>
+                <%= link_to "Enable", "/items/enable/#{item.id}", method: :post %>
+              <% end %>
+              <%= link_to "Delete", item_path(item), method: :delete %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="col s4">
+    <% @items_mid.each do |item| %>
+      <div id="item-<%=item.id%>" class="card horizontal red">
+        <div class="card-image">
+          <%= link_to item_path(item) do %>
+            <%= image_tag item.image, {class: "item-#{item.id}-image", alt: "#{item.name}-image"} %>
+          <% end %>
+        </div>
+        <div class="card-stacked">
+          <div class="card-content">
+            <h5><%=item.name%></h5>
+            <p>
+              Avaliable: <%= item.inventory %><br>
+              Price: <%= number_to_currency(item.price) %>
+            </p>
+          </div>
+          <% if @dashboard %>
+            <div class="card-action center">
+              <%= link_to "Edit", edit_item_path(item) %>
+              <% if item.active %>
+                <%= link_to "Disable", "/items/disable/#{item.id}", method: :post %>
+              <% else %>
+                <%= link_to "Enable", "/items/enable/#{item.id}", method: :post %>
+              <% end %>
+              <%= link_to "Delete", item_path(item), method: :delete %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="col s4">
+    <% @items_right.each do |item| %>
+      <div id="item-<%= item.id %>" class="card horizontal red">
+        <div class="card-image">
+          <%= image_tag item.image, {class: "item-#{item.id}-image", alt: "#{item.name}-image"} %>
+        </div>
+        <div class="card-stacked">
+          <div class="card-content">
+            <h5><%= item.name %></h5>
+            <p>
+              Avaliable: <%= item.inventory %><br>
+              Price: <%= number_to_currency(item.price) %>
+            </p>
+          </div>
+          <% if @dashboard %>
+            <div class="card-action center">
+              <%= link_to "Edit", edit_item_path(item) %>
+              <% if item.active %>
+                <%= link_to "Disable", "/items/disable/#{item.id}", method: :post %>
+              <% else %>
+                <%= link_to "Enable", "/items/enable/#{item.id}", method: :post %>
+              <% end %>
+              <%= link_to "Delete", item_path(item), method: :delete %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
