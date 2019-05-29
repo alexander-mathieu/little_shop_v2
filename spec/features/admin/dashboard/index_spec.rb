@@ -107,6 +107,7 @@ RSpec.describe "as an admin" do
     end
 
     it "the page sorts orders by status" do
+
       visit admin_dashboard_path
 
       within ".all-orders" do
