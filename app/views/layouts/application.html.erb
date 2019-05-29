@@ -47,7 +47,11 @@
 
 
     <% flash.each do |type, message| %>
-      <div class="flash card-panel teal">
+      <% type_colour = case type %>
+      <% when :warn; "orange" %>
+      <% else; "teal" %>
+      <% end %>
+      <div class="flash card-panel <%=type_colour%>">
         <%=message%>
       </div>
     <% end %>
