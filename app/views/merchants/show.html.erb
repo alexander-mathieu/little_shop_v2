@@ -19,8 +19,9 @@
     <div class="col s4">
       <% @orders_left.each do |order| %>
         <div class="card-panel red">
-          <!-- DONT FORGET TO TURN THE ORDER.ID INTO A BUTTON OR LINK AND TEST FOR IT! -->
-          <h5>Order #<%= order.id %></h5>
+
+          <h5>Order #<%= link_to order.id, merchant_order_path(order)%></h5>
+
           Placed On: <%= order.created_at.to_formatted_s(:long).slice(0..-6) %><br>
           Total Order Items: <%= order.total_item_count %><br>
           Order Total Price: $<%= '%.2f' % order.total_price %>
@@ -31,7 +32,7 @@
     <div class="col s4">
       <% @orders_mid.each do |order| %>
         <div class="card-panel red">
-          <h5>Order #<%= order.id %></h5>
+          <h5>Order #<%= link_to order.id, merchant_order_path(order) %></h5>
           Placed On: <%= order.created_at.to_formatted_s(:long).slice(0..-6) %><br>
           Total Order Items: <%= order.total_item_count %><br>
           Order Total Price: $<%= '%.2f' % order.total_price %>
@@ -42,7 +43,7 @@
     <div class="col s4">
       <% @orders_right.each do |order| %>
         <div class="card-panel red">
-          <h5>Order #<%= order.id %></h5>
+          <h5>Order #<%= link_to order.id, merchant_order_path(order) %></h5>
           Placed On: <%= order.created_at.to_formatted_s(:long).slice(0..-6) %><br>
           Total Order Items: <%= order.total_item_count %><br>
           Order Total Price: $<%= '%.2f' % order.total_price %>
