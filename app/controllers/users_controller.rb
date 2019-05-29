@@ -29,11 +29,11 @@ class UsersController < ApplicationController
   end
 
   def show
-    if current_user.nil?
+    if current_user && !current_user.merchant?
+      @user = current_user
+    else
       @user = User.new
       render file: "/public/404", status: 404
-    else
-      @user = current_user
     end
   end
 
