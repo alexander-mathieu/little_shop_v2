@@ -39,18 +39,26 @@ class User < ApplicationRecord
                   .limit(3)
   end
 
-  def self.top_three_orders_by(city_or_state)
+  def self.top_three_orders_by_state
     find_merchants.joins(items: :order_items)
-                  .select("users.#{city_or_state}", "COUNT(DISTINCT(order_items.order_id)) AS #{city_or_state}_order_count")
-                  .group("users.#{city_or_state}").distinct
-                  .order("#{city_or_state}_order_count desc")
+                  .select("users.state", "COUNT(DISTINCT(order_items.order_id)) AS state_order_count")
+                  .group("users.state").distinct
+                  .order("state_order_count desc")
+                  .limit(3)
+  end
+
+  def self.top_three_orders_by_city_state
+    find_merchants.joins(items: :order_items)
+                  .select("CONCAT(users.city, ', ', users.state) AS city_state", "COUNT(DISTINCT(order_items.order_id)) AS city_state_order_count")
+                  .group("city_state").distinct
+                  .order("city_state_order_count desc")
                   .limit(3)
   end
 
   def self.top_three_states_shipped_to(merchant)
     joins(orders: :order_items)
     .select('users.state', 'COUNT(order_items.order_id) AS order_count')
-    .where(role: 0, 'order_items.item_id' => merchant.items.ids, 'order_items.fulfilled' => true)
+    .where(role: 0, 'order_items.item_id' => merchant.items.ids, 'orders.status' => 2)
     .group('users.state').distinct
     .order('order_count desc')
     .limit(3)
@@ -68,7 +76,7 @@ class User < ApplicationRecord
   def self.top_orders_customer(merchant)
     joins(orders: :order_items)
     .select('users.*', 'COUNT(DISTINCT(order_items.order_id)) AS order_count')
-    .where(role: 0, 'order_items.item_id' => merchant.items.ids)
+    .where('order_items.item_id' => merchant.items.ids, 'orders.status' => 2)
     .group('users.id')
     .order('order_count desc')
     .limit(1)
@@ -76,8 +84,8 @@ class User < ApplicationRecord
 
   def self.top_items_customer(merchant)
     joins(orders: :order_items)
-    .select('users.*', 'COUNT(order_items.id) AS item_count')
-    .where(role: 0, 'order_items.item_id' => merchant.items.ids)
+    .select('users.*','COUNT(order_items.id) AS item_count')
+    .where('order_items.item_id' => merchant.items.ids, 'orders.status' => 2)
     .group('users.id')
     .order('item_count desc')
     .limit(1)
@@ -96,6 +104,7 @@ class User < ApplicationRecord
   def pending_orders
     Order.joins(items: :order_items).select('orders.*', 'items.user_id')
     .where('items.user_id' => self.id, 'orders.status' => 0)
+    .order(:id)
     .distinct
   end
 
