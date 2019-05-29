@@ -1,17 +1,19 @@
-<h1>Order: <%= @order.id %></h1>
-<%= link_to "Cancel Order", profile_order_path(@order), method: :delete if @order.pending? %>
-<p>Placed: <%= @order.created_at.to_date %></p>
-<p>Updated: <%= @order.updated_at.to_date %></p>
-<p>Status: <%= @order.status %></p>
-<p>Number of Items: <%= @order.total_item_count %></p>
-<p>Total Cost: <%= @order.total_price %></p>
-<br><br>
-<% @order.items.each do |item| %>
-<section id="item-<%= item.id %>">
-  <p><%= item.name %></p>
-<p>Price Per Item: <%= number_to_currency(item.price) %></p>
-<p><%= item.description %></p>
-<p>Subtotal: <%= number_to_currency(item.find_order_item(@order.id).price) %></p>
-<img src="<%=item.image%>">
-</section>
-<% end %>
+<div class="container">
+  <h1>Order: <%= @order.id %></h1>
+  <%= link_to "Cancel Order", profile_order_path(@order), method: :delete, class: "btn" if @order.pending? %>
+  <p>Placed: <%= @order.created_at.to_date %></p>
+  <p>Updated: <%= @order.updated_at.to_date %></p>
+  <p>Status: <%= @order.status %></p>
+  <p>Number of Items: <%= @order.total_item_count %></p>
+  <p>Total Cost: <%= @order.total_price %></p>
+  <br><br>
+  <% @order.items.each do |item| %>
+  <section id="item-<%= item.id %>">
+    <p><%= item.name %></p>
+  <p>Price Per Item: <%= number_to_currency(item.price) %></p>
+  <p><%= item.description %></p>
+  <p>Subtotal: <%= number_to_currency(item.find_order_item(@order.id).price) %></p>
+  <img src="<%=item.image%>">
+  </section>
+  <% end %>
+</div>

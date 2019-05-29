@@ -1,11 +1,19 @@
-<%current_user.orders.each do |order| %>
-<section id="Order-<%= order.id %>">
-  <p><%= "Order Cancelled" if order.cancelled? %></p>
-  <%= link_to("Order #{order.id}", profile_order_path(order)) %>
-  <p>Placed: <%= order.created_at.to_date %></p>
-  <p>Updated: <%= order.updated_at.to_date %></p>
-  <p>Status: <%= order.status %></p>
-  <p>Number of Items: <%= order.total_item_count %></p>
-  <p>Order Cost: <%= order.total_price %></p>
-  </section>
-<% end %>
+<div class="container">
+  <div class="row">
+    <%current_user.orders.each do |order| %>
+      <%= link_to profile_order_path(order), class: "white-text" do %>
+        <div id="Order-<%= order.id %>" class="card-panel red">
+          <span class="card-title">Order #<%=order.id%></span>
+          <div class="card-content">
+            <p><%= "Order Cancelled" if order.cancelled? %>
+            <p>Placed: <%= order.created_at.to_date %></p>
+            <p>Updated: <%= order.updated_at.to_date %></p>
+            <p>Status: <%= order.status %></p>
+            <p>Number of Items: <%= order.total_item_count %></p>
+            <p>Order Cost: <%= order.total_price %></p>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+</div>

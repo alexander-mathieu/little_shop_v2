@@ -33,7 +33,6 @@ RSpec.describe "As a visitor," do
       click_on "Log In"
 
       expect(current_path).to eq(login_path)
-      expect(page).to have_content("Some of your information isn't correct.")
     end
 
     it "doesnt show a flash If I log in wrong then right" do

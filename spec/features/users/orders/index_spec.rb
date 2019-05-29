@@ -46,10 +46,10 @@ describe "as a registered user" do
 
   it "Shows every order I've made as a link" do
 
-    click_link "Order #{@order_1.id}"
+    click_link "Order ##{@order_1.id}"
     expect(current_path).to eq(profile_order_path(@order_1))
     visit profile_orders_path
-    click_link "Order #{@order_2.id}"
+    click_link "Order ##{@order_2.id}"
     expect(current_path).to eq(profile_order_path(@order_2))
 
     visit profile_orders_path
