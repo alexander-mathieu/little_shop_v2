@@ -1,64 +1,38 @@
-# Little Shop of Orders, v2
-BE Mod 2 Week 4/5 Group Project
+# Little Shop of Cards
+Little Shop of Cards is a fictitious e-commerce site built by [Kyle Cornelissen](https://github.com/kylecornelissen), [Patrick Duvall](https://github.com/Patrick-Duvall), [Aurie Gochenour](https://github.com/Myrdden), and [Alexande Mathieu](https://github.com/alexander-mathieu) made in 10 days at [Turing School of Software and Design](https://turing.io/) based off of. In our shop users can add baseball cards to a cart, login, and "checkout" to place their orders. Merchant users can fulfill their components of an order, and admins have additional functionality to oversee the smooth operation of the site.
 
-## Background and Description
+##### You can see our site [HERE](https://little-shop-of-cards.herokuapp.com/)
+Go ahead and make a user account and see what you can do
 
-"Little Shop of Orders" is a fictitious e-commerce platform where users can register to place items into a shopping cart and 'check out'. Merchant users can mark their items as 'fulfilled'; the last merchant to mark items in an order as 'fulfilled' will automatically set the order status to "shipped". Each user role will have access to some or all CRUD functionality for application models.
+## Setup
+If you want to play around with our site feel free to clone it down. 
+- Make sure to `bundle install` so your dependecies are up to date.
+- Run `rails db:{create,migrate,seed}` to set up your database
+- Run `rails server` to spin up rails
+- Visit `localhost:3000` to see the site running off of your local server
+- Testing is done with [RSPEC](https://github.com/rspec/rspec) 
 
-Students will be put into 3 or 4 person groups to complete the project.
+## System Requirements
+* Rails 5.1.7
+* PostgreSQL 
+* Ruby 2.4.1
 
-## Learning Goals
-- Advanced Rails routing (nested resources and namespacing)
-- Advanced ActiveRecord for calculating statistics
-- Average HTML/CSS layout and design for UX/UI
-- Session management and use of POROs for shopping cart
-- Authentication, Authorization, separation of user roles and permissions
-
-## Requirements
-- must use Rails 5.1.x
-- must use PostgreSQL
-- must use 'bcrypt' for authentication
-- all controller and model code must be tested via feature tests and model tests, respectively
-- must use good GitHub branching, team code reviews via GitHub comments, and use of a project planning tool like waffle.io
-- must include a thorough README to describe their project
-
-## Permitted
-- use any gems we've used in class (pry, launchy, shoulda-matchers, etc)
-- use FactoryBot to speed up your test development
-- use "rails generators" to speed up your app development
-
-## Not Permitted
-- do not use JavaScript for pagination or sorting controls
-
-## Permission
-- if there is a specific gem you'd like to use in the project, please get permission from your instructors first
+## Gems Used
+* Bcrypt
+* RSpec
+* FactoryBot
+* Shoulda Matchers
+* Capybara
+* Simplecov
+* Pry
+* Launchy
 
 ## Schema
-
-You should use this schema:
+Our website uses the following schema
 
 ![Imgur](https://i.imgur.com/kEcAZdw.png)
 
-## User Stories
-
-Your team may not be able to work on these stories in numeric order. Work together to determine the best starting place and work from there.
-
-- [Little Shop v2 stories](stories.md)
+# Happy Shopping
 
 
-## Rubric, Evaluations, and final Assessment
 
-Each team will meet with an instructor at least two times before the project is due.
-
-- At first team progress check-in, about 33% of the work is expected to be completed satisfactorily
-- At second team progress check-in, about 66% of the work is expected to be completed satisfactorily
-- Final submission will expect 100% completion
-
-Each team will have a rubric uploaded to [https://github.com/turingschool/ruby-submissions](https://github.com/turingschool/ruby-submissions)
-
-
-View the [Little Shop Rubric](LittleShopRubric.pdf)
-
-Co-authored-by: Patrick Duvall <duvallp208@gmail.com>
-Co-authored-by: Kyle Cornelissen <kyle.cornelissen@gmail.com>
-Co-authored-by: Aurie Gochenour <myrdden42@gmail.com>"
