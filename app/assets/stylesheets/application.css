@@ -21,3 +21,5 @@
 input[type=text]:not(.browser-default) {background-color: rgba(0,0,0,0.2); color: #ffffff}
 input[type=password]:not(.browser-default) {background-color: rgba(0,0,0,0.2); color: #ffffff}
 .cart-margins {margin: 2rem 0 1rem 0}
+
+.flash {position: fixed; top: 6rem; left: 2.5rem; z-index: 9999; height: 3rem; width: 20rem; padding: 0.75rem; margin: 0}

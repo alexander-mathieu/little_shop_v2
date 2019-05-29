@@ -104,8 +104,7 @@ class User < ApplicationRecord
   def pending_orders
     Order.joins(items: :order_items).select('orders.*', 'items.user_id')
     .where('items.user_id' => self.id, 'orders.status' => 0)
-    .order(:id)
-    .distinct
+    .distinct.order(:id)
   end
 
   def top_five_sold

@@ -6,7 +6,7 @@
     <h3 class="cart-margins" style="display: inline-block">Your cart:</h3>
     <%= link_to "Empty", cart_path, method: :delete, class: "right btn cart-margins" %>
     <% if current_user %>
-      <%= link_to "Check Out", checkout_path, method: :post, class: "right btn cart-margins" %>
+      <%= link_to "Check Out", checkout_path, method: :post, class: "right btn cart-margins", style: "margin-right: 2rem" %>
     <% else %>
       <p class="right cart-margins">You must <%= link_to "login", login_path %> or <%= link_to "register", register_path %> to check out.</p>
     <% end %>

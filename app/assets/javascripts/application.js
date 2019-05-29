@@ -15,4 +15,8 @@
 
 $(document).ready(function(){
   $('select').formSelect();
+
+  $(".flash").click(function(){
+    $(this).hide();
+  });
 });

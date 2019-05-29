@@ -1,11 +1,14 @@
-<h1>Logged in as: <%= current_user.email %></h1>
-<%= @user.name %>
-<%= @user.email %>
-<%= @user.address %>
-<%= @user.city %>
-<%= @user.state %>
-<%= @user.zip %>
+<div class="container">
+  <h3><%= current_user.email %></h3>
+  <h5><%= @user.name %></h5>
+  <p>
+    <%= @user.address %>
+    <%= @user.city %>,
+    <%= @user.state %>,
+    <%= @user.zip %>
+  </p>
 
-<%= link_to "My Orders", profile_orders_path if !@user.orders.empty? %>
+  <p><%= link_to "Edit my Profile", profile_edit_path, class: "btn" %></p>
+  <p><%= link_to "My Orders", profile_orders_path, class: "btn" if !@user.orders.empty? %></p>
 
-<%= link_to "Edit my Profile", profile_edit_path %>
+</div>
