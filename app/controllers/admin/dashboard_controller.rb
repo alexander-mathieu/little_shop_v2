@@ -1,6 +1,7 @@
 class Admin::DashboardController < Admin::BaseController
   def index
-    @orders = Order.all.admin_dashboard_sort
+    @orders = Order.all
+    @orders.admin_dashboard_sort
   end
 
   def show
