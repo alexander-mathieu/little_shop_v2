@@ -1,6 +1,7 @@
 class Admin::OrdersController < Admin::BaseController
   def index
-
+    @user = User.find(params[:user_id])
+    @orders = User.find(params[:user_id]).orders
   end
 
   def ship
