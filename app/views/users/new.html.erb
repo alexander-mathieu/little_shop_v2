@@ -4,34 +4,34 @@
   <%= form_for @user do |f| %>
 
     <h5>Name:</h5>
-    <%= f.text_field :name, size: "40" %><br>
+    <%= f.text_field :name, size: "40", required: true %><br>
 
     <h5>Address:</h5>
-    <%= f.text_field :address, size: "40" %><br>
+    <%= f.text_field :address, size: "40", required: true %><br>
 
     <h5>City, State, Zip:</h5>
     <div class="row">
       <div class="col s6" style="padding: 0">
-        <%= f.text_field :city, size: "32" %>
+        <%= f.text_field :city, size: "32", placeholder: "  city", required: true %>
       </div>
 
       <div class="col s2" style="padding: 0">
         <%= f.select :state, %w(AK AL AR AZ CA CO CT DC DE FL GA HI IA ID IL IN KS KY LA MA MD ME MI MN MO MS MT NC ND NE NH NJ NM NV NY OH OK OR PA RI SC SD TN TX UT VA VT WA WI WV WY) %><br>
       </div>
       <div class="col s4" style="padding: 0">
-        <%= f.text_field :zip, size: "40" %><br>
+        <%= f.number_field :zip, length: "20", placeholder: "  zip", required: true %><br>
       </div>
     </div>
 
 
     <h5>Email:</h5>
-    <%= f.text_field :email, size: "40" %><br>
+    <%= f.email_field :email, size: "40", required: true %><br>
 
     <h5>Password:</h5>
-    <%= f.text_field :password, placeholder: "Must be 6 characters", size: "40" %><br>
+    <%= f.password_field :password, placeholder: "Must be 6 characters", size: "40", required: true %><br>
 
     <h5>Confirm Password:</h5>
-    <%= f.text_field :password_confirmation, size: "40" %><br>
+    <%= f.password_field :password_confirmation, size: "40", required: true %><br>
     <br>
     <%= f.submit "Sign Up", class: "btn" %>
 
