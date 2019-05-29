@@ -45,11 +45,12 @@
       </nav>
     </div>
 
-    <section class="flash">
-      <% flash.each do |type, message| %>
-        <p><%= message %></p>
-      <% end %>
-    </section>
+
+    <% flash.each do |type, message| %>
+      <div class="flash card-panel teal">
+        <%=message%>
+      </div>
+    <% end %>
 
     <%= yield %>
   </body>
