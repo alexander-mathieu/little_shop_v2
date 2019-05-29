@@ -5,9 +5,9 @@ RSpec.describe 'As a visitor' do
     @user_1 = create(:merchant, city: "Denver", state: "CO")
     @user_2 = create(:user)
     @user_3 = create(:merchant, city: "Sacramento", state: "CA")
-    @user_4 = create(:merchant, city: "Springfield", state: "CO")
+    @user_4 = create(:merchant, city: "Colorado Springs", state: "CO")
     @user_5 = create(:user)
-    @user_6 = create(:merchant, city: "Springfield", state: "NY")
+    @user_6 = create(:merchant, city: "New York", state: "NY")
     @user_7 = create(:user)
     @user_8 = create(:user)
     @user_9 = create(:user)
@@ -146,8 +146,10 @@ RSpec.describe 'As a visitor' do
 
       within "#merchant-stats" do
         within "#top-3-cities" do
-          expect(@user_4.city).to appear_before(@user_1.city)
-          expect(@user_1.city).to appear_before(@user_3.city)
+          expect("#{@user_6.city}, #{@user_6.state}").to appear_before("#{@user_1.city}, #{@user_1.state}")
+          expect("#{@user_1.city}, #{@user_1.state}").to appear_before("#{@user_4.city}, #{@user_4.state}")
+          expect("4 orders").to appear_before("3 orders")
+          expect("3 orders").to appear_before("2 orders")
         end
       end
     end
@@ -193,13 +195,6 @@ RSpec.describe 'As a visitor' do
         expect(current_path).to eq(merchant_path(@user_4))
       end
     end
-
-# And I click on a "disable" button for an enabled merchant
-# I am returned to the admin's merchant index page
-# And I see a flash message that the merchant's account is now disabled
-# And I see that the merchant's account is now disabled
-# This merchant cannot log in
-
   end
 
 end

@@ -132,8 +132,8 @@
   <div id="top-3-cities">
     Top 3 Cities:<br>
     <% @merchants_top_three_cities.each do |merchant| %>
-      <%= merchant.city %>:
-      <%= merchant.city_order_count %> orders<br>
+      <%= merchant.city_state %>:
+      <%= merchant.city_state_order_count %> orders<br>
     <% end %><br>
   </div>
 
