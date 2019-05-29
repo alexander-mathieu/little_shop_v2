@@ -10,7 +10,7 @@
 <%= link_to "Edit my Profile", profile_edit_path, class: "btn", style: "margin-bottom: 2rem" if @dashboard %>
 
 <% if current_admin? %>
-  <%= button_to "Downgrade to User", admin_merchant_downgrade_path(@merchant.id), method: :patch, class: "btn" %>
+  <%= button_to "Downgrade to User", admin_merchant_downgrade_path(@merchant), method: :patch, class: "btn" %>
 <% end %>
 
 <% if @dashboard %>
