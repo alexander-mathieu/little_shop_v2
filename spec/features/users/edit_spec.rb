@@ -17,7 +17,7 @@ require "rails_helper"
 describe "as a user" do
   describe "when I visit my profile page" do
     before :each do
-        @user_1 = User.create(email: "bob@bob.com", password: "1243444", name: "bob", address:"123 bob st.", city: "bobton", state:"MA", zip: 28234)
+        @user_1 = User.create(email: "bob@bob.com", password: "1243444", name: "bob", address:"123 bob st.", city: "bobton", state:"MA", zip: 28234, role: 0, active:true)
     end
 
     it "lets me edit my info" do
@@ -31,7 +31,7 @@ describe "as a user" do
       expect(find_field('user_city').value).to eq('bobton')
       expect(find_field('user_state').value).to eq('MA')
       expect(find_field('user_zip').value).to eq("28234")
-      expect(find_field('user_password_digest').value).to eq(nil)
+      expect(find_field('user_password').value).to eq(nil)
 
       fill_in 'user_name', with: 'George'
       fill_in 'user_city', with: 'georgeville'
@@ -51,12 +51,26 @@ describe "as a user" do
         expect(page).to have_content("That email is already in use")
     end
 
-#     As a registered user
-# When I attempt to edit my profile data
-# If I try to change my email address to one that belongs to another user
-# When I submit the form
-# Then I am returned to the profile edit page
-# And I see a flash message telling me that email address is already in use
+    it "Lets me change my password" do
+      visit root_path
+      click_link "Login"
+
+      fill_in 'email', with: @user_1.email
+      fill_in 'password', with: @user_1.password
+
+      click_button "Log In"
+      click_link "Edit my Profile"
+      fill_in "user_password", with: "newpassword"
+      click_button "Change my Profile"
+
+      click_link "Logout"
+      click_link "Login"
+      fill_in "password", with: "newpassword"
+      fill_in "email", with: @user_1.email
+      click_button "Log In"
+      expect(current_path).to eq(profile_path)
+
+    end
 
   end
 
