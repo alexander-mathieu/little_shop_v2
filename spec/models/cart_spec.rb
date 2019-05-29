@@ -10,7 +10,12 @@ describe Cart do
   it ".add" do
     cart = Cart.new({'1' => 3, '2' => 5, '3' => 1})
     cart.add('4', 9)
+
     expect(cart.contents).to eq({'1' => 3, '2' => 5, '3' => 1, '4' => 9})
+
+    cart.add('1', 0)
+
+    expect(cart.contents['1']).to be_nil
   end
 
   it ".quantity_of" do
