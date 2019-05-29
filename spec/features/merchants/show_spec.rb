@@ -168,7 +168,7 @@ describe "as a merchant" do
       end
     end
 
-    it "can edit an item" do
+    it "can delete an item" do
       visit root_path
 
       click_link "Login"
