@@ -8,16 +8,16 @@ RSpec.describe User, type: :model do
 
   describe "class methods" do
     before :each do
-      @user_1 = create(:merchant, city: "Denver", state: "CO")
+      @user_1 = create(:merchant, name: "merch1", city: "Denver", state: "CO")
       @user_2 = create(:user, name: "Adam")
-      @user_3 = create(:merchant, city: "Sacramento", state: "CA")
-      @user_4 = create(:merchant, city: "Colorado Springs", state: "CO")
+      @user_3 = create(:merchant, name: "merch3", city: "Sacramento", state: "CA")
+      @user_4 = create(:merchant, name: "merch4", city: "Colorado Springs", state: "CO")
       @user_5 = create(:user, name: "Carly")
-      @user_6 = create(:merchant, city: "Denver", state: "NY")
+      @user_6 = create(:merchant, name: "merch6", city: "Denver", state: "NY")
       @user_7 = create(:user, name: "Daniel")
-      @user_8 = create(:user, city: "Cheyenne", state: "WY", name: "Gerald")
-      @user_9 = create(:user, city: "Billings", state: "MT", name: "Tommy")
-      @user_10 = create(:user, city: "Boise", state: "ID", name: "Yolanda")
+      @user_8 = create(:user, city: "St. Louis", state: "MO", name: "Gerald")
+      @user_9 = create(:user, city: "Kansas City", state: "KS", name: "Tommy")
+      @user_10 = create(:user, city: "Kansas City", state: "MO", name: "Yolanda")
       @users = User.all
 
       @item_1 = create(:item, price: 10, user: @user_1)
@@ -31,26 +31,26 @@ RSpec.describe User, type: :model do
       @item_9 = create(:item, price: 3000, user: @user_3)
       @item_10 = create(:item, price: 1, user: @user_6)
 
-      @order_1 = create(:shipped, user: @user_2)
-      @order_2 = create(:shipped, user: @user_7)
-      @order_3 = create(:shipped, user: @user_8)
-      @order_4 = create(:shipped, user: @user_9)
+      @order_1 = create(:shipped, user: @user_2, created_at: 7.days.ago, updated_at: 1.days.ago)
+      @order_2 = create(:shipped, user: @user_7, created_at: 5.days.ago, updated_at: 1.days.ago)
+      @order_3 = create(:shipped, user: @user_8, created_at: 2.days.ago, updated_at: 1.days.ago)
+      @order_4 = create(:shipped, user: @user_9, created_at: 3.days.ago, updated_at: 1.days.ago)
       @order_5 = create(:shipped, user: @user_9)
-      @order_6 = create(:shipped, user: @user_9)
+      @order_6 = create(:shipped, user: @user_9, created_at: 2.days.ago, updated_at: 1.days.ago)
       @order_7 = create(:shipped, user: @user_9)
       @order_8 = create(:shipped, user: @user_9)
       @order_9 = create(:shipped, user: @user_10)
       @order_10 = create(:shipped, user: @user_10)
 
-      @order_item_1 = @order_1.order_items.create!(item_id: @item_1.id, quantity: 1, price: 10.00, fulfilled: true, created_at: Time.zone.local(2018, 11, 24, 01, 04, 44), updated_at: Time.zone.local(2018, 11, 27, 01, 04, 44))
-      @order_item_2 = @order_1.order_items.create!(item_id: @item_2.id, quantity: 2, price: 40.00, fulfilled: true)
-      @order_item_3 = @order_1.order_items.create!(item_id: @item_3.id, quantity: 2, price: 60.00, fulfilled: true)
+      @order_item_1 = @order_1.order_items.create!(item_id: @item_1.id, quantity: 1, price: 10.00, fulfilled: true)
+      @order_item_2 = @order_1.order_items.create!(item_id: @item_2.id, quantity: 2, price: 20.00, fulfilled: true)
+      @order_item_3 = @order_1.order_items.create!(item_id: @item_3.id, quantity: 2, price: 30.00, fulfilled: true)
       @order_item_4 = @order_2.order_items.create!(item_id: @item_4.id, quantity: 1, price: 100.00, fulfilled: true)
-      @order_item_5 = @order_2.order_items.create!(item_id: @item_5.id, quantity: 2, price: 400.00, fulfilled: true, created_at: Time.zone.local(2018, 11, 24, 01, 04, 44), updated_at: Time.zone.local(2018, 12, 01, 01, 04, 44))
-      @order_item_6 = @order_2.order_items.create!(item_id: @item_6.id, quantity: 4, price: 1200.00, fulfilled: true)
-      @order_item_7 = @order_3.order_items.create!(item_id: @item_8.id, quantity: 2, price: 4000.00, fulfilled: true, created_at: Time.zone.local(2018, 11, 24, 01, 04, 44), updated_at: Time.zone.local(2018, 11, 29, 01, 04, 44))
-      @order_item_8 = @order_3.order_items.create!(item_id: @item_9.id, quantity: 3, price: 9000.00, fulfilled: true)
-      @order_item_9 = @order_4.order_items.create!(item_id: @item_10.id, quantity: 100, price: 100.00, fulfilled: true, created_at: Time.zone.local(2018, 11, 24, 01, 04, 44), updated_at: Time.zone.local(2018, 11, 25, 01, 04, 44))
+      @order_item_5 = @order_2.order_items.create!(item_id: @item_5.id, quantity: 2, price: 200.00, fulfilled: true)
+      @order_item_6 = @order_2.order_items.create!(item_id: @item_6.id, quantity: 6, price: 200.00, fulfilled: true)
+      @order_item_7 = @order_3.order_items.create!(item_id: @item_8.id, quantity: 2, price: 2000.00, fulfilled: true)
+      @order_item_8 = @order_3.order_items.create!(item_id: @item_9.id, quantity: 3, price: 3000.00, fulfilled: true)
+      @order_item_9 = @order_4.order_items.create!(item_id: @item_10.id, quantity: 100, price: 1.00, fulfilled: true)
     end
 
     it ".find_default_users" do
@@ -69,8 +69,15 @@ RSpec.describe User, type: :model do
     end
 
     it ".top_three_fulfillments_fastest_and_slowest" do
-      expect(@users.top_three_fulfillments("asc")).to eq([@user_6, @user_1, @user_3])
-      expect(@users.top_three_fulfillments("desc")).to eq([@user_4, @user_3, @user_1])
+      order_item_10 = @order_6.order_items.create!(item_id: @item_7.id, quantity: 1, price: 100.00, fulfilled: true)
+
+      high_avg_fulfillment_times = @users.top_three_fulfillments("asc").map { |user| user.average_fulfillment_time.split[0..1].join(' ') }
+      low_avg_fulfillment_times = @users.top_three_fulfillments("desc").map { |user| user.average_fulfillment_time.split[0..1].join(' ') }
+
+      expect(@users.top_three_fulfillments("asc")).to eq([@user_3, @user_6, @user_4])
+      expect(@users.top_three_fulfillments("desc")).to eq([@user_1, @user_4, @user_6])
+      expect(high_avg_fulfillment_times).to eq(["1 day", "2 days", "4 days"])
+      expect(low_avg_fulfillment_times).to eq(["6 days", "4 days", "2 days"])
     end
 
     it ".top_three_orders_by_state" do
@@ -105,30 +112,30 @@ RSpec.describe User, type: :model do
     end
 
     it '.top_three_states_shipped_to' do
-      order_item_10 = @order_4.order_items.create!(item_id: @item_10.id, quantity: 2, price: 40.00, fulfilled: true)
-      order_item_11 = @order_4.order_items.create!(item_id: @item_10.id, quantity: 2, price: 40.00, fulfilled: true)
-      order_item_12 = @order_3.order_items.create!(item_id: @item_10.id, quantity: 1, price: 100.00, fulfilled: true)
+      order_item_10 = @order_2.order_items.create!(item_id: @item_10.id, quantity: 2, price: 40.00, fulfilled: true)
+      order_item_11 = @order_5.order_items.create!(item_id: @item_10.id, quantity: 2, price: 40.00, fulfilled: true)
+      order_item_12 = @order_6.order_items.create!(item_id: @item_10.id, quantity: 1, price: 100.00, fulfilled: true)
       order_item_13 = @order_9.order_items.create!(item_id: @item_10.id, quantity: 100, price: 100.00, fulfilled: true)
-      order_item_14 = @order_9.order_items.create!(item_id: @item_10.id, quantity: 100, price: 100.00, fulfilled: true)
+      order_item_14 = @order_10.order_items.create!(item_id: @item_10.id, quantity: 100, price: 100.00, fulfilled: true)
 
       states = @users.top_three_states_shipped_to(@user_6).map { |user| user.state }
       order_count_per_state = @users.top_three_states_shipped_to(@user_6).map { |user| user.order_count }
 
-      expect(states).to eq([@user_9.state, @user_10.state, @user_8.state])
+      expect(states).to eq([@user_9.state, @user_10.state, @user_2.state])
       expect(order_count_per_state).to eq([3, 2, 1])
     end
 
     it '.top_three_cities_shipped_to' do
-      order_item_10 = @order_4.order_items.create!(item_id: @item_10.id, quantity: 2, price: 40.00, fulfilled: true)
-      order_item_11 = @order_4.order_items.create!(item_id: @item_10.id, quantity: 2, price: 40.00, fulfilled: true)
-      order_item_12 = @order_3.order_items.create!(item_id: @item_10.id, quantity: 1, price: 100.00, fulfilled: true)
+      order_item_10 = @order_2.order_items.create!(item_id: @item_10.id, quantity: 2, price: 40.00, fulfilled: true)
+      order_item_11 = @order_5.order_items.create!(item_id: @item_10.id, quantity: 2, price: 40.00, fulfilled: true)
+      order_item_12 = @order_6.order_items.create!(item_id: @item_10.id, quantity: 1, price: 100.00, fulfilled: true)
       order_item_13 = @order_9.order_items.create!(item_id: @item_10.id, quantity: 100, price: 100.00, fulfilled: true)
-      order_item_14 = @order_9.order_items.create!(item_id: @item_10.id, quantity: 100, price: 100.00, fulfilled: true)
+      order_item_14 = @order_10.order_items.create!(item_id: @item_10.id, quantity: 100, price: 100.00, fulfilled: true)
 
       cities = @users.top_three_cities_shipped_to(@user_6).map { |user| user.city_state }
       order_count_per_city = @users.top_three_cities_shipped_to(@user_6).map { |user| user.order_count }
 
-      expect(cities).to eq(["Billings, MT", "Boise, ID", "Cheyenne, WY"])
+      expect(cities).to eq(["Kansas City, KS", "Kansas City, MO", "Springfield, VA"])
       expect(order_count_per_city).to eq([3, 2, 1])
     end
 
@@ -144,7 +151,10 @@ RSpec.describe User, type: :model do
       order_item_10 = @order_8.order_items.create!(item_id: @item_1.id, quantity: 2, price: 40.00, fulfilled: true)
       order_item_11 = @order_10.order_items.create!(item_id: @item_1.id, quantity: 2, price: 50.00, fulfilled: true)
 
+      customer_money_spent = @users.top_three_money_customers(@user_1).map { |customer| customer.money_total }
+
       expect(@users.top_three_money_customers(@user_1)).to eq([@user_2, @user_10, @user_9])
+      expect(customer_money_spent).to eq([110, 100, 80])
     end
   end
 

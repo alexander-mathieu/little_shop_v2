@@ -2,12 +2,12 @@ require 'rails_helper'
 
 RSpec.describe 'As a visitor' do
   before :each do
-    @user_1 = create(:merchant, city: "Denver", state: "CO")
+    @user_1 = create(:merchant, name: "kathy", city: "Denver", state: "CO")
     @user_2 = create(:user)
-    @user_3 = create(:merchant, city: "Sacramento", state: "CA")
-    @user_4 = create(:merchant, city: "Colorado Springs", state: "CO")
+    @user_3 = create(:merchant, name: "tommy", city: "Sacramento", state: "CA")
+    @user_4 = create(:merchant, name: "jill", city: "Colorado Springs", state: "CO")
     @user_5 = create(:user)
-    @user_6 = create(:merchant, city: "New York", state: "NY")
+    @user_6 = create(:merchant, name: "sharon", city: "New York", state: "NY")
     @user_7 = create(:user)
     @user_8 = create(:user)
     @user_9 = create(:user)
@@ -26,16 +26,16 @@ RSpec.describe 'As a visitor' do
     @item_9 = create(:item, price: 3000, user: @user_3)
     @item_10 = create(:item, price: 1, user: @user_6)
 
-    @order_1 = create(:packaged, user: @user_2)
-    @order_2 = create(:packaged, user: @user_7)
-    @order_3 = create(:packaged, user: @user_8)
-    @order_4 = create(:packaged, user: @user_9)
-    @order_5 = create(:packaged, user: @user_9)
-    @order_6 = create(:packaged, user: @user_9)
-    @order_7 = create(:packaged, user: @user_9)
-    @order_8 = create(:packaged, user: @user_9)
-    @order_9 = create(:packaged, user: @user_10)
-    @order_10 = create(:packaged, user: @user_10)
+    @order_1 = create(:shipped, user: @user_2, created_at: 3.days.ago, updated_at: 1.days.ago)
+    @order_2 = create(:shipped, user: @user_7, created_at: 10.days.ago, updated_at: 1.days.ago)
+    @order_3 = create(:shipped, user: @user_8, created_at: 6.days.ago, updated_at: 1.days.ago)
+    @order_4 = create(:shipped, user: @user_9, created_at: 8.days.ago, updated_at: 1.days.ago)
+    @order_5 = create(:shipped, user: @user_9, created_at: 3.days.ago, updated_at: 1.days.ago)
+    @order_6 = create(:shipped, user: @user_9, created_at: 5.days.ago, updated_at: 1.days.ago)
+    @order_7 = create(:shipped, user: @user_9, created_at: 7.days.ago, updated_at: 1.days.ago)
+    @order_8 = create(:shipped, user: @user_9, created_at: 2.days.ago, updated_at: 1.days.ago)
+    @order_9 = create(:shipped, user: @user_10, created_at: 2.days.ago, updated_at: 1.days.ago)
+    @order_10 = create(:shipped, user: @user_10, created_at: 5.days.ago, updated_at: 1.days.ago)
 
     @order_item_1 = @order_1.order_items.create!(item_id: @item_1.id, quantity: 1, price: 10.00, fulfilled: true, created_at: Time.zone.local(2018, 11, 24, 01, 04, 44), updated_at: Time.zone.local(2018, 11, 27, 01, 04, 44))
     @order_item_2 = @order_1.order_items.create!(item_id: @item_2.id, quantity: 2, price: 40.00, fulfilled: true)
@@ -85,8 +85,8 @@ RSpec.describe 'As a visitor' do
 
       within "#merchant-stats" do
         within "#top-3-revenue" do
-          expect(@user_3.name).to appear_before(@user_4.name)
-          expect(@user_4.name).to appear_before(@user_1.name)
+          expect(@user_3.name).to appear_before(@user_6.name)
+          expect(@user_6.name).to appear_before(@user_4.name)
           expect(page).to have_content(revenue[0])
           expect(page).to have_content(revenue[1])
           expect(page).to have_content(revenue[2])
@@ -97,10 +97,14 @@ RSpec.describe 'As a visitor' do
     it 'I see stats with the top 3 fastest fulfillment merchants' do
       visit merchants_path
 
+      fulfillment_time = @users.top_three_fulfillments("asc").map { |user| user.average_fulfillment_time.split[0..1].join(' ') }
+
       within "#merchant-stats" do
         within "#top-3-fulfillments" do
-          expect(@user_6.name).to appear_before(@user_1.name)
           expect(@user_1.name).to appear_before(@user_3.name)
+          expect(@user_3.name).to appear_before(@user_6.name)
+          expect(fulfillment_time[0]).to appear_before(fulfillment_time[1])
+          expect(fulfillment_time[1]).to appear_before(fulfillment_time[2])
         end
       end
     end
@@ -108,10 +112,14 @@ RSpec.describe 'As a visitor' do
     it 'I see stats with the top 3 slowest fulfillment merchants' do
       visit merchants_path
 
+      fulfillment_time = @users.top_three_fulfillments("desc").map { |user| user.average_fulfillment_time.split[0..1].join(' ') }
+
       within "#merchant-stats" do
         within "#bottom-3-fulfillments" do
-          expect(@user_4.name).to appear_before(@user_3.name)
-          expect(@user_3.name).to appear_before(@user_1.name)
+          expect(@user_4.name).to appear_before(@user_6.name)
+          expect(@user_6.name).to appear_before(@user_3.name)
+          expect(fulfillment_time[0]).to appear_before(fulfillment_time[1])
+          expect(fulfillment_time[1]).to appear_before(fulfillment_time[2])
         end
       end
     end
