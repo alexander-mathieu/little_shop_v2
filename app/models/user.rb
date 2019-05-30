@@ -32,8 +32,8 @@ class User < ApplicationRecord
 
   def self.top_three_fulfillments(speed)
     find_merchants.joins(items: :orders)
-          .select('users.*','AVG(orders.updated_at - orders.created_at) AS average_fulfillment_time')
-          .where('orders.status = 2', 'items.user_id = users.id', "items.id = order_items.item_id", "order_items.order_id = orders.id")
+          .select('users.*','AVG(order_items.updated_at - order_items.created_at) AS average_fulfillment_time')
+          .where('order_items.fulfilled = true', 'items.user_id = users.id', "items.id = order_items.item_id")
           .group('users.id')
           .order("average_fulfillment_time #{speed}")
           .limit(3)

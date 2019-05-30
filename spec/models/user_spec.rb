@@ -31,7 +31,7 @@ RSpec.describe User, type: :model do
       @item_9 = create(:item, price: 3000, user: @user_3)
       @item_10 = create(:item, price: 1, user: @user_6)
 
-      @order_1 = create(:shipped, user: @user_2, created_at: 7.days.ago, updated_at: 1.days.ago)
+      @order_1 = create(:shipped, user: @user_2)
       @order_2 = create(:shipped, user: @user_7, created_at: 5.days.ago, updated_at: 1.days.ago)
       @order_3 = create(:shipped, user: @user_8, created_at: 2.days.ago, updated_at: 1.days.ago)
       @order_4 = create(:shipped, user: @user_9, created_at: 3.days.ago, updated_at: 1.days.ago)
@@ -42,15 +42,15 @@ RSpec.describe User, type: :model do
       @order_9 = create(:shipped, user: @user_10)
       @order_10 = create(:shipped, user: @user_10)
 
-      @order_item_1 = @order_1.order_items.create!(item_id: @item_1.id, quantity: 1, price: 10.00, fulfilled: true)
-      @order_item_2 = @order_1.order_items.create!(item_id: @item_2.id, quantity: 2, price: 20.00, fulfilled: true)
-      @order_item_3 = @order_1.order_items.create!(item_id: @item_3.id, quantity: 2, price: 30.00, fulfilled: true)
-      @order_item_4 = @order_2.order_items.create!(item_id: @item_4.id, quantity: 1, price: 100.00, fulfilled: true)
-      @order_item_5 = @order_2.order_items.create!(item_id: @item_5.id, quantity: 2, price: 200.00, fulfilled: true)
-      @order_item_6 = @order_2.order_items.create!(item_id: @item_6.id, quantity: 6, price: 200.00, fulfilled: true)
-      @order_item_7 = @order_3.order_items.create!(item_id: @item_8.id, quantity: 2, price: 2000.00, fulfilled: true)
-      @order_item_8 = @order_3.order_items.create!(item_id: @item_9.id, quantity: 3, price: 3000.00, fulfilled: true)
-      @order_item_9 = @order_4.order_items.create!(item_id: @item_10.id, quantity: 100, price: 1.00, fulfilled: true)
+      @order_item_1 = @order_1.order_items.create!(item_id: @item_1.id, quantity: 1, price: 10.00, fulfilled: true, created_at: 5.days.ago, updated_at: 1.days.ago)
+      @order_item_2 = @order_1.order_items.create!(item_id: @item_2.id, quantity: 2, price: 20.00, fulfilled: true, created_at: 9.days.ago, updated_at: 1.days.ago)
+      @order_item_3 = @order_1.order_items.create!(item_id: @item_3.id, quantity: 2, price: 30.00, fulfilled: false, created_at: 15.days.ago, updated_at: 1.days.ago)
+      @order_item_4 = @order_2.order_items.create!(item_id: @item_4.id, quantity: 1, price: 100.00, fulfilled: true, created_at: 7.days.ago, updated_at: 1.days.ago)
+      @order_item_5 = @order_2.order_items.create!(item_id: @item_5.id, quantity: 2, price: 200.00, fulfilled: true, created_at: 3.days.ago, updated_at: 1.days.ago)
+      @order_item_6 = @order_2.order_items.create!(item_id: @item_6.id, quantity: 6, price: 200.00, fulfilled: false, created_at: 20.days.ago, updated_at: 1.days.ago)
+      @order_item_7 = @order_3.order_items.create!(item_id: @item_8.id, quantity: 2, price: 2000.00, fulfilled: true, created_at: 3.days.ago, updated_at: 1.days.ago)
+      @order_item_8 = @order_3.order_items.create!(item_id: @item_9.id, quantity: 3, price: 3000.00, fulfilled: true, created_at: 1.days.ago, updated_at: 1.days.ago)
+      @order_item_9 = @order_4.order_items.create!(item_id: @item_10.id, quantity: 100, price: 1.00, fulfilled: true, created_at: 3.days.ago, updated_at: 1.days.ago)
     end
 
     it ".find_default_users" do
@@ -69,8 +69,6 @@ RSpec.describe User, type: :model do
     end
 
     it ".top_three_fulfillments_fastest_and_slowest" do
-      order_item_10 = @order_6.order_items.create!(item_id: @item_7.id, quantity: 1, price: 100.00, fulfilled: true)
-
       high_avg_fulfillment_times = @users.top_three_fulfillments("asc").map { |user| user.average_fulfillment_time.split[0..1].join(' ') }
       low_avg_fulfillment_times = @users.top_three_fulfillments("desc").map { |user| user.average_fulfillment_time.split[0..1].join(' ') }
 
