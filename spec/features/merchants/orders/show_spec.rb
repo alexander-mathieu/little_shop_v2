@@ -110,10 +110,16 @@ describe "as a merchant" do
       within "#item-#{@item_2.id}" do
         click_button("Fulfill Order")
       end
+      @order_3.reload
+      expect(@order_3.packaged?).to eq(false)
+      expect(@order_3.pending?).to eq(true)
       within "#item-#{@item_3.id}" do
         click_button("Fulfill Order")
       end
       click_link("Logout")
+      @order_3.reload
+      expect(@order_3.packaged?).to eq(false)
+      expect(@order_3.pending?).to eq(true)
       click_on "Login"
       fill_in "email", with: @merchant_2.email
       fill_in "password", with: @merchant_2.password

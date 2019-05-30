@@ -129,5 +129,6 @@ RSpec.describe Order, type: :model do
       expect(@order_1.all_fulfilled?).to eq(true)
       expect(@order_3.all_fulfilled?).to eq(false)
     end
+    
   end
 end
