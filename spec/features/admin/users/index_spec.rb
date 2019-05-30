@@ -91,5 +91,21 @@ RSpec.describe "as an admin" do
         end
       end
     end
+
+    describe "and click 'Upgrade to Merchant'" do
+      it "the user is upgraded to a merchant" do
+        visit admin_users_path
+
+        within ".default-user-#{@user_1.id}" do
+          click_button "Upgrade to Merchant"
+        end
+
+        expect(current_path).to eq(merchant_path(@user_1))
+
+        @user_1.reload
+
+        expect(@user_1.role).to eq("merchant")
+      end
+    end
   end
 end
