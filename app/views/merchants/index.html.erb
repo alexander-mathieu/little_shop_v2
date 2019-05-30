@@ -109,7 +109,7 @@
     Top 3 Fastest Fulfillments:<br>
     <% @merchants_quickest_fulfillments.each do |merchant| %>
       <%= merchant.name %>:
-      <%= merchant.fulfillment_time %><br>
+      <%= merchant.average_fulfillment_time.split[0..1].join(' ') %><br>
     <% end %><br>
   </div>
 
@@ -117,7 +117,7 @@
     Top 3 Slowest Fulfillments:<br>
     <% @merchants_slowest_fulfillments.each do |merchant| %>
       <%= merchant.name %>:
-      <%= merchant.fulfillment_time %><br>
+      <%= merchant.average_fulfillment_time.split[0..1].join(' ') %><br>
     <% end %><br>
   </div>
 
