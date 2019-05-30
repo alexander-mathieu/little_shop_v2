@@ -39,7 +39,7 @@ class Order < ApplicationRecord
   end
 ## Any is active record, unsure on all
   def all_fulfilled?
-    !order_items.any?{|order_item| order_item.fulfilled == false }
+    order_items.all?{|order_item| order_item.fulfilled == true }
 
   end
 
