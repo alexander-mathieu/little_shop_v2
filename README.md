@@ -4,9 +4,9 @@
 
 ## About
 
-_Little Shop of Cards_ is a fictitious e-commerce site built by [Kyle Cornelissen](https://github.com/kylecornelissen), [Patrick Duvall](https://github.com/Patrick-Duvall), [Aurie Gochenour](https://github.com/Myrdden), and [Alexande Mathieu](https://github.com/alexander-mathieu) made in 10 days at [Turing School of Software & Design](https://turing.io/). In our shop, users can add baseball cards to their cart, login, and "checkout" to place their orders. Merchant users can fulfill their components of an order, and admins have additional functionality to oversee the smooth operation of the site.
+_Little Shop of Cards_ is a fictitious e-commerce site built by [Kyle Cornelissen](https://github.com/kylecornelissen), [Patrick Duvall](https://github.com/Patrick-Duvall), [Aurie Gochenour](https://github.com/Myrdden), and [Alexande Mathieu](https://github.com/alexander-mathieu) made in 10 days at [Turing School of Software & Design](https://turing.io). In our shop, users can add baseball cards to their cart, login, and "checkout" to place their orders. Merchant users can fulfill their components of an order, and admins have additional functionality to oversee the smooth operation of the site.
 
-The deployed site can be viewed [here](https://little-shop-of-cards.herokuapp.com/).
+The deployed site can be viewed [here](https://little-shop-of-cards.herokuapp.com).
 
 Go ahead and make a user account, and see what you can do!
 
@@ -18,8 +18,8 @@ Go ahead and make a user account, and see what you can do!
 
 ### Requirements
 
- * [Ruby 2.4.1](https://www.ruby-lang.org/en/downloads/) - Ruby Version
- * [Rails 5.1.7](https://rubyonrails.org/) - Rails Version
+ * [Ruby 2.4.1](https://www.ruby-lang.org/en/downloads) - Ruby Version
+ * [Rails 5.1.7](https://rubyonrails.org) - Rails Version
 
 ### Clone
 
