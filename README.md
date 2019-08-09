@@ -18,8 +18,8 @@ Go ahead and make a user account, and see what you can do!
 
 ### Requirements
 
- * [Ruby 2.4.1](https://www.ruby-lang.org/en/downloads) - Ruby Version
- * [Rails 5.1.7](https://rubyonrails.org) - Rails Version
+* [Ruby 2.4.1](https://www.ruby-lang.org/en/downloads) - Ruby Version
+* [Rails 5.1.7](https://rubyonrails.org) - Rails Version
 
 ### Clone
 
@@ -37,12 +37,12 @@ rails db:{create,migrate,seed}
 
 ### Exploration
 
- * From the `little_shop_v2` project directory, boot up a server with `rails s`
- * Open your browser, and visit `localhost:3000/`
- * Create a user account if you'd like, and explore the site
+* From the `little_shop_v2` project directory, boot up a server with `rails s`
+* Open your browser, and visit `localhost:3000/`
+* Create a user account if you'd like, and explore the site
 
 ## Additional Information
 
- * The full project specs can be viewed [here](https://github.com/turingschool-projects/little_shop_v2)
- * The test suite can be run with `bundle exec rspec`
- * Happy shopping!
+* The full project specs can be viewed [here](https://github.com/turingschool-projects/little_shop_v2)
+* The test suite can be run with `bundle exec rspec`
+* Happy shopping!
