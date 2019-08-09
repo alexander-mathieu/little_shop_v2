@@ -37,7 +37,7 @@ rails db:{create,migrate,seed}
 
 ### Exploration
 
- * From the `little_shop` project directory, boot up a server with `rails s`
+ * From the `little_shop_v2` project directory, boot up a server with `rails s`
  * Open your browser, and visit `localhost:3000/`
  * Create a user account if you'd like, and explore the site
 
