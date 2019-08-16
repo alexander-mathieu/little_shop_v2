@@ -24,25 +24,25 @@ Go ahead and make a user account, and see what you can do!
 ### Clone
 
 ```
-git clone https://github.com/alexander-mathieu/little_shop_v2.git
-cd little_shop_v2
-bundle install
+$ git clone https://github.com/alexander-mathieu/little_shop_v2.git
+$ cd little_shop_v2
+$ bundle install
 ```
 
 ### Database Setup
 
 ```
-rails db:{create,migrate,seed}
+$ rails db:{create,migrate,seed}
 ```
 
 ### Exploration
 
-* From the `little_shop_v2` project directory, boot up a server with `rails s`
+* From the `little_shop_v2` project directory, boot up a server with `$ rails s`
 * Open your browser, and visit `http://localhost:3000/`
 * Create a user account if you'd like, and explore the site
 
 ## Additional Information
 
 * The full project specs can be viewed [here](https://github.com/turingschool-projects/little_shop_v2/)
-* The test suite can be run with `bundle exec rspec`
+* The test suite can be run with `$ bundle exec rspec`
 * Happy shopping!
